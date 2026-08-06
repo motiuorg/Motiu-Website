@@ -10,7 +10,15 @@ import yaml from "js-yaml";
 const DEFAULT_KB_DIR = fileURLToPath(new URL("../../../../data/kb/", import.meta.url));
 
 export function loadKb(kbDir = process.env.KB_DIR ?? DEFAULT_KB_DIR) {
-  const schemas = readdirSync(kbDir).filter(f => f.endsWith(".yaml")).map(f => f.replace(/\.yaml$/, ""));
+  let files;
+  try {
+    files = readdirSync(kbDir);
+  } catch {
+    // data/kb/ doesn't exist yet in this checkout (Phase-4 typed store isn't
+    // seeded) — render the commons page with an empty collection instead of 500ing.
+    return [];
+  }
+  const schemas = files.filter(f => f.endsWith(".yaml")).map(f => f.replace(/\.yaml$/, ""));
   const objects = [];
   for (const schema of schemas) {
     const doc = yaml.load(readFileSync(join(kbDir, `${schema}.yaml`), "utf8"));

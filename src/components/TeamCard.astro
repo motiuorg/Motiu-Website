@@ -1,6 +1,6 @@
 ---
-// TeamCard.astro — editorial member tile. No portrait photos exist, so the
-// visual anchor is an Averia monogram over a pillar-tinted aurora header.
+// TeamCard.astro — editorial member tile. Falls back to an Averia monogram
+// over a pillar-tinted aurora header when no portrait is supplied.
 import Aurora from "./Aurora.astro";
 
 interface Props {
@@ -8,14 +8,19 @@ interface Props {
   role: string;
   bio?: string;
   pillar?: "neural" | "tissue" | "flow";
+  photo?: string;
 }
-const { name, role, bio, pillar = "tissue" } = Astro.props;
+const { name, role, bio, pillar = "tissue", photo } = Astro.props;
 const initials = name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("");
 ---
 <article class="team-card">
   <div class="team-card__visual">
-    <Aurora pillar={pillar} opacity={0.7} />
-    <span class="team-card__monogram" aria-hidden="true">{initials}</span>
+    {photo
+      ? <img class="team-card__photo" src={photo} alt={name} loading="lazy" />
+      : <>
+          <Aurora pillar={pillar} opacity={0.7} />
+          <span class="team-card__monogram" aria-hidden="true">{initials}</span>
+        </>}
   </div>
   <h3 class="team-card__name">{name}</h3>
   <p class="team-card__role eyebrow">{role}</p>
@@ -24,7 +29,7 @@ const initials = name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("");
 
 <style>
 .team-card {
-  border: 1px solid var(--ink, var(--border-default));
+  border: 1px solid var(--umber, var(--border-default));
   background: var(--bg);
   display: flex;
   flex-direction: column;
@@ -34,9 +39,16 @@ const initials = name.split(/\s+/).slice(0, 2).map((w) => w[0]).join("");
   isolation: isolate;
   overflow: hidden;
   aspect-ratio: 21 / 9;
-  border-bottom: 1px solid var(--ink, var(--border-default));
+  border-bottom: 1px solid var(--umber, var(--border-default));
   display: grid;
   place-items: center;
+}
+.team-card__photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .team-card__monogram {
   position: relative;

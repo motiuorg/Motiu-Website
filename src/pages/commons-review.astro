@@ -36,7 +36,7 @@ const inlineJson = (v) => JSON.stringify(v).replace(/</g, "\\u003c");
     <style is:inline>
       :root {
         --paper: #fbf9f3; --ivory: #f6f1e8; --sand: #ece4d8;
-        --ink: #1d1a16; --mut: #6b6660; --rule: #d9d0c2;
+        --umber: #1d1a16; --mut: #6b6660; --rule: #d9d0c2;
         --red: #C92637; --blue: #426EAF; --amber: #B08000;
         --radius: 8px; --t: 120ms ease; --sidebar: 274px;
         --font-display: "Fraunces", Georgia, serif;
@@ -45,7 +45,7 @@ const inlineJson = (v) => JSON.stringify(v).replace(/</g, "\\u003c");
       }
       * { box-sizing: border-box; }
       html, body { margin: 0; height: 100%; }
-      body { background: var(--paper); color: var(--ink); font: 15px/1.55 var(--font-body); }
+      body { background: var(--paper); color: var(--umber); font: 15px/1.55 var(--font-body); }
       a { color: var(--blue); }
       .app { display: flex; min-height: 100dvh; }
 
@@ -58,7 +58,7 @@ const inlineJson = (v) => JSON.stringify(v).replace(/</g, "\\u003c");
       .brand { font: 700 1.05rem/1.15 var(--font-display); letter-spacing: -0.01em; margin: 0; }
       .brandsub { color: var(--mut); font-size: 0.72rem; margin-top: 3px; }
       .side input[type="search"] {
-        width: 100%; background: #fff; border: 1px solid var(--sand); color: var(--ink);
+        width: 100%; background: #fff; border: 1px solid var(--sand); color: var(--umber);
         padding: 8px 10px; border-radius: var(--radius); font: inherit; font-size: 0.85rem;
       }
       .side input:focus-visible, .side select:focus-visible, .navrow:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
@@ -66,20 +66,20 @@ const inlineJson = (v) => JSON.stringify(v).replace(/</g, "\\u003c");
       .navlist { display: flex; flex-direction: column; gap: 1px; }
       .navrow {
         display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; cursor: pointer;
-        border: 0; background: none; font: inherit; font-size: 0.83rem; color: var(--ink);
+        border: 0; background: none; font: inherit; font-size: 0.83rem; color: var(--umber);
         padding: 6px 8px; border-radius: 6px; transition: background var(--t);
       }
       .navrow:hover { background: #fff; }
-      .navrow.on { background: #fff; font-weight: 600; box-shadow: inset 2px 0 0 var(--ink); }
+      .navrow.on { background: #fff; font-weight: 600; box-shadow: inset 2px 0 0 var(--umber); }
       .navrow .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
       .navrow .n { margin-left: auto; color: var(--mut); font-family: var(--font-mono); font-size: 0.72rem; }
       .toggles { display: flex; flex-direction: column; gap: 6px; }
-      .chk { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--ink); cursor: pointer; padding: 3px 2px; }
-      .side select { width: 100%; background: #fff; border: 1px solid var(--sand); color: var(--ink); padding: 7px 9px; border-radius: var(--radius); font: inherit; font-size: 0.82rem; }
+      .chk { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--umber); cursor: pointer; padding: 3px 2px; }
+      .side select { width: 100%; background: #fff; border: 1px solid var(--sand); color: var(--umber); padding: 7px 9px; border-radius: var(--radius); font: inherit; font-size: 0.82rem; }
       .side .graphbtn { margin-top: 2px; }
-      .graphbtn { width: 100%; border: 1px solid var(--sand); background: #fff; color: var(--ink); font: inherit; font-size: 0.82rem; padding: 8px; border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; }
+      .graphbtn { width: 100%; border: 1px solid var(--sand); background: #fff; color: var(--umber); font: inherit; font-size: 0.82rem; padding: 8px; border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; }
       .graphbtn:hover { border-color: var(--mut); }
-      .graphbtn.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+      .graphbtn.on { background: var(--umber); color: var(--paper); border-color: var(--umber); }
 
       /* ── Main / list ────────────────────────────────── */
       main { flex: 1; min-width: 0; }
@@ -103,12 +103,12 @@ const inlineJson = (v) => JSON.stringify(v).replace(/</g, "\\u003c");
       .reader { max-width: 760px; margin: 0 auto; padding: 22px 26px 80px; }
       .crumbs { font-family: var(--font-mono); font-size: 0.72rem; color: var(--mut); margin-bottom: 14px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
       .crumbs a { color: var(--mut); text-decoration: none; }
-      .crumbs a:hover { color: var(--ink); text-decoration: underline; }
+      .crumbs a:hover { color: var(--umber); text-decoration: underline; }
       .reader h2 { font: 700 1.7rem/1.2 var(--font-display); margin: 4px 0 6px; letter-spacing: -0.01em; }
       .slugline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--mut); font-size: 0.75rem; font-family: var(--font-mono); margin-bottom: 10px; }
       .slugline code { background: var(--ivory); border: 1px solid var(--sand); padding: 2px 7px; border-radius: 5px; }
       .slugline button { border: 1px solid var(--sand); background: var(--ivory); color: var(--mut); border-radius: 5px; font: inherit; font-size: 0.7rem; padding: 2px 8px; cursor: pointer; }
-      .slugline button:hover { color: var(--ink); border-color: var(--mut); }
+      .slugline button:hover { color: var(--umber); border-color: var(--mut); }
       dl { margin: 18px 0 0; }
       dt { color: var(--mut); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 16px; font-weight: 600; }
       dd { margin: 4px 0 0; white-space: pre-wrap; word-break: break-word; font-size: 0.9rem; line-height: 1.6; }
@@ -118,13 +118,13 @@ const inlineJson = (v) => JSON.stringify(v).replace(/</g, "\\u003c");
       .connlist { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
       .connlist button {
         text-align: left; border: 1px solid var(--sand); background: var(--ivory); border-radius: var(--radius);
-        padding: 7px 11px; font: inherit; font-size: 0.83rem; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--ink);
+        padding: 7px 11px; font: inherit; font-size: 0.83rem; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--umber);
       }
       .connlist button:hover { border-color: var(--mut); }
       .unres { color: var(--mut); font-size: 0.8rem; margin-top: 6px; line-height: 1.5; }
       .unres span { border-bottom: 1px dotted var(--rule); }
       .prevnext { display: flex; justify-content: space-between; gap: 12px; margin-top: 30px; border-top: 1px solid var(--sand); padding-top: 16px; }
-      .prevnext button { flex: 1 1 0; min-width: 0; border: 1px solid var(--sand); background: var(--ivory); border-radius: var(--radius); padding: 10px 13px; font: inherit; cursor: pointer; color: var(--ink); }
+      .prevnext button { flex: 1 1 0; min-width: 0; border: 1px solid var(--sand); background: var(--ivory); border-radius: var(--radius); padding: 10px 13px; font: inherit; cursor: pointer; color: var(--umber); }
       .prevnext button:hover:not(:disabled) { border-color: var(--mut); }
       .prevnext button:disabled { opacity: 0.4; cursor: default; }
       .prevnext .pn-k { font-family: var(--font-mono); font-size: 0.66rem; color: var(--mut); text-transform: uppercase; letter-spacing: 0.06em; }

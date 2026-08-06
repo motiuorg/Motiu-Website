@@ -1,50 +1,113 @@
 ---
 import Layout from "../components/Layout.astro";
 import PageHero from "../components/PageHero.astro";
-import FeatureGrid from "../components/FeatureGrid.astro";
-import CTABand from "../components/CTABand.astro";
+import PillarBadge from "../components/PillarBadge.astro";
 import yaml from "js-yaml";
 import fs from "node:fs";
 import path from "node:path";
 
 const projects = (yaml.load(fs.readFileSync(path.join(process.cwd(), "src/data/projects.yaml"), "utf8")) as any).projects;
 
-// Normalize case-study records into FeatureGrid items. The project title is
-// the card heading; its theme becomes the mono category eyebrow; the excerpt
-// is the first paragraph of the body, trimmed at a word boundary.
+// landing.yaml has hand-written, curated heading/name/excerpt copy for the projects it features
+// on the homepage — prefer that here too, keyed by href, so the two pages show identical card
+// copy instead of this page silently falling back to an auto-trimmed excerpt of the body. Only
+// projects not featured on the homepage (currently just Bioregional Garden) use the fallback.
+const landing = yaml.load(fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8")) as any;
+const landingProjectByHref: Record<string, any> = Object.fromEntries(landing.projects.map((p: any) => [p.href, p]));
+
 const excerpt = (body: string, max = 190) => {
   const first = (body ?? "").split(/\n\s*\n/)[0].replace(/\s+/g, " ").trim();
   if (first.length <= max) return first;
   return first.slice(0, first.lastIndexOf(" ", max)).trim() + "…";
 };
-const items = projects.map((p: any) => ({
-  heading: p.title,
-  name: p.theme,
-  excerpt: excerpt(p.body),
-  image: p.image,
-  href: p.external ? p.href : `/projects/${p.slug}/`,
-  external: p.external,
-  pillars: p.pillars,
-}));
+const items = projects.map((p: any) => {
+  const href = p.external ? p.href : `/projects/${p.slug}/`;
+  const lp = landingProjectByHref[href];
+  return {
+    heading: lp?.heading ?? p.title,
+    name: lp?.name ?? p.theme,
+    excerpt: lp?.excerpt ?? excerpt(p.body),
+    image: p.image,
+    href,
+    external: p.external,
+    pillars: p.pillars,
+  };
+});
 ---
 <Layout title="Projects" current="projects" description="Case studies from work ReFi BCN has actually done — funding programs, network coordination, and territorial sensemaking.">
   <PageHero
     eyebrow="Projects"
-    title="Case studies from work we've actually done"
+    title="Our work"
     lede="Funding programs, network coordination, and territorial sensemaking across Catalonia and beyond — not aspirations, engagements we designed, ran, and handed over."
-    motif="tissue"
   />
 
-  <section class="block">
+  <section class="block block--alt">
     <div class="block__inner">
-      <FeatureGrid items={items} />
+      <div class="project-gallery">
+        {items.map((it: any) => (
+          <article class="project-tile">
+            <div class="project-tile__media">
+              <img src={it.image} alt="" loading="lazy" />
+            </div>
+            <div class="project-tile__body">
+              <div class="project-tile__badges">
+                {it.pillars?.map((k: string) => <PillarBadge pillar={k as any} />)}
+              </div>
+              <h3 class="project-tile__heading">{it.heading}</h3>
+              <p class="project-tile__name">{it.name}</p>
+              <p class="project-tile__excerpt">{it.excerpt}</p>
+              <a class="project-tile__link" href={it.href} {...(it.external ? { target: "_blank", rel: "noopener" } : {})}>
+                {it.external ? "Visit site ↗" : "Read case study →"}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
-  <CTABand />
+  <section class="cta-band">
+    <div class="cta-band__inner">
+      <div>
+        <h2 class="cta-band__title">Working across a territory or network?</h2>
+        <p class="cta-band__body">Start with a free intro call — tell us what you're working on and we'll say honestly whether we can help.</p>
+      </div>
+      <a class="btn btn--paper" href="/contact/">Book a free intro call</a>
+    </div>
+  </section>
 </Layout>
 
 <style>
   .block { padding: var(--space-16) var(--gutter); }
+  .block--alt { background: var(--surface-1); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
   .block__inner { max-width: var(--container-default); margin: 0 auto; }
+
+  /* Project gallery — matches the home page's project cards */
+  .project-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: var(--space-8); }
+  .project-tile {
+    display: flex; flex-direction: column; overflow: hidden;
+    background: var(--paper); border-radius: 0.75rem;
+    box-shadow: var(--shadow-sm); transition: box-shadow var(--t-med), translate var(--t-med);
+  }
+  .project-tile:hover { box-shadow: var(--shadow-md); translate: 0 -2px; }
+  .project-tile__media { aspect-ratio: 16 / 10; background: var(--surface-2); min-height: 0; }
+  .project-tile__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .project-tile__body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+  .project-tile__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2); }
+  .project-tile__heading { font-size: var(--text-lg); margin: 0; }
+  .project-tile__name { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin: 0; }
+  .project-tile__excerpt { color: var(--text-muted); font-size: var(--copy-md); line-height: var(--leading-body); margin: var(--space-2) 0 0; flex: 1; }
+  .project-tile__link { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); text-decoration: none; margin-top: var(--space-2); }
+  .project-tile__link:hover { text-decoration: underline; }
+
+  /* Pre-footer CTA — umber, not the shared component's gradient */
+  .cta-band { background: var(--umber); padding: var(--space-16) var(--gutter); }
+  .cta-band__inner {
+    max-width: var(--container-default); margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); flex-wrap: wrap;
+  }
+  .cta-band__title { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin: 0 0 var(--space-3); max-width: 24ch; color: var(--paper); }
+  .cta-band__body { color: color-mix(in srgb, var(--paper) 80%, transparent); max-width: 52ch; margin: 0; line-height: var(--leading-body); }
+  .btn--paper { background: var(--paper); color: var(--umber); }
+  .btn--paper:hover:not(:disabled) { background: var(--ivory); color: var(--umber); }
 </style>

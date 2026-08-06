@@ -1,0 +1,90 @@
+---
+import LabShell from "../../components/lab/LabShell.astro";
+import Hero from "../../components/Hero.astro";
+import PageHero from "../../components/PageHero.astro";
+import SectionBlock from "../../components/SectionBlock.astro";
+import CTABand from "../../components/CTABand.astro";
+import FeatureGrid from "../../components/FeatureGrid.astro";
+import ProcessStrip from "../../components/ProcessStrip.astro";
+import NetworkSection from "../../components/NetworkSection.astro";
+import { getCollection } from "astro:content";
+
+const entries = await getCollection("cohort");
+const doc = entries[0]!.data;
+const miceliProjects = doc.projects.filter((p) => p.network === "miceli").slice(0, 3);
+
+const featureItems = [
+  { heading: "Featured", name: "Example project", excerpt: "One-liner excerpt for the featured slot.", href: "#", pillars: ["tissue"] },
+  { name: "Second project", excerpt: "Shorter excerpt for the compact grid.", href: "#", pillars: ["neural"] },
+  { name: "Third project", excerpt: "Another compact entry.", href: "#", pillars: ["flow"] },
+];
+---
+<LabShell title="Content sections" current="sections"
+  intro="Full-width page sections — each one a distinct, reusable composition of the atoms and molecules on the other pages. These are organisms in the Brad Frost sense.">
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>Hero</h2>
+    <p class="lab-source">Used in: index.astro</p>
+    <div class="lab-frame">
+      <Hero title="Example hero title" tagline="Supporting tagline copy, one or two sentences." primaryCta={{ label: "Primary", href: "#" }} ghostCta={{ label: "Secondary", href: "#" }} />
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>PageHero</h2>
+    <p class="lab-source">Used in: about, what-we-do, who-we-serve, projects, commons — the standard inner-page opener</p>
+    <div class="lab-frame">
+      <PageHero eyebrow="Section" title="Example page hero" lede="Lede copy explaining the page." />
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>SectionBlock</h2>
+    <p>Structural — not content-specific. A slot-based wrapper (title + intro + arbitrary children) most other
+      sections render inside of. Closer to a layout primitive than a true organism.</p>
+    <div class="lab-frame">
+      <SectionBlock title="Example section" intro="Section intro copy.">
+        <p>Slotted content goes here.</p>
+      </SectionBlock>
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>CTABand</h2>
+    <p class="lab-source">Used in: 5 pages — one per page, always last before the footer</p>
+    <div class="lab-frame">
+      <CTABand />
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>FeatureGrid</h2>
+    <p class="lab-source">Used in: index.astro, projects.astro — featured-first project layout</p>
+    <div class="lab-frame" style="padding: var(--space-6);">
+      <FeatureGrid items={featureItems} />
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>ProcessStrip</h2>
+    <p class="lab-source">Used in: what-we-do.astro, contact.astro — YAML-driven, src/data/process.yaml</p>
+    <div class="lab-frame" style="padding: var(--space-6);">
+      <ProcessStrip />
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>NetworkSection</h2>
+    <p class="lab-source">Used in: projects/regenerant-catalunya (index + article) — header + grid of ProjectCard, real cohort data below</p>
+    <div class="lab-frame">
+      <NetworkSection networkId="miceli" meta={doc.networks.miceli} projects={miceliProjects} />
+    </div>
+  </div>
+</LabShell>

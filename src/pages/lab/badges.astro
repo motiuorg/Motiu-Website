@@ -1,0 +1,41 @@
+---
+import LabShell from "../../components/lab/LabShell.astro";
+import PillarBadge from "../../components/PillarBadge.astro";
+---
+<LabShell title="Badges" current="badges"
+  intro="Two badge patterns: the generic status .badge (global.css §6.5) and PillarBadge, the pillar-tinted capability pill used across the landing page.">
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>PillarBadge</h2>
+    <p>Tissue / neural / flow — the three-capability pill. Colored from the same pillar ramp as the motifs, so
+      it always stays in sync with a palette relock.</p>
+    <p class="lab-source">Used in: FeatureGrid, plus 2 other landing-page spots</p>
+    <div class="lab-row">
+      <PillarBadge pillar="tissue" />
+      <PillarBadge pillar="neural" />
+      <PillarBadge pillar="flow" />
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--unused">defined, unused on real pages</span>
+    <h2>Generic status badge</h2>
+    <p><code>.badge</code> + <code>--success/--warning/--danger/--info</code> modifiers exist in
+      <code>global.css</code> but nothing on the live site currently renders one — no status/state UI
+      (payout status, application status, etc.) has been built against it yet.</p>
+    <div class="lab-row">
+      <span class="badge">Default</span>
+      <span class="badge badge--success">Active</span>
+      <span class="badge badge--warning">Pending</span>
+      <span class="badge badge--danger">Failed</span>
+      <span class="badge badge--info">Info</span>
+    </div>
+  </div>
+
+  <div class="lab-note">
+    <strong>Gap:</strong> no Astro wrapper for the generic badge (raw <code>class="badge"</code> only). If/when
+    it gets a real use (e.g. funding-opportunity status, payout status), it's worth componentizing then rather
+    than now, so the API matches the actual data shape it needs to render.
+  </div>
+</LabShell>

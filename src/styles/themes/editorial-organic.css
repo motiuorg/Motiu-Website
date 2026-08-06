@@ -1,11 +1,15 @@
 /* themes/editorial-organic.css — ACTIVE. BIS editorial structure
- * (warm paper/ink, straight edges, flat) + Andrea's organic three-pillar
+ * (warm paper/umber, straight edges, flat) + Andrea's organic three-pillar
  * accents + backgrounds. Palette = the 2026-05-31 lock (4-step ramps,
  * light=1 mid=3 dark=4); primary = flow red per the 2026-07-04 decision. */
 :root {
-  /* Neutrals — BIS warm-editorial */
-  --paper: #fbf9f3; --ivory: #f6f1e8; --sand: #ece4d8;
-  --ink: #1d1a16; --rule: #6b6660;
+  /* Neutrals — BIS warm-editorial. Light-to-dark: paper, bone, ivory. */
+  --paper: #fffffd; --bone: #faf8f4; --ivory: #f8f4ed;
+  --umber: #221a12;
+  /* --rule is derived, not picked independently — a mix of umber and paper,
+   * so it always sits in a fixed relationship to the two anchor neutrals
+   * instead of drifting as an arbitrary grey. */
+  --rule: color-mix(in srgb, var(--umber) 65%, var(--paper) 35%);
 
   /* Organic pillars (Andrea, 2026-05-31 lock) — accents + motif tints */
   --pillar-neural-1: #B8F4ED; --pillar-neural-2: #85C1BB;
@@ -25,11 +29,11 @@
 
   /* Semantic mapping */
   --bg: var(--paper);
-  --surface-1: var(--ivory);
-  --surface-2: var(--sand);
-  --text-primary: var(--ink);
+  --surface-1: var(--bone);
+  --surface-2: var(--ivory);
+  --text-primary: var(--umber);
   --text-muted: var(--rule);
-  --border-default: color-mix(in srgb, var(--ink) 45%, transparent);
+  --border-default: color-mix(in srgb, var(--umber) 45%, transparent);
   --border-subtle: color-mix(in srgb, var(--rule) 22%, transparent);
   --primary: var(--pillar-flow-mid);          /* red #C92637 */
   --primary-hover: var(--pillar-flow-dark);   /* deep brown #613400 */
@@ -38,23 +42,60 @@
   --accent-foreground: var(--paper);          /* paper on #426EAF — AA 4.89:1 */
 
   --success: var(--pillar-tissue-dark);       --success-foreground: #F4F6F2;  /* 9.07:1 */
-  --warning: var(--pillar-flow-light);        --warning-foreground: var(--ink);  /* 13.13:1 */
+  --warning: var(--pillar-flow-light);        --warning-foreground: var(--umber);  /* 13.13:1 */
   --danger:  #7A2618;                         --danger-foreground: var(--paper); /* dark brick, distinct from primary — 9.42:1 */
   --info:    var(--pillar-neural-mid);        --info-foreground: var(--paper);   /* 4.89:1 */
 
   --gradient-bridge: linear-gradient(135deg, var(--pillar-neural-mid), var(--pillar-flow-mid));
 
-  /* Type — Averia Serif Libre titles/display; Geist body (Andrea's direction,
-   * 2026-07-04 decision); IBM Plex Mono labels (editorial signature). */
+  /* Primary button — routed through its own tokens rather than hardcoded
+   * umber/paper, so .on-dark below can flip it without touching
+   * global.css. Same reasoning as the semantic layer generally: one
+   * override point, not a hunt through every component. */
+  --btn-primary-bg: var(--umber);
+  --btn-primary-bg-hover: color-mix(in srgb, var(--umber) 85%, var(--paper) 15%);
+  --btn-primary-bg-active: color-mix(in srgb, var(--umber) 85%, black 15%);
+  --btn-primary-fg: var(--paper);
+
+  /* Type — Geist carries headings (full h1–h6 range) + body. Averia Serif
+   * Libre is the display face only, for special occasions (hero titles,
+   * pull quotes) — h1/h2/h3 may opt into it via .display, h4 and below
+   * never do (see the guard in global.css). IBM Plex Mono for labels
+   * (editorial signature). Andrea's 2026-07-04 direction. */
   --serif: "Averia Serif Libre", "Fraunces", Georgia, serif;
   --sans: "Geist Variable", "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-headings: var(--serif);
+  --font-headings: var(--sans);
   --font-display-weight: 400;
 
   /* Radius / shadow — BIS straight + flat */
   --radius: 0; --radius-sm: 0;
-  --shadow-sm: 0 1px 2px 0 color-mix(in srgb, var(--ink) 6%, transparent);
+  --shadow-sm: 0 1px 2px 0 color-mix(in srgb, var(--umber) 6%, transparent);
   --shadow-md: var(--shadow-sm);
   --shadow-lg: var(--shadow-sm);
+}
+
+/* .on-dark — inverse-surface context. Wrap any block in it to flip that
+ * block for a dark section: a future dark product surface, a client
+ * theme, a footer-style panel. Everything that reads the semantic vars
+ * (not raw --paper/--umber) adapts automatically — buttons, cards, text,
+ * borders — with zero component-level changes. This system is meant to
+ * serve more than this one light website, so this exists even though
+ * nothing on the live site uses it yet. */
+.on-dark {
+  --bg: var(--umber);
+  --surface-1: color-mix(in srgb, var(--umber) 85%, white 15%);
+  --surface-2: color-mix(in srgb, var(--umber) 70%, white 30%);
+  --text-primary: var(--paper);
+  --text-muted: color-mix(in srgb, var(--paper) 65%, var(--umber) 35%);
+  --border-default: color-mix(in srgb, var(--paper) 35%, transparent);
+  --border-subtle: color-mix(in srgb, var(--paper) 18%, transparent);
+
+  --btn-primary-bg: var(--paper);
+  --btn-primary-bg-hover: color-mix(in srgb, var(--paper) 85%, var(--umber) 15%);
+  --btn-primary-bg-active: color-mix(in srgb, var(--paper) 85%, black 15%);
+  --btn-primary-fg: var(--umber);
+
+  background: var(--bg);
+  color: var(--text-primary);
 }

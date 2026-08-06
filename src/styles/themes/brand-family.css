@@ -4,8 +4,8 @@
 
 :root {
   /* Neutrals */
-  --paper: #FBF9F3; --ivory: #F6F1E8; --sand: #E6DFD7;
-  --ink: #1D1A16; --rule: #6B6660; --navy: #092045;
+  --paper: #FBF9F3; --ivory: #F6F1E8; --bone: #E6DFD7;
+  --umber: #1D1A16; --rule: #6B6660; --navy: #092045;
 
   /* Accents */
   --purple: #6B4EA3; --purple-light: #8B6EC3;
@@ -15,8 +15,8 @@
   /* Semantic mapping (ink-on-paper) */
   --bg: var(--paper);
   --surface-1: var(--ivory);
-  --surface-2: var(--sand);
-  --text-primary: var(--ink);
+  --surface-2: var(--bone);
+  --text-primary: var(--umber);
   --text-muted: var(--rule);
   --border-default: color-mix(in srgb, var(--rule) 30%, transparent);
   --border-subtle: color-mix(in srgb, var(--rule) 15%, transparent);
@@ -24,11 +24,11 @@
   --primary-hover: var(--purple-light);
   --primary-foreground: var(--paper);
   --accent: var(--orange);
-  --accent-foreground: var(--ink);
+  --accent-foreground: var(--umber);
 
   /* Status + foregrounds */
   --success: var(--blue);    --success-foreground: var(--paper);
-  --warning: #D27A3A;        --warning-foreground: var(--ink);
+  --warning: #D27A3A;        --warning-foreground: var(--umber);
   --danger:  #B33A2A;        --danger-foreground: var(--paper);
   --info:    #6b4a85;        --info-foreground: var(--paper);
 
@@ -44,7 +44,7 @@
   /* Radius (straight) + shadow (flat) */
   --radius: 0;
   --radius-sm: 2px;
-  --shadow-sm: 0 1px 3px 0 color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-sm: 0 1px 3px 0 color-mix(in srgb, var(--umber) 8%, transparent);
   --shadow-md: var(--shadow-sm);
   --shadow-lg: var(--shadow-sm);
 }

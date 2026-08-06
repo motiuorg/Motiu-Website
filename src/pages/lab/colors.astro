@@ -1,0 +1,78 @@
+---
+import LabShell from "../../components/lab/LabShell.astro";
+
+const neutrals = ["--paper", "--bone", "--ivory", "--rule", "--umber"];
+const neural = ["--pillar-neural-1", "--pillar-neural-2", "--pillar-neural-3", "--pillar-neural-4"];
+const tissue = ["--pillar-tissue-1", "--pillar-tissue-2", "--pillar-tissue-3", "--pillar-tissue-4"];
+const flow = ["--pillar-flow-1", "--pillar-flow-2", "--pillar-flow-3", "--pillar-flow-4"];
+
+// Full 6-step ranges (Tint → Shade) from Andrea's original colors-compare.html
+// comparator (public/lab-tools/colors-compare.html). Core = the live --lib-*
+// token; the other 5 steps are computed the same way the comparator does but
+// aren't real CSS variables anywhere yet.
+const LIB_STEP_ROLES = ["Tint", "Light", "Soft", "Core", "Dark", "Shade"];
+const LIB_FAMILIES = [
+  { label: "gris", name: "Warm grey", core: "#AEADA5", tint: "#E5E5E2", shade: "#565D61" },
+  { label: "ocean", name: "Soft ocean", core: "#4C6BC1", tint: "#D5DFF2", shade: "#101F4D" },
+  { label: "blue", name: "Muted teal", core: "#6BB5B4", tint: "#D6EAEB", shade: "#104944" },
+  { label: "green", name: "Sage green", core: "#39A659", tint: "#E1F3D8", shade: "#1A4114" },
+  { label: "yellow", name: "Warm yellow", core: "#D5AD1C", tint: "#F6ECBE", shade: "#6A4D0C" },
+  { label: "orange", name: "Warm orange", core: "#DC7221", tint: "#F4DAB0", shade: "#5F360C" },
+  { label: "red", name: "Earth red", core: "#CC4727", tint: "#F2CCBE", shade: "#6B1D0C" },
+  { label: "pink", name: "Soft coral", core: "#DC697F", tint: "#EED7E0", shade: "#4D1D2F" },
+  { label: "purple", name: "Soft plum", core: "#8161BF", tint: "#E3D2EE", shade: "#41205A" },
+];
+function mixHex(hexA: string, hexB: string, ratioB: number) {
+  const parse = (hex: string) => [0, 2, 4].map((i) => parseInt(hex.slice(1).slice(i, i + 2), 16));
+  const a = parse(hexA), b = parse(hexB), t = ratioB / 100;
+  return `#${a.map((v, i) => Math.round(v * (1 - t) + b[i] * t).toString(16).padStart(2, "0")).join("")}`;
+}
+function familyStops({ tint, core, shade }: { tint: string; core: string; shade: string }) {
+  return [tint, mixHex(tint, core, 35), mixHex(tint, core, 70), core, mixHex(core, shade, 55), shade];
+}
+---
+<LabShell title="Colors" current="colors"
+  intro="Here are the colors we use across the site: the neutral tones for backgrounds and text, three accent colors for our pillars, and a wider palette for charts and data.">
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>Editorial neutrals</h2>
+    <div class="lab-swatches">{neutrals.map((t) => (<div class="lab-swatch" style={`background: var(${t})`}><code>{t}</code></div>))}</div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>Pillar ramps</h2>
+    <p>Three 4-step ramps mapping to the org's three capability pillars — tissue (network coordination / land),
+      neural (collective intelligence / water), flow (regenerative finance / accents). Each also exposes
+      <code>-light</code> / <code>-mid</code> / <code>-dark</code> aliases. Used by <code>PillarBadge</code>,
+      <code>Aurora</code>.</p>
+    <h3>Neural · networks</h3>
+    <div class="lab-swatches">{neural.map((t) => (<div class="lab-swatch" style={`background: var(${t})`}><code>{t}</code></div>))}</div>
+    <h3>Tissue · cells</h3>
+    <div class="lab-swatches">{tissue.map((t) => (<div class="lab-swatch" style={`background: var(${t})`}><code>{t}</code></div>))}</div>
+    <h3>Flow · rivers</h3>
+    <div class="lab-swatches">{flow.map((t) => (<div class="lab-swatch" style={`background: var(${t})`}><code>{t}</code></div>))}</div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--gap">only Core is wired into tokens.css</span>
+    <h2>Data-viz library — full ranges</h2>
+    <p>Andrea's original <code>colors-compare.html</code> comparator designs each library color as a 6-step
+      range (Tint → Shade), not a single swatch — only step 4 (Core) ever made it into <code>tokens.css</code>
+      as <code>--lib-*</code>. The other five steps below are computed the same way the comparator does
+      (mixed from a tint/shade anchor toward Core), reproduced here for reference — they aren't real CSS
+      variables anywhere yet.</p>
+    <div class="lab-scale-head">{LIB_STEP_ROLES.map((r) => <span>{r}</span>)}</div>
+    {LIB_FAMILIES.map((f) => (
+      <div class="lab-scale-row">
+        <span class="lab-scale-row__label"><strong>{f.label}</strong><span>{f.name}</span></span>
+        {familyStops(f).map((hex, i) => (
+          <div class="lab-scale-cell" style={`background:${hex};`}>
+            <code>{hex}</code>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</LabShell>

@@ -32,8 +32,8 @@ const urlFor = (code: string) => (code === "en" ? path : `/${code}${path}`);
     color: var(--rule); text-decoration: none; padding: 0.2rem 0.35rem; border-radius: var(--radius-sm);
     transition: color var(--t-fast), background-color var(--t-fast);
   }
-  .lang:hover { color: var(--ink); }
-  .lang.on { color: var(--ink); font-weight: 600; }
+  .lang:hover { color: var(--umber); }
+  .lang.on { color: var(--umber); font-weight: 600; }
   .lang:not(:last-child)::after { content: ""; }
   .lang + .lang { border-left: 1px solid var(--border-subtle); border-radius: 0; }
   .lang:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }

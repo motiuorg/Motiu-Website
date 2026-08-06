@@ -29,7 +29,7 @@ const items = [
 ---
 <header class="site-nav">
   <a href={L("/")} class="brand" aria-label={`${site.name} — home`}>
-    <span class="brand-org">{site.name}</span>
+    <span class="brand-org">motiu</span>
     {section && <><span class="brand-sep">·</span><span class="brand-system">{section}</span></>}
     {dataset && <><span class="brand-sep">·</span><span class="brand-dataset">{dataset}</span></>}
   </a>
@@ -43,23 +43,54 @@ const items = [
     </ul>
   </nav>
 </header>
+<script>
+  const nav = document.querySelector(".site-nav");
+  if (nav) {
+    const setNavHeight = () => {
+      document.documentElement.style.setProperty("--nav-h", `${nav.getBoundingClientRect().height}px`);
+    };
+    const updateScrolled = () => {
+      nav.classList.toggle("is-scrolled", window.scrollY > 8);
+    };
+    setNavHeight();
+    updateScrolled();
+    window.addEventListener("resize", setNavHeight);
+    window.addEventListener("scroll", updateScrolled, { passive: true });
+    // Belt-and-suspenders: web-font swaps and other late layout shifts can
+    // trigger a transient browser scroll-anchoring adjustment before the
+    // page settles, which the scroll listener latches onto and never
+    // un-sets if the position lands back at 0 without another 'scroll'
+    // event. Re-check once things are actually done loading.
+    window.addEventListener("load", updateScrolled);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(updateScrolled);
+    }
+  }
+</script>
 <style>
-.site-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem var(--gutter); border-bottom: 1px solid var(--ink); background: var(--paper); position: sticky; top: 0; z-index: 10; }
-.brand { display: flex; align-items: baseline; gap: 0.6rem; text-decoration: none; color: var(--ink); font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; }
-.brand-org { font-weight: 500; }
+.site-nav {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem var(--gutter);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--t-med), border-color var(--t-med);
+}
+.site-nav.is-scrolled { background: var(--paper); border-bottom-color: var(--border-subtle); }
+.brand { display: flex; align-items: baseline; gap: 0.6rem; text-decoration: none; color: var(--umber); font-family: var(--sans); font-size: 1.15rem; text-transform: lowercase; letter-spacing: -0.01em; }
+.brand-org { font-weight: 600; }
 .brand-system, .brand-sep { color: var(--rule); }
-.brand-dataset { color: var(--ink); }
+.brand-dataset { color: var(--umber); }
 nav ul { list-style: none; display: flex; gap: 1.25rem; margin: 0; padding: 0; flex-wrap: wrap; }
 nav a { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--rule); text-decoration: none; padding: 0.25rem 0; border-bottom: 1px solid transparent; white-space: nowrap; }
-nav a.active, nav a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+nav a.active, nav a:hover { color: var(--umber); border-bottom-color: var(--umber); }
 nav a.nav-cta {
-  color: var(--primary-foreground);
-  background: var(--primary);
-  border: 1px solid var(--primary);
+  color: var(--paper);
+  background: var(--umber);
+  border: 1px solid var(--umber);
   padding: 0.3rem 0.75rem;
   transition: background-color var(--t-fast), border-color var(--t-fast);
 }
-nav a.nav-cta:hover, nav a.nav-cta.active { background: var(--primary-hover); border-color: var(--primary-hover); color: var(--primary-foreground); }
+nav a.nav-cta:hover, nav a.nav-cta.active { background: var(--rule); border-color: var(--rule); color: var(--paper); }
 @media (max-width: 880px) { .brand-system, .brand-sep { display: none; } }
 @media (max-width: 720px) { .site-nav { flex-direction: column; align-items: flex-start; } nav ul { gap: 0.9rem; } }
 </style>
