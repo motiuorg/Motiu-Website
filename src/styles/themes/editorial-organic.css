@@ -1,7 +1,8 @@
 /* themes/editorial-organic.css — ACTIVE. BIS editorial structure
  * (warm paper/umber, straight edges, flat) + Andrea's organic three-pillar
  * accents + backgrounds. Palette = the 2026-05-31 lock (4-step ramps,
- * light=1 mid=3 dark=4); primary = flow red per the 2026-07-04 decision. */
+ * light=1 mid=3 dark=4); primary = --terracotta per the 2026-08-07 decision
+ * (previously flow pillar, 2026-07-04 — see --primary comment below). */
 :root {
   /* Neutrals — BIS warm-editorial. Light-to-dark: paper, bone, ivory. */
   --paper: #fffffd; --bone: #faf8f4; --ivory: #f8f4ed;
@@ -10,19 +11,38 @@
    * so it always sits in a fixed relationship to the two anchor neutrals
    * instead of drifting as an arbitrary grey. */
   --rule: color-mix(in srgb, var(--umber) 65%, var(--paper) 35%);
+  /* Terracotta (2026-08-07) — the brand's primary anchor color, picked
+   * independently of the three pillars (neural/tissue/flow are capability
+   * accents, not the brand mark). Lives with the neutrals, not the pillar
+   * ramps, since it's a single fixed color, not a 4-step family. */
+  --terracotta: #D12B00; /* midpoint of #A30000–#FF5500 per 2026-08-07 note */
 
-  /* Organic pillars (Andrea, 2026-05-31 lock) — accents + motif tints */
-  --pillar-neural-1: #B8F4ED; --pillar-neural-2: #85C1BB;
-  --pillar-neural-3: #426EAF; --pillar-neural-4: #184B7A;
+  /* Organic pillars (2026-08-07 relock, v4 — sourced from the Color Library
+   * in src/pages/lab/colors.astro rather than picked independently: neural=
+   * cyan (water), tissue=lime (land), flow=orange (accents/finance). Each
+   * pillar takes the library's Soft/Core/Dark/Shade steps as 1/2/3/4 (Tint
+   * and Light are dropped — those two are reserved for lighter decorative
+   * use, not the 4-step ramp). 1=light 2=light-mid 3=mid/core 4=dark, same
+   * structure as before. Note: --primary/-hover no longer read from the
+   * flow pillar (moved to --terracotta, see below) — pillar-flow-3/4 are
+   * decorative/badge use only now.
+   * Contrast: --accent/--info (neural-mid = Dark #0055FF) on paper: 5.60:1
+   * (AA). --success (tissue-dark = Shade #2C5A0D, updated 2026-08-07) on
+   * #F4F6F2: 7.50:1 (AAA). --warning (flow-light = Soft #FFBB26, lightened
+   * 2026-08-07) on umber: 10.12:1 (AAA). */
+  --pillar-neural-1: #4DEFFF; --pillar-neural-2: #00AEFF;
+  --pillar-neural-3: #0055FF; --pillar-neural-4: #000FA0;
   --pillar-neural-light: var(--pillar-neural-1); --pillar-neural-mid: var(--pillar-neural-3); --pillar-neural-dark: var(--pillar-neural-4);
-  --pillar-tissue-1: #DDF48A; --pillar-tissue-2: #ACB05E;
-  --pillar-tissue-3: #447932; --pillar-tissue-4: #2F4937;
+  --pillar-tissue-1: #D9FF4A; --pillar-tissue-2: #8FE84A;
+  --pillar-tissue-3: #6DBF23; --pillar-tissue-4: #2C5A0D;
   --pillar-tissue-light: var(--pillar-tissue-1); --pillar-tissue-mid: var(--pillar-tissue-3); --pillar-tissue-dark: var(--pillar-tissue-4);
-  --pillar-flow-1: #FFDD80; --pillar-flow-2: #E58961;
-  --pillar-flow-3: #C92637; --pillar-flow-4: #613400;
+  --pillar-flow-1: #FFBB26; --pillar-flow-2: #FF7A00;
+  --pillar-flow-3: #FF5500; --pillar-flow-4: #8A2200;
   --pillar-flow-light: var(--pillar-flow-1); --pillar-flow-mid: var(--pillar-flow-3); --pillar-flow-dark: var(--pillar-flow-4);
 
-  /* Library accents (Andrea's 05-31 data-viz set) */
+  /* Color Library — full 10-family/6-step reference lives in
+   * src/pages/lab/colors.astro; these --lib-* tokens are the pre-2026-08-07
+   * 9-family set and haven't been migrated to the new library yet. */
   --lib-gris: #AEADA5; --lib-ocean: #4C6BC1; --lib-blue: #6BB5B4;
   --lib-green: #39A659; --lib-yellow: #D5AD1C; --lib-orange: #DC7221;
   --lib-red: #CC4727; --lib-pink: #DC697F; --lib-purple: #8161BF;
@@ -35,16 +55,21 @@
   --text-muted: var(--rule);
   --border-default: color-mix(in srgb, var(--umber) 45%, transparent);
   --border-subtle: color-mix(in srgb, var(--rule) 22%, transparent);
-  --primary: var(--pillar-flow-mid);          /* red #C92637 */
-  --primary-hover: var(--pillar-flow-dark);   /* deep brown #613400 */
-  --primary-foreground: var(--paper);         /* paper on red — AA 5.23:1 */
+  /* 2026-08-07: primary moved off the flow pillar onto --terracotta — the
+   * brand mark shouldn't be one of the three capability-pillar colors.
+   * --primary-hover is terracotta darkened 18% toward black, not a pillar
+   * step; this also fixes the AA contrast failure the flow-orange primary
+   * had (3.20:1) — terracotta on paper is 5.17:1 (AA). */
+  --primary: var(--terracotta);
+  --primary-hover: color-mix(in srgb, var(--terracotta) 82%, black 18%); /* #AB2300 — 7.06:1 on paper */
+  --primary-foreground: var(--paper);         /* paper on primary — AA 5.17:1 */
   --accent: var(--pillar-neural-mid);
-  --accent-foreground: var(--paper);          /* paper on #426EAF — AA 4.89:1 */
+  --accent-foreground: var(--paper);          /* paper on #0055FF — AA 5.60:1 */
 
-  --success: var(--pillar-tissue-dark);       --success-foreground: #F4F6F2;  /* 9.07:1 */
-  --warning: var(--pillar-flow-light);        --warning-foreground: var(--umber);  /* 13.13:1 */
+  --success: var(--pillar-tissue-dark);       --success-foreground: #F4F6F2;  /* AAA 7.50:1 */
+  --warning: var(--pillar-flow-light);        --warning-foreground: var(--umber);  /* AAA 10.12:1 */
   --danger:  #7A2618;                         --danger-foreground: var(--paper); /* dark brick, distinct from primary — 9.42:1 */
-  --info:    var(--pillar-neural-mid);        --info-foreground: var(--paper);   /* 4.89:1 */
+  --info:    var(--pillar-neural-mid);        --info-foreground: var(--paper);   /* paper on #0055FF — AA 5.60:1 */
 
   --gradient-bridge: linear-gradient(135deg, var(--pillar-neural-mid), var(--pillar-flow-mid));
 

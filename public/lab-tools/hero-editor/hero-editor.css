@@ -549,6 +549,31 @@ body.is-voronoi-editing .nav {
   min-height: 1.2em;
 }
 
+.voronoi-editor__status.is-violated {
+  color: #d92b2b;
+}
+
+/* Content-protection prototype overlay — dashed boxes over the logo, nav,
+ * hero, and approach regions; red flags a region a cell edge still crosses. */
+.voronoi-protect-overlay {
+  pointer-events: none;
+}
+
+.voronoi-protect-rect {
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  vector-effect: non-scaling-stroke;
+}
+
+.voronoi-protect-rect.is-clear {
+  stroke: #2fa84f;
+}
+
+.voronoi-protect-rect.is-violated {
+  stroke: #d92b2b;
+}
+
 .voronoi-editor__color-group {
   display: grid;
   gap: var(--space-2);

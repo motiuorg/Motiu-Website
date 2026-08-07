@@ -32,6 +32,7 @@
       <canvas class="opening-voronoi__canvas" data-hero-canvas width="1600" height="1100" hidden></canvas>
       <svg class="opening-voronoi__svg" data-voronoi-svg viewBox="0 0 1600 1100" preserveAspectRatio="xMidYMid slice">
         <g data-voronoi-cells></g>
+        <g class="voronoi-protect-overlay" data-voronoi-protect-overlay></g>
         <g class="voronoi-handles" data-voronoi-handles hidden></g>
         <g class="voronoi-sub-handles" data-voronoi-sub-handles hidden></g>
       </svg>
@@ -164,6 +165,17 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="voronoi-editor__zone">
+      <div class="voronoi-editor__zone-head">
+        <span class="voronoi-editor__zone-title">Protect content</span>
+        <label class="voronoi-editor__toggle"><input type="checkbox" data-voronoi-protect-toggle> On</label>
+      </div>
+      <div class="voronoi-editor__zone-params">
+        <p class="voronoi-editor__hint">Prototype: pins the nearest point to the logo, nav, hero, and approach copy, then pushes every other point clear so no cell edge crosses them. Resize the window to test — the pins re-measure from the live layout.</p>
+        <p class="voronoi-editor__status" data-voronoi-protect-status aria-live="polite"></p>
       </div>
     </div>
 

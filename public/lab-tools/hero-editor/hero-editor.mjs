@@ -71,6 +71,9 @@ var subCornerOut = editor.querySelector('[data-voronoi-sub-corner-out]');
 var subStrokeOut = editor.querySelector('[data-voronoi-sub-stroke-out]');
 var subToggleBtn = editor.querySelector('[data-voronoi-sub-toggle]');
 var subUpBtn = editor.querySelector('[data-voronoi-sub-up]');
+var protectToggle = editor.querySelector('[data-voronoi-protect-toggle]');
+var protectStatusEl = editor.querySelector('[data-voronoi-protect-status]');
+var protectOverlayEl = document.querySelector('[data-voronoi-protect-overlay]');
 
 var sliderBindings = [
   ['cornerRadius', '[data-voronoi-corner]', '[data-voronoi-corner-out]', function (v) { return v; }],
@@ -105,6 +108,7 @@ function defaultState() {
     subDismissed: {},
     seedSubDefaults: d.seedSubDefaults,
     subDefaultCells: d.subDefaultCells.slice(),
+    protectContent: false,
     selectedPath: null,
     layers: mergeLayers(DEFAULT_LAYERS)
   };
@@ -306,6 +310,211 @@ function polygonBBox(points) {
     maxY = Math.max(maxY, points[i][1]);
   }
   return { minX: minX, minY: minY, maxX: maxX, maxY: maxY, w: maxX - minX, h: maxY - minY };
+}
+
+/**
+ * Content-protection prototype — pins the nearest site to each named DOM
+ * region's centroid, then nudges every other site until no Voronoi cell
+ * edge can cross that region. See discussion in the hero-voronoi containment
+ * design session (2026-08-07): the goal is "always fully inside one cell"
+ * for the logo, nav links, hero copy, and approach copy, while the rest of
+ * the diagram stays free to move. This block is prototype-only — nothing in
+ * production HeroVoronoi.astro depends on it yet.
+ */
+// Selectors are the *text content*, not the layout wrapper — #approach
+// itself is a full-width block (max-width: container-xl, padding) so its
+// box would span most of the viewport even though the actual copy only
+// occupies a narrow left-aligned column. Protecting text elements directly
+// keeps the region fit to what's actually on screen.
+var PROTECTED_REGIONS_DEF = [
+  { id: 'logo', label: 'Logo', selectors: ['.nav__brand'] },
+  { id: 'nav', label: 'Nav', selectors: ['.nav__links'] },
+  { id: 'hero', label: 'Hero', selectors: ['.hero__content'] },
+  { id: 'approach', label: 'Approach', selectors: ['#approach'] },
+];
+
+function rectCorners(domRect) {
+  return [
+    [domRect.left, domRect.top],
+    [domRect.right, domRect.top],
+    [domRect.right, domRect.bottom],
+    [domRect.left, domRect.bottom],
+  ];
+}
+
+/** A block element's layout box (getBoundingClientRect) fills its container
+ * up to any max-width it has — for a plain <h2>/<p> with no max-width of its
+ * own (e.g. .section-block__title) that box can be far wider than the text
+ * actually rendered. selectNodeContents(el) + getClientRects() mostly fixes
+ * that (per-line rects instead of the box), but when `el` itself contains
+ * block-level children, Blink can also throw in one phantom full-width rect
+ * for the child's own block box alongside its real line-box rects — so we
+ * walk to individual text nodes and range over each one directly, which
+ * only ever reports actual glyph-line rects. */
+function collectInkRects(el) {
+  var rects = [];
+  var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+    acceptNode: function (node) {
+      return /\S/.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  var node;
+  while ((node = walker.nextNode())) {
+    var range = document.createRange();
+    range.selectNodeContents(node);
+    var nodeRects = range.getClientRects();
+    for (var i = 0; i < nodeRects.length; i++) rects.push(nodeRects[i]);
+  }
+  return rects;
+}
+
+function measureInkRect(el) {
+  var rects = collectInkRects(el);
+  var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (var i = 0; i < rects.length; i++) {
+    var r = rects[i];
+    if (!r.width || !r.height) continue;
+    minX = Math.min(minX, r.left);
+    minY = Math.min(minY, r.top);
+    maxX = Math.max(maxX, r.right);
+    maxY = Math.max(maxY, r.bottom);
+  }
+  if (minX === Infinity) return el.getBoundingClientRect();
+  return { left: minX, top: minY, right: maxX, bottom: maxY, width: maxX - minX, height: maxY - minY };
+}
+
+/** Measure the protected DOM elements and map their corners into SVG-local
+ * (viewBox) space via the SVG's own screen transform — this is what keeps
+ * the containment correct at any viewport width without hand-tuned numbers.
+ * A region can span several elements (e.g. a heading + a paragraph); their
+ * corners are pooled into one bounding box. */
+function measureProtectedRegions() {
+  var regions = [];
+  PROTECTED_REGIONS_DEF.forEach(function (def) {
+    var corners = [];
+    def.selectors.forEach(function (selector) {
+      var el = document.querySelector(selector);
+      if (!el) return;
+      var domRect = measureInkRect(el);
+      if (!domRect.width || !domRect.height) return;
+      corners = corners.concat(rectCorners(domRect).map(function (p) { return clientToSvg(p[0], p[1]); }));
+    });
+    if (!corners.length) return;
+    var box = polygonBBox(corners);
+    regions.push({
+      id: def.id,
+      label: def.label,
+      corners: corners,
+      bbox: box,
+      center: [box.minX + box.w / 2, box.minY + box.h / 2],
+      violated: false,
+    });
+  });
+  return regions;
+}
+
+/** Negative = `corner` is on `anchor`'s side of the anchor/other perpendicular bisector. */
+function bisectorSideScore(corner, anchor, other) {
+  var mx = (anchor[0] + other[0]) / 2;
+  var my = (anchor[1] + other[1]) / 2;
+  var nx = other[0] - anchor[0];
+  var ny = other[1] - anchor[1];
+  return (corner[0] - mx) * nx + (corner[1] - my) * ny;
+}
+
+function regionClearsSite(region, anchor, other, margin) {
+  for (var i = 0; i < region.corners.length; i++) {
+    if (bisectorSideScore(region.corners[i], anchor, other) > -margin) return false;
+  }
+  return true;
+}
+
+/**
+ * Returns a clone of `sites` with one site per region snapped to that
+ * region's centroid, and every non-anchor site pushed clear of any bisector
+ * that would otherwise cut into a protected rect. Never moves an anchor —
+ * two protected regions whose fixed centroids can't be separated by a
+ * straight bisector (e.g. they overlap, or aren't stacked/side-by-side) show
+ * up as a `violated` region afterward instead of being silently "fixed."
+ */
+function applyContentProtection(sites, regions) {
+  var result = sites.map(function (p) { return p.slice(); });
+  var margin = 8;
+  var claimed = {};
+  var anchors = regions.map(function (region) {
+    var best = -1;
+    var bestDist = Infinity;
+    for (var i = 0; i < result.length; i++) {
+      if (claimed[i]) continue;
+      var dx = result[i][0] - region.center[0];
+      var dy = result[i][1] - region.center[1];
+      var d = dx * dx + dy * dy;
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+    if (best < 0) return null;
+    claimed[best] = true;
+    result[best] = region.center.slice();
+    return { siteIndex: best, region: region };
+  }).filter(Boolean);
+
+  var anchorIndexSet = {};
+  anchors.forEach(function (a) { anchorIndexSet[a.siteIndex] = true; });
+
+  var maxIter = 60;
+  for (var iter = 0; iter < maxIter; iter++) {
+    var moved = false;
+    for (var ai = 0; ai < anchors.length; ai++) {
+      var anchorIdx = anchors[ai].siteIndex;
+      var anchor = result[anchorIdx];
+      var region = anchors[ai].region;
+      for (var si = 0; si < result.length; si++) {
+        if (si === anchorIdx || anchorIndexSet[si]) continue;
+        var other = result[si];
+        if (regionClearsSite(region, anchor, other, margin)) continue;
+        var dx = other[0] - region.center[0];
+        var dy = other[1] - region.center[1];
+        var len = Math.hypot(dx, dy) || 1;
+        result[si] = [other[0] + (dx / len) * 16, other[1] + (dy / len) * 16];
+        moved = true;
+      }
+    }
+    if (!moved) break;
+  }
+
+  anchors.forEach(function (a) {
+    var anchor = result[a.siteIndex];
+    var clear = true;
+    for (var si = 0; si < result.length; si++) {
+      if (si === a.siteIndex) continue;
+      if (!regionClearsSite(a.region, anchor, result[si], margin)) { clear = false; break; }
+    }
+    a.region.violated = !clear;
+  });
+
+  return { sites: result, regions: regions };
+}
+
+function renderProtectionOverlay(regions) {
+  if (!protectOverlayEl) return;
+  protectOverlayEl.innerHTML = '';
+  regions.forEach(function (region) {
+    var rectEl = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rectEl.setAttribute('x', String(region.bbox.minX));
+    rectEl.setAttribute('y', String(region.bbox.minY));
+    rectEl.setAttribute('width', String(region.bbox.w));
+    rectEl.setAttribute('height', String(region.bbox.h));
+    rectEl.setAttribute('class', 'voronoi-protect-rect' + (region.violated ? ' is-violated' : ' is-clear'));
+    protectOverlayEl.appendChild(rectEl);
+  });
+}
+
+function updateProtectionStatus(regions) {
+  if (!protectStatusEl) return;
+  if (!state.protectContent) { protectStatusEl.textContent = ''; return; }
+  if (!regions.length) { protectStatusEl.textContent = 'No protected elements found on this page.'; return; }
+  var anyViolated = regions.some(function (r) { return r.violated; });
+  protectStatusEl.textContent = regions.map(function (r) { return r.label + (r.violated ? ' ✗' : ' ✓'); }).join('  ·  ');
+  protectStatusEl.classList.toggle('is-violated', anyViolated);
 }
 
 function createDefaultSubSites(poly) {
@@ -571,7 +780,17 @@ function renderSubTree(path, parentPoly, parentPathD, defsEl, containerEl) {
 
 function render() {
   var effectiveSites = getEffectiveSites();
-  var delaunay = Delaunay.from(effectiveSites);
+  var renderSites = effectiveSites;
+  var protectedRegions = [];
+  if (state.protectContent) {
+    var measured = measureProtectedRegions();
+    if (measured.length) {
+      var protection = applyContentProtection(effectiveSites, measured);
+      renderSites = protection.sites;
+      protectedRegions = protection.regions;
+    }
+  }
+  var delaunay = Delaunay.from(renderSites);
   var voronoi = delaunay.voronoi(getParentVoronoiBounds());
   parentPolys = [];
   polyByPath = {};
@@ -584,7 +803,7 @@ function render() {
   cellsEl.appendChild(parentLayer);
   cellsEl.appendChild(subLayer);
 
-  for (var i = 0; i < effectiveSites.length; i++) {
+  for (var i = 0; i < renderSites.length; i++) {
     var poly = voronoi.cellPolygon(i);
     if (!poly) continue;
     parentPolys[i] = poly;
@@ -643,6 +862,8 @@ function render() {
   syncSubPanel();
   syncLayerChrome();
   renderLayerCanvas();
+  renderProtectionOverlay(protectedRegions);
+  updateProtectionStatus(protectedRegions);
   saveState();
 }
 
@@ -741,6 +962,16 @@ function bindLayerSlider(key, selector, outputSelector) {
     var output = outputSelector ? editor.querySelector(outputSelector) : null;
     if (output) output.textContent = String(state.layers[key]);
     render();
+  });
+}
+
+function bindProtectControls() {
+  if (!protectToggle) return;
+  protectToggle.checked = !!state.protectContent;
+  protectToggle.addEventListener('change', function () {
+    state.protectContent = protectToggle.checked;
+    render();
+    setStatus(state.protectContent ? 'Content protection on — logo, nav, hero, approach pinned clear.' : 'Content protection off.');
   });
 }
 
@@ -1249,6 +1480,7 @@ editor.querySelectorAll('[data-voronoi-section-toggle]').forEach(function (btn) 
 });
 
 bindLayerControls();
+bindProtectControls();
 if (options.autoEdit || location.search.indexOf('voronoi=edit') !== -1) {
   editor.classList.remove('is-collapsed');
   panelToggle.setAttribute('aria-expanded', 'true');
@@ -1265,11 +1497,22 @@ if (options.autoEdit || location.search.indexOf('voronoi=edit') !== -1) {
 
 loadPanelPos();
 clearEditLayerInlineStyles();
+var resizeRenderQueued = false;
 window.addEventListener('resize', function () {
   if (panelPos) {
     panelPos = clampPanelPos(panelPos.x, panelPos.y);
     applyPanelPos();
     savePanelPos();
+  }
+  // Protected regions are measured from live DOM rects (they reflow with
+  // width), so re-render on resize to keep containment correct — this is
+  // the "auto-adjust on width" half of the containment prototype.
+  if (state.protectContent && !resizeRenderQueued) {
+    resizeRenderQueued = true;
+    window.requestAnimationFrame(function () {
+      resizeRenderQueued = false;
+      render();
+    });
   }
 });
 }

@@ -14,6 +14,13 @@ const pillarMotifs: Record<string, string> = {
   neural: "/assets/pillar-photos/collective-intelligence.jpg",
   flow: "/assets/pillar-photos/regenerative-finance.jpg",
 };
+// Stylized/abstract renders of the same photos (supplied 2026-08-07) — shown by default; hovering
+// reveals the clear photo above. Replaces the earlier CSS-blur attempt at the same effect.
+const pillarMotifsAbstract: Record<string, string> = {
+  tissue: "/assets/pillar-photos/network-coordination-abstract.png",
+  neural: "/assets/pillar-photos/collective-intelligence-abstract.png",
+  flow: "/assets/pillar-photos/regenerative-finance-abstract.png",
+};
 ---
 <Layout title="Home" current="home">
   <!-- Hero + Approach share one generative backdrop, like one continuous opening -->
@@ -49,7 +56,8 @@ const pillarMotifs: Record<string, string> = {
         {d.pillars.map((p: any) => (
           <article class={`pillar-row pillar-row--${p.key}`}>
             <div class="pillar-row__media">
-              <img src={pillarMotifs[p.key]} alt="" loading="lazy" />
+              <img class="pillar-row__media-photo" src={pillarMotifs[p.key]} alt="" loading="lazy" />
+              <img class="pillar-row__media-abstract" src={pillarMotifsAbstract[p.key]} alt="" loading="lazy" />
             </div>
             <div class="pillar-row__content">
               <div class="pillar-row__head">
@@ -199,8 +207,10 @@ const pillarMotifs: Record<string, string> = {
   /* Pillar rows */
   .pillars { display: flex; flex-direction: column; gap: var(--space-16); }
   .pillar-row { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-10); padding-top: var(--space-10); border-top: 1px solid var(--border-subtle); align-items: start; }
-  .pillar-row__media { border-radius: 0.75rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--surface-2); }
-  .pillar-row__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pillar-row__media { position: relative; border-radius: 0.75rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--surface-2); }
+  .pillar-row__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pillar-row__media-abstract { transition: opacity var(--t-slow); }
+  .pillar-row__media:hover .pillar-row__media-abstract { opacity: 0; }
   .pillar-row__title { font-size: var(--text-xl); margin: var(--space-3) 0 var(--space-3); }
   .pillar-row__intro { color: var(--text-muted); line-height: var(--leading-body); }
   .pillar-row__services { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
