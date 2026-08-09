@@ -12,37 +12,39 @@ const site = yaml.load(fs.readFileSync(path.join(process.cwd(), "src/data/site.y
 };
 const siteHost = new URL(site.url).host;
 const year = new Date().getFullYear();
-import NeuralWeb from "./NeuralWeb.astro";
 ---
 <footer class="site-footer">
-  <div class="footer-web" aria-hidden="true">
-    <NeuralWeb seed={5} nodes={26} tone="--pillar-neural-mid" width={1100} height={340} />
-  </div>
   <div class="cols">
-    <div class="col">
-      <span class="lockup">{site.name}</span>
+    <div class="col col--name">
+      <span class="lockup">motiu</span>
       <p>{site.legalNote}</p>
     </div>
-    <div class="col"><span class="eyebrow">Surfaces</span><ul>{data.siblings.map((s) => <li><a href={s.url}>{s.label}</a></li>)}</ul></div>
-    <div class="col"><span class="eyebrow">Federation</span><ul>{data.federation.map((s) => <li><a href={s.url}>{s.label}</a></li>)}</ul></div>
-    <div class="col"><span class="eyebrow">Contact</span><ul>{data.contact.map((s) => <li><a href={s.url}>{s.label}</a></li>)}</ul></div>
+    <div class="col-group">
+      <div class="col"><span class="eyebrow">Surfaces</span><ul>{data.siblings.map((s) => <li><a href={s.url}>{s.label}</a></li>)}</ul></div>
+      <div class="col"><span class="eyebrow">Federation</span><ul>{data.federation.map((s) => <li><a href={s.url}>{s.label}</a></li>)}</ul></div>
+      <div class="col"><span class="eyebrow">Contact</span><ul>{data.contact.map((s) => <li><a href={s.url}>{s.label}</a></li>)}</ul></div>
+    </div>
   </div>
   <div class="meta">
-    <span>{site.name} · {siteHost} · {year}</span>
+    <span>motiu · {siteHost} · {year}</span>
     <span>Code · MIT</span>
     <span>Content · CC BY-SA 4.0</span>
   </div>
 </footer>
 <style>
-.site-footer { position: relative; isolation: isolate; overflow: hidden; border-top: 1px solid var(--ink); padding: var(--space-12) var(--gutter) var(--space-8); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; color: var(--rule); }
-.footer-web { position: absolute; inset: auto -4rem -6rem auto; width: min(60%, 46rem); opacity: 0.08; z-index: 0; pointer-events: none; }
+.site-footer { position: relative; isolation: isolate; overflow: hidden; border-top: 1px solid var(--umber); padding: var(--space-12) var(--gutter) var(--space-8); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; color: var(--rule); }
 .cols, .meta { position: relative; z-index: 1; }
-.cols { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: var(--space-8); max-width: var(--container-default); margin: 0 auto; }
-.lockup { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); display: block; }
-.col p { margin: var(--space-2) 0 0; }
+.cols { display: flex; justify-content: space-between; gap: var(--space-8); max-width: var(--container-default); margin: 0 auto; }
+.col-group { display: flex; gap: var(--space-24); }
+.col--name { flex-shrink: 0; }
+.lockup { font-family: var(--sans); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; text-transform: lowercase; color: var(--umber); display: block; }
+.col p { margin: var(--space-2) 0 0; font-family: var(--sans); font-size: var(--copy-sm); }
 .col ul { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-1); }
-.col a { color: var(--rule); text-decoration: none; }
-.col a:hover { color: var(--ink); }
+.col a { color: var(--rule); text-decoration: none; font-family: var(--sans); }
+.col a:hover { color: var(--umber); }
 .meta { display: flex; gap: var(--space-6); flex-wrap: wrap; max-width: var(--container-default); margin: var(--space-10) auto 0; padding-top: var(--space-4); border-top: 1px dashed var(--rule); }
-@media (max-width: 720px) { .cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) {
+  .cols { flex-direction: column; }
+  .col-group { flex-wrap: wrap; }
+}
 </style>

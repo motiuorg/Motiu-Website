@@ -1,18 +1,14 @@
 ---
-import Tissue from "./Tissue.astro";
 interface Props {
   id?: string;
   title?: string;
   intro?: string;
   alt?: boolean;
-  tissue?: boolean;
-  tissueSeed?: number;
 }
-const { id, title, intro, alt = false, tissue = false, tissueSeed = 1 } = Astro.props;
+const { id, title, intro, alt = false } = Astro.props;
 ---
 
 <section class:list={["section-block", { "section-block--alt": alt }]} id={id}>
-  {tissue && <Tissue seed={tissueSeed} opacity={0.06} tone="--pillar-tissue-mid" />}
   <div class="section-block__inner">
     {title && <h2 class="section-block__title">{title}</h2>}
     {intro && <p class="section-block__intro">{intro}</p>}

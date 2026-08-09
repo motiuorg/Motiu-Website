@@ -63,7 +63,7 @@ const localeFallbackNoindex = loc !== "en";
 </head>
 <body class:list={{ minimal }}>
   {!minimal && <Nav current={current} section={section} dataset={dataset} />}
-  <main><slot /></main>
+  <main class:list={{ "main--overlay-nav": current === "home" }}><slot /></main>
   {!minimal && <Footer />}
   <script>
     // Section reveal (iteration 4). Classes are added here, so no-JS

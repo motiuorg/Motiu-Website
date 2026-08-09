@@ -5,17 +5,31 @@
  */
 
 :root {
-  /* §3.2 Type scale (1.250 — major third) */
-  --text-xs: 0.64rem;
-  --text-sm: 0.8rem;
-  --text-base: 1rem;
-  --text-md: 1.25rem;
-  --text-lg: 1.563rem;
-  --text-xl: 1.953rem;
-  --text-2xl: 2.441rem;
-  --text-3xl: 3.052rem;
-  --text-4xl: 3.815rem;
-  --text-5xl: 4.768rem;
+  /* §3.2 Type scale — base bumped to 18px (was 16px; body copy read too
+   * small), same ~1.22–1.25 step progression carried through the rest of
+   * the scale so the whole ladder grew together, not just one step. */
+  --text-2xs: 0.625rem; /* 10px — smallest label size */
+  --text-xs: 0.75rem;   /* 12px */
+  --text-sm: 0.875rem;  /* 14px */
+  --text-copy-md: 1.0625rem; /* 17px — copy-scale only, sits between base and sm; not part of the heading ladder */
+  --text-base: 1.25rem; /* 20px — bumped again from 18px, still too small for regular reading copy */
+  --text-md: 1.375rem;  /* 22px */
+  --text-lg: 1.75rem;   /* 28px */
+  --text-xl: 2.125rem;  /* 34px */
+  --text-2xl: 2.625rem; /* 42px */
+  --text-3xl: 3.25rem;  /* 52px */
+  --text-4xl: 4rem;     /* 64px */
+  --text-5xl: 5rem;     /* 80px */
+
+  /* Copy scale — 5 named reading-copy sizes (paragraphs/prose, not headings
+   * or labels). XL/L map onto the general ladder above (lede / body
+   * default); M/S/XS are copy-specific. See .lede, .copy-md, .copy-sm,
+   * .copy-xs in global.css. */
+  --copy-xl: var(--text-md);   /* 22px — .lede */
+  --copy-lg: var(--text-base); /* 20px — default body */
+  --copy-md: var(--text-copy-md); /* 17px */
+  --copy-sm: var(--text-sm);   /* 14px */
+  --copy-xs: var(--text-xs);   /* 12px */
 
   /* Line-height */
   --leading-display: 1.05;
@@ -44,6 +58,9 @@
   /* §4.2 Universal radii (theme owns --radius + --radius-sm) */
   --radius-pill: 9999px;
   --radius-full: 50%;
+
+  /* Nav — fallback before Nav.astro's script measures the real height */
+  --nav-h: 3.75rem;
 
   /* §4.4 Container + gutter */
   --gutter: 2rem;

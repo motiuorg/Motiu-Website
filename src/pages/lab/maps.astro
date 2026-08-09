@@ -1,0 +1,44 @@
+---
+import LabShell from "../../components/lab/LabShell.astro";
+import CatalunyaInsetMap from "../../components/CatalunyaInsetMap.astro";
+import CatalunyaProgramMap from "../../components/CatalunyaProgramMap.astro";
+import { getCollection } from "astro:content";
+
+const entries = await getCollection("cohort");
+const doc = entries[0]!.data;
+---
+<LabShell title="Maps" current="maps"
+  intro="Two bespoke map components — not generic UI-kit material (they're one-off, domain-specific applications, not reusable atoms/molecules), but documented here because mapping is a recurring, load-bearing pattern across the site and worth keeping in view alongside everything else.">
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>CatalunyaProgramMap</h2>
+    <p>Interactive article-view map: MapLibre GL + hosted vector tiles (OpenFreeMap "positron"), constrained
+      to Catalunya, comarca overlay, custom project markers with click-to-popover, province quick-zoom,
+      L'Hospitalet shortcut, on-screen zoom controls. Desaturates the base tile style and hides OSM place
+      labels to match the paper-and-ink palette.</p>
+    <p class="lab-source">Used in: atlas.astro. Props: projects: Project[], networks: Record&lt;network, NetworkMeta&gt;</p>
+    <div class="lab-frame">
+      <CatalunyaProgramMap projects={doc.projects} networks={doc.networks} />
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>CatalunyaInsetMap</h2>
+    <p>Static-first d3 SVG map (no tile server) with a sub-zoom callout for L'Hospitalet metro, where 4 of 11
+      RC cohort markers cluster. Card ↔ marker linking: hovering a project card highlights its marker and
+      vice versa.</p>
+    <p class="lab-source">Used in: projects/regenerant-catalunya (dashboard). Props: projects: Project[]</p>
+    <div class="lab-frame">
+      <CatalunyaInsetMap projects={doc.projects} />
+    </div>
+  </div>
+
+  <div class="lab-note">
+    <strong>Gap:</strong> the two maps share almost no code (separate rendering stacks — d3/SVG vs.
+    MapLibre/canvas, separate marker-color logic hardcoded per component rather than pulling from
+    <code>--lib-*</code> tokens). If a third map ever gets built, that duplication is worth resolving first
+    rather than forking a third time.
+  </div>
+</LabShell>

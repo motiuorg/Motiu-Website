@@ -1,22 +1,18 @@
 ---
 // PageHero.astro — consistent opener for the deeper pages: eyebrow +
-// display title + lede, with an optional per-page motif on the right
-// (neural web / tissue texture / aurora field).
-import Tissue from "./Tissue.astro";
-import NeuralWeb from "./NeuralWeb.astro";
+// display title + lede, with an optional per-page aurora field motif on the right.
 import Aurora from "./Aurora.astro";
 
 interface Props {
   eyebrow?: string;
   title: string;
   lede?: string;
-  motif?: "neural" | "tissue" | "aurora-neural" | "aurora-tissue" | "aurora-flow" | "none";
+  motif?: "aurora-neural" | "aurora-tissue" | "aurora-flow" | "none";
 }
 const { eyebrow, title, lede, motif = "none" } = Astro.props;
 const aurora = motif.startsWith("aurora-") ? motif.replace("aurora-", "") as "neural" | "tissue" | "flow" : null;
 ---
 <header class="page-hero">
-  {motif === "tissue" && <Tissue seed={3} opacity={0.07} tone="--pillar-tissue-mid" />}
   {aurora && <Aurora pillar={aurora} opacity={0.35} />}
   <div class="page-hero__inner">
     <div class="page-hero__text">
@@ -24,11 +20,6 @@ const aurora = motif.startsWith("aurora-") ? motif.replace("aurora-", "") as "ne
       <h1 class="display page-hero__title">{title}</h1>
       {lede && <p class="lede page-hero__lede">{lede}</p>}
     </div>
-    {motif === "neural" && (
-      <div class="page-hero__motif" aria-hidden="true">
-        <NeuralWeb seed={11} nodes={18} tone="--pillar-neural-mid" width={420} height={300} />
-      </div>
-    )}
   </div>
 </header>
 
@@ -52,6 +43,4 @@ const aurora = motif.startsWith("aurora-") ? motif.replace("aurora-", "") as "ne
 }
 .page-hero__title { font-size: clamp(2.2rem, 4.5vw, 3.4rem); margin: var(--space-3) 0 var(--space-5); }
 .page-hero__lede { max-width: 58ch; }
-.page-hero__motif { flex: 0 1 26rem; min-width: 16rem; opacity: 0.75; }
-@media (max-width: 880px) { .page-hero__motif { display: none; } }
 </style>

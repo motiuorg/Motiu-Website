@@ -1,0 +1,110 @@
+---
+import LabShell from "../../components/lab/LabShell.astro";
+---
+<LabShell title="Controls" current="controls"
+  intro="Interactive UI controls that aren't form data-entry — tabs, loading/progress indicators. None of this exists in the codebase yet; everything below is a sketch built only from existing tokens (no new colors/radii invented), so it's a starting point, not a locked design.">
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--gap">doesn't exist — sketch only</span>
+    <h2>Tabs</h2>
+    <p>Styled after the same mono-caps + bottom-border-on-active pattern <code>Nav</code> already uses, so it
+      doesn't introduce a second "active state" convention.</p>
+    <div class="lab-tabs" role="tablist" aria-label="Example tabs">
+      <button class="lab-tab active" role="tab" aria-selected="true" type="button">Overview</button>
+      <button class="lab-tab" role="tab" aria-selected="false" type="button">Projects</button>
+      <button class="lab-tab" role="tab" aria-selected="false" type="button">Finances</button>
+      <button class="lab-tab" role="tab" aria-selected="false" type="button" disabled>Archived</button>
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--gap">doesn't exist — sketch only</span>
+    <h2>Progress bar</h2>
+    <p>Determinate — a filled track in <code>--primary</code>, flat (no radius) to match the BIS direction.</p>
+    <div style="max-width: 24rem; display: flex; flex-direction: column; gap: var(--space-4);">
+      <div>
+        <div class="lab-progress-label">
+          <span>Funding round</span><span>62%</span>
+        </div>
+        <div class="lab-progress-track"><div class="lab-progress-fill" style="width: 62%;"></div></div>
+      </div>
+      <div>
+        <div class="lab-progress-label">
+          <span>Upload</span><span>100%</span>
+        </div>
+        <div class="lab-progress-track"><div class="lab-progress-fill lab-progress-fill--done" style="width: 100%;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--gap">doesn't exist — sketch only</span>
+    <h2>Spinner</h2>
+    <p>Indeterminate loading — for button-loading states and async panels (e.g. the map components while
+      tiles/geojson load).</p>
+    <div class="lab-spinner" aria-label="Loading" role="status"></div>
+  </div>
+
+  <div class="lab-note">
+    <strong>Also not present at all</strong> — worth knowing these gaps exist even before someone needs them:
+    accordion/disclosure, tooltip, modal/dialog, pagination, toast/notification. Listed here so they don't get
+    silently invented ad hoc the first time a page needs one.
+  </div>
+</LabShell>
+
+<style>
+  .lab-tabs {
+    display: flex;
+    gap: var(--space-5);
+    border-bottom: 1px solid var(--border-default);
+  }
+  .lab-tab {
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    padding: var(--space-2) 0 var(--space-3);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color var(--t-fast), border-color var(--t-fast);
+  }
+  .lab-tab:hover:not(:disabled) { color: var(--text-primary); }
+  .lab-tab.active { color: var(--text-primary); border-bottom-color: var(--primary); font-weight: 600; }
+  .lab-tab:disabled { color: var(--border-default); cursor: not-allowed; }
+
+  .lab-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-1);
+  }
+  .lab-progress-track {
+    height: 0.5rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border-subtle);
+  }
+  .lab-progress-fill { height: 100%; background: var(--primary); }
+  .lab-progress-fill--done { background: var(--success); }
+
+  .lab-spinner {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 3px solid var(--border-subtle);
+    border-top-color: var(--primary);
+    animation: lab-spin 800ms linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lab-spinner { animation-duration: 2400ms; }
+  }
+  @keyframes lab-spin {
+    to { transform: rotate(360deg); }
+  }
+</style>

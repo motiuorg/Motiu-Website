@@ -16,7 +16,7 @@ const pubBySchema = schemas
 ---
 <Layout title="Commons" current="commons" section="Bioregional Commons"
   description="The knowledge commons — one internal broad knowledge base; curated public collections, each with a clear scope, audience, and goal.">
-  <SectionBlock id="commons" title="Bioregional Commons" tissue={true} tissueSeed={4}
+  <SectionBlock id="commons" title="Bioregional Commons"
     intro="One consolidated internal knowledge base; what publishes are curated collections with a clear scope, audience, and goal — starting with regeneration in Catalunya.">
     <p class="lede">
       We keep a single broad knowledge base internally and publish curated
@@ -46,7 +46,7 @@ const pubBySchema = schemas
 
     <h3>Status</h3>
     <div class="kb-meter" role="img" aria-label={`${all.length} ingested, ${inReview} in review, ${pub.length} published`}>
-      <span class="kb-meter__bar"><span class="kb-meter__fill" style={`width:${Math.round((pub.length / all.length) * 100)}%`}></span></span>
+      <span class="kb-meter__bar"><span class="kb-meter__fill" style={`width:${all.length ? Math.round((pub.length / all.length) * 100) : 0}%`}></span></span>
       <p>
         <strong>{all.length}</strong> knowledge objects ingested ·
         <strong>{inReview}</strong> in human review ·
@@ -98,8 +98,8 @@ const pubBySchema = schemas
   .kb-card p { color: var(--text-muted); font-size: 0.85rem; margin: 4px 0 0; }
   .kb-empty { color: var(--text-muted); background: var(--surface-1); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: var(--space-5); }
   .kb-note { color: var(--text-muted); font-size: 0.85rem; margin-top: 24px; }
-  .kb-atlas { display: block; border: 1px solid var(--ink); background: var(--surface-1); padding: var(--space-5) var(--space-6); margin: 20px 0 28px; text-decoration: none; color: var(--text-primary); transition: translate var(--t-med), box-shadow var(--t-med); }
-  .kb-atlas:hover { translate: 0 -2px; box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 12%, transparent); }
+  .kb-atlas { display: block; border: 1px solid var(--umber); background: var(--surface-1); padding: var(--space-5) var(--space-6); margin: 20px 0 28px; text-decoration: none; color: var(--text-primary); transition: translate var(--t-med), box-shadow var(--t-med); }
+  .kb-atlas:hover { translate: 0 -2px; box-shadow: 4px 4px 0 color-mix(in srgb, var(--umber) 12%, transparent); }
   .kb-atlas__eyebrow { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
   .kb-atlas strong { display: block; font-family: var(--serif); font-size: var(--text-lg); margin: var(--space-1) 0; }
   .kb-atlas p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }

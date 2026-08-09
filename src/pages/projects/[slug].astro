@@ -3,7 +3,6 @@ import fs from "node:fs";
 import path from "node:path";
 import yaml from "js-yaml";
 import Layout from "../../components/Layout.astro";
-import Tissue from "../../components/Tissue.astro";
 import StatBand from "../../components/StatBand.astro";
 import CTABand from "../../components/CTABand.astro";
 
@@ -37,7 +36,6 @@ const paras = (project.body ?? "").split(/\n\s*\n/).map((s) => s.trim()).filter(
 <Layout title={project.title} current="projects" section="Bioregional Commons" description={`${project.title} — a ReFi BCN case study.`}>
   <article class="case">
     <header class="case__head">
-      <div class="case__tissue-wrap"><Tissue seed={2} opacity={0.1} tone="--pillar-tissue-mid" /></div>
       <p class="eyebrow">Case study</p>
       <h1>{project.title}</h1>
       <dl class="case__meta">
@@ -92,7 +90,6 @@ const paras = (project.body ?? "").split(/\n\s*\n/).map((s) => s.trim()).filter(
 <style>
   .case { max-width: var(--container-prose); margin: 0 auto; padding: var(--space-16) var(--gutter) var(--space-12); }
   .case__head { position: relative; isolation: isolate; margin-bottom: var(--space-8); }
-  .case__tissue-wrap { position: absolute; inset: -2rem -2rem auto -2rem; height: 12rem; z-index: -1; overflow: hidden; }
   .case__meta { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-1) var(--space-4); margin-top: var(--space-5); }
   .case__meta dt { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); align-self: center; }
   .case__meta dd { margin: 0; }
@@ -101,7 +98,7 @@ const paras = (project.body ?? "").split(/\n\s*\n/).map((s) => s.trim()).filter(
   .case__body p { margin: 0 0 var(--space-5); line-height: var(--leading-body); max-width: var(--container-prose); }
   .case__links { display: flex; gap: var(--space-3); flex-wrap: wrap; }
 
-  .case-nav { border-top: 1px solid var(--ink); padding: var(--space-8) var(--gutter); }
+  .case-nav { border-top: 1px solid var(--umber); padding: var(--space-8) var(--gutter); }
   .case-nav__inner { max-width: var(--container-default); margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--space-6); }
   .case-nav__link { text-decoration: none; color: var(--text-primary); display: flex; flex-direction: column; gap: var(--space-1); }
   .case-nav__next { text-align: right; align-items: flex-end; }

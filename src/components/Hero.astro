@@ -1,20 +1,15 @@
 ---
-import NeuralWeb from "./NeuralWeb.astro";
-import Tissue from "./Tissue.astro";
 interface Props {
   title: string;
   tagline?: string;
   primaryCta?: { label: string; href: string };
   ghostCta?: { label: string; href: string };
   image?: string;
-  neural?: boolean;
-  tissue?: boolean;
 }
-const { title, tagline, primaryCta, ghostCta, image, neural = false, tissue = false } = Astro.props;
+const { title, tagline, primaryCta, ghostCta, image } = Astro.props;
 ---
 
 <section class="hero">
-  {tissue && <Tissue seed={3} opacity={0.06} tone="--pillar-tissue-mid" />}
   <div class="hero__copy">
     <h1 class="hero__title display">{title}</h1>
     {tagline && <p class="hero__tagline">{tagline}</p>}
@@ -23,11 +18,9 @@ const { title, tagline, primaryCta, ghostCta, image, neural = false, tissue = fa
       {ghostCta && <a class="btn btn--ghost" href={ghostCta.href}>{ghostCta.label}</a>}
     </div>
   </div>
-  {(neural || image) && (
+  {image && (
     <div class="hero__visual">
-      {neural
-        ? <div class="hero__neural"><NeuralWeb seed={11} nodes={22} tone="--pillar-neural-mid" width={560} height={460} /></div>
-        : <img src={image} alt="" />}
+      <img src={image} alt="" />
     </div>
   )}
 </section>
@@ -45,7 +38,7 @@ const { title, tagline, primaryCta, ghostCta, image, neural = false, tissue = fa
     gap: var(--space-12);
     align-items: center;
   }
-  .hero > :not(.tissue) { position: relative; z-index: 1; }
+  .hero > * { position: relative; z-index: 1; }
   .hero__title {
     font-size: clamp(2.5rem, 5vw, 4.5rem);
     line-height: var(--leading-display);
@@ -61,12 +54,6 @@ const { title, tagline, primaryCta, ghostCta, image, neural = false, tissue = fa
   }
   .hero__actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
   .hero__visual img { width: 100%; border-radius: var(--radius); }
-  .hero__neural {
-    background: var(--surface-1);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius);
-    padding: var(--space-6);
-  }
   @media (max-width: 768px) {
     .hero { grid-template-columns: 1fr; }
     .hero__visual { order: -1; }

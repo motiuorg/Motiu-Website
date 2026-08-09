@@ -568,7 +568,7 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   width: 100%;
   height: clamp(520px, 78vh, 880px);
   background: var(--ivory);
-  border: 2px solid var(--ink);
+  border: 2px solid var(--umber);
   overflow: hidden;
 }
 .maplibre-host {
@@ -585,7 +585,7 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   font-family: var(--mono);
   font-size: 0.65rem;
 }
-.maplibre-host :global(.maplibregl-ctrl-attrib a) { color: var(--ink); }
+.maplibre-host :global(.maplibregl-ctrl-attrib a) { color: var(--umber); }
 
 .map-controls {
   position: absolute;
@@ -605,17 +605,17 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   gap: 0;
   pointer-events: auto;
   background: var(--paper);
-  border: 1px solid var(--ink);
+  border: 1px solid var(--umber);
 }
 .prov-chip {
   font-family: var(--mono);
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--ink);
+  color: var(--umber);
   background: var(--paper);
   border: 0;
-  border-right: 1px solid var(--ink);
+  border-right: 1px solid var(--umber);
   padding: 0.45rem 0.75rem;
   cursor: pointer;
   transition: background var(--t-fast), color var(--t-fast);
@@ -624,13 +624,13 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
 .prov-chip:last-child { border-right: 0; }
 .prov-chip:hover { background: var(--ivory); }
 .prov-chip.active {
-  background: var(--ink);
+  background: var(--umber);
   color: var(--paper);
 }
 .strip-divider {
   display: inline-block;
   width: 1px;
-  background: var(--ink);
+  background: var(--umber);
   align-self: stretch;
   margin: 0 0.05rem;
 }
@@ -666,7 +666,7 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   flex-direction: column;
   gap: 0;
   background: var(--paper);
-  border: 1px solid var(--ink);
+  border: 1px solid var(--umber);
   z-index: 2;
 }
 .zoom-btn {
@@ -679,15 +679,15 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   font-size: 1.05rem;
   line-height: 1;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--umber);
   border: 0;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid var(--umber);
   cursor: pointer;
   transition: background var(--t-fast), color var(--t-fast);
 }
 .zoom-btn:last-child { border-bottom: 0; }
 .zoom-btn:hover, .zoom-btn:focus-visible {
-  background: var(--ink);
+  background: var(--umber);
   color: var(--paper);
   outline: none;
 }
@@ -703,8 +703,8 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
 .popover-card {
   pointer-events: auto;
   background: var(--paper);
-  border: 1px solid var(--ink);
-  box-shadow: 6px 6px 0 var(--ink);
+  border: 1px solid var(--umber);
+  box-shadow: 6px 6px 0 var(--umber);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -722,7 +722,7 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   right: 0.4rem;
   width: 1.7rem;
   height: 1.7rem;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--umber);
   background: var(--paper);
   font-family: var(--mono);
   font-size: 1rem;
@@ -734,14 +734,14 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   justify-content: center;
   transition: background var(--t-fast), color var(--t-fast);
 }
-.popover-close:hover { background: var(--ink); color: var(--paper); }
+.popover-close:hover { background: var(--umber); color: var(--paper); }
 
 .popover-card .image-wrap {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--ivory);
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid var(--umber);
 }
 .popover-card .image-wrap img {
   width: 100%;
@@ -760,7 +760,7 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   text-transform: uppercase;
   letter-spacing: 0.08em;
   background: var(--paper);
-  border: 1px solid var(--ink);
+  border: 1px solid var(--umber);
 }
 .popover-card .network-chip[data-accent="forest"] { color: var(--forest); }
 .popover-card .network-chip[data-accent="rust"] { color: var(--rust); }
@@ -775,7 +775,7 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   color: var(--rule);
   margin: 0;
 }
-.popover-card .summary { font-family: var(--serif); font-size: 0.95rem; color: var(--ink); margin: 0; line-height: 1.5; }
+.popover-card .summary { font-family: var(--serif); font-size: 0.95rem; color: var(--umber); margin: 0; line-height: 1.5; }
 .popover-card .meta {
   display: flex;
   justify-content: space-between;
@@ -797,9 +797,9 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--ink);
+  color: var(--umber);
   text-decoration: none;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid var(--umber);
 }
 .popover-card .ext-link:hover { color: var(--rust); border-bottom-color: var(--rust); }
 
@@ -815,6 +815,6 @@ document.querySelectorAll<HTMLDivElement>("[data-program-map]").forEach((host) =
     left: 1rem;
     width: auto;
   }
-  .popover-card { box-shadow: 4px 4px 0 var(--ink); }
+  .popover-card { box-shadow: 4px 4px 0 var(--umber); }
 }
 </style>
