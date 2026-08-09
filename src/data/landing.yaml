@@ -111,6 +111,16 @@ projects:
       funding status — then built portfolio views and maps that let stewards compare initiatives
       without collapsing local context.
     href: /projects/bwl-portfolio-mapping/
+  - heading: An operating system the cooperative actually runs on
+    name: org-os
+    # FLAG (image): interim brand card — replace with a Voronoi-generated tile before the Sept launch.
+    image: /assets/og-image.png
+    pillars: [neural, tissue]
+    excerpt: >-
+      Our agent-native organizational OS — the co-op's registries, decisions, meetings and
+      knowledge as versioned, machine-readable files the organization owns, with agents working
+      inside the same review discipline as people. Three federated instances run on it today.
+    href: /projects/org-os/
   - heading: Making a bioregion legible for collective decisions
     name: Bioregional Intelligence
     image: /assets/projects/bioregional-intelligence-map.png
