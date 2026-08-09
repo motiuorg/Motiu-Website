@@ -1,14 +1,19 @@
 # Site identity — SINGLE SOURCE for the org name + global meta.
-# The group name is OPEN (survey pending, 260630 decision) — when it lands,
-# update `name` here and the chrome (nav, footer, titles, meta) follows.
-# Prose mentions inside landing.yaml / projects.yaml still need a copy pass.
-name: ReFi BCN
+# Name = Motiu (BD-2026-049, 2026-08-04); public form is "motiu" alone — the
+# co-op designation comes out only selectively (BD-2026-050). Chrome renders
+# lowercase via CSS; keep the canonical form here.
+# Rename executed 2026-08-09 (aug17-convergence). Conflict-check desk pass ran
+# same day: motiu.cat/.eu/.org/.net available, motiu.com GoDaddy-parked only,
+# no operating brand collision found; formal EUIPO/OEPM query + logged-in
+# handle checks remain owed at domain purchase (BD-2026-051).
+name: motiu
 legalNote: Cooperative in formation · Bloc4, Barcelona
 url: https://refibcn.github.io
-domainNote: refibcn.cat pending DNS decision
+domainNote: motiu.cat + one international TLD decided (BD-2026-051), purchase pending
 tagline: Infrastructure for territorial regeneration
 description: >-
-  ReFi BCN — a local ReFi node and cooperative-in-formation in Barcelona. Funding,
-  knowledge, and governance for regenerative initiatives in Catalonia.
+  Motiu — a cooperative in Barcelona building infrastructure for territorial
+  regeneration: coordination, shared knowledge, and financial architecture for
+  regenerative networks in Catalonia and beyond.
 email: hello@refibcn.cat
 ogImage: /assets/og-image.png

@@ -90,7 +90,7 @@ projects:
     slug: org-os
     role: Internal infrastructure · agent-native operations
     theme: Organizational operating system
-    locality: ReFi BCN · federated
+    locality: Barcelona · federated
     pillars: [neural, tissue]
     # FLAG (image): interim brand card — replace with a Voronoi-generated tile or a dashboard
     # capture before the September launch (the generator is the intended production route, BD-2026-043).
