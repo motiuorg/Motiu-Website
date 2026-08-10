@@ -110,12 +110,12 @@ cat > dist/versions/index.html <<'HTML'
   .v__links{margin:0;font-size:.85rem}
   .v__links a{text-decoration:none;border-bottom:1px solid var(--line)}
   .v__links a:hover{border-bottom-color:var(--terracotta)}
-  .docs{margin:1.1rem 0 0;padding:.7rem .9rem;background:var(--bone);border:1px solid var(--line);border-radius:.35rem;font-size:.85rem}
-  .docs__k{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--rule);display:block;margin-bottom:.2rem}
-  .docs a{font-weight:600;text-decoration:none}
+  .docs{margin:1.2rem 0 0;padding:.85rem 1rem;background:#fdf4ee;border:1px solid #f0ddd2;border-left:4px solid var(--terracotta);border-radius:.35rem;font-size:.92rem}
+  .docs__k{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:var(--terracotta);font-weight:700;display:block;margin-bottom:.3rem}
+  .docs a{font-weight:700;font-size:1rem;text-decoration:none}
   .docs a:hover{text-decoration:underline}
-  .docs em{color:var(--rule);font-style:normal}
-  .gap{color:var(--rule)}
+  .docs em{color:var(--rule);font-style:normal;font-size:.85rem}
+  .gap{display:block;margin-top:.35rem;color:#8a5a00;background:#fff7e0;border:1px solid #f0e2b0;border-radius:.25rem;padding:.25rem .5rem;font-size:.82rem}
   code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82em;background:#fff;border:1px solid var(--line);padding:.03rem .3rem;border-radius:.2rem;color:var(--rule)}
   .note{border-left:3px solid var(--terracotta);padding:.15rem 0 .15rem 1rem;margin:1.2rem 0 0;color:var(--rule);font-size:.88rem}
   .note strong{color:var(--umber)}
@@ -158,7 +158,7 @@ cat > dist/versions/index.html <<'HTML'
   </div>
 
   <div class="docs">
-    <span class="docs__k">Docs &amp; feedback</span>
+    <span class="docs__k">📝 Docs &amp; feedback</span>
     <a href="https://github.com/refibcn/refibcn.github.io/blob/main/docs/DEVELOPMENT.md">DEVELOPMENT.md</a>
     &mdash; <em>feedback pass, decisions log, open questions. File section-level notes here.</em>
   </div>
@@ -184,11 +184,10 @@ cat > dist/versions/index.html <<'HTML'
     <p class="v__links"><a href="https://knowledge.refibcn.cat/">open site</a> &middot; <a href="https://knowledge.refibcn.cat/review">review lens</a> (password-gated)</p>
   </div>
   <div class="docs">
-    <span class="docs__k">Docs &amp; feedback</span>
-    <a href="https://github.com/refibcn/refi-bcn-knowledge/blob/main/README.md">README.md</a>
-    &mdash; <em>architecture and setup.</em>
-    <span class="gap">⚠ No feedback doc yet — this instance has no DEVELOPMENT.md equivalent.
-    Send notes to the group until one exists.</span>
+    <span class="docs__k">📝 Docs &amp; feedback</span>
+    <a href="https://github.com/refibcn/refi-bcn-knowledge/blob/main/docs/DEVELOPMENT.md">DEVELOPMENT.md</a>
+    &mdash; <em>feedback pass for this instance (opened 2026-08-10) — KB &amp; typing, sources,
+    atlas, directory, UX. Also: <a href="https://github.com/refibcn/refi-bcn-knowledge/blob/main/README.md" style="font-size:.85rem;font-weight:600">README.md</a> for architecture.</em>
   </div>
 </section>
 
@@ -204,7 +203,7 @@ cat > dist/versions/index.html <<'HTML'
     <p class="v__links"><a href="https://bioregioning.earth">open site</a></p>
   </div>
   <div class="docs">
-    <span class="docs__k">Docs &amp; feedback</span>
+    <span class="docs__k">📝 Docs &amp; feedback</span>
     <a href="https://github.com/giulioquarta/bioregioning-earth-ui/blob/main/README.md">README.md</a>
     &mdash; <em>repo still in a personal namespace, org transfer pending.</em>
     <span class="gap">⚠ No feedback doc yet.</span>
@@ -236,7 +235,7 @@ cat > dist/versions/index.html <<'HTML'
   </div>
 
   <div class="docs">
-    <span class="docs__k">Docs &amp; feedback</span>
+    <span class="docs__k">📝 Docs &amp; feedback</span>
     <a href="https://github.com/refibcn/refi-bcn-os/blob/main/projects/branding/DESIGN.md">DESIGN.md</a>
     &middot;
     <a href="https://github.com/refibcn/refi-bcn-os/blob/main/projects/branding/DESIGN.canvas">DESIGN.canvas</a>
