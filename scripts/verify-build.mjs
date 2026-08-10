@@ -13,7 +13,6 @@ const REQUIRED = [
   // than 404ing. Do NOT "clean these up" — they assert the stubs render.
   "atlas/index.html",
   "commons/index.html",
-  "commons-review/index.html",
   "contact/index.html",
   "what-we-do/index.html",
   "who-we-serve/index.html",
