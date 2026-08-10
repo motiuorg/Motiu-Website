@@ -72,24 +72,112 @@ PY
   git worktree remove --force "$wt"
 done
 
-echo "==> versions index"
+echo "==> versions index (development instances hub)"
 cat > dist/versions/index.html <<'HTML'
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex"><title>motiu · design iterations</title>
+<meta name="robots" content="noindex"><title>motiu · development instances</title>
 <style>
-  body{font-family:ui-sans-serif,system-ui,sans-serif;max-width:44rem;margin:8vh auto;padding:0 1.5rem;color:#221a12;background:#fffffd;line-height:1.55}
-  h1{font-size:1.5rem}li{margin:.7rem 0}a{color:#D12B00}small{color:#6b6660;display:block}
+  :root{--umber:#221a12;--paper:#fffffd;--bone:#faf8f4;--rule:#6b6660;--terracotta:#D12B00;--line:#e6e1d9}
+  *{box-sizing:border-box}
+  body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;max-width:52rem;margin:0 auto;padding:6vh 1.5rem 10vh;color:var(--umber);background:var(--paper);line-height:1.55}
+  header{border-bottom:1px solid var(--line);padding-bottom:1.3rem;margin-bottom:.5rem}
+  h1{font-size:1.6rem;margin:0 0 .45rem;letter-spacing:-.012em}
+  .sub{color:var(--rule);margin:0;font-size:.95rem}
+  h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--rule);margin:2.4rem 0 .3rem;font-weight:500}
+  .h2note{color:var(--rule);font-size:.85rem;margin:0 0 .9rem}
+  .card{border:1px solid var(--line);background:var(--bone);padding:.9rem 1.1rem;margin:.55rem 0;border-radius:.4rem}
+  .card a.t{color:var(--terracotta);font-weight:600;text-decoration:none;font-size:1.02rem}
+  .card a.t:hover{text-decoration:underline}
+  .card p{margin:.28rem 0 0;color:var(--rule);font-size:.88rem}
+  .also{margin:.45rem 0 0;font-size:.82rem;color:var(--rule)}
+  .also a{color:var(--umber);text-decoration:none;border-bottom:1px solid var(--line)}
+  .also a:hover{border-bottom-color:var(--umber)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.84em;background:#fff;border:1px solid var(--line);padding:.03rem .3rem;border-radius:.2rem}
+  .note{border-left:3px solid var(--terracotta);padding:.15rem 0 .15rem 1rem;margin:1.6rem 0 0;color:var(--rule);font-size:.9rem}
+  .note strong{color:var(--umber)}
+  footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);color:var(--rule);font-size:.82rem}
+  footer a{color:var(--rule)}
 </style></head><body>
-<h1>Design iterations — compare &amp; pick</h1>
-<p>Frozen snapshots for the feedback pass. Walk each, then file section-level
-notes in <a href="https://github.com/refibcn/refibcn.github.io/blob/main/docs/DEVELOPMENT.md">DEVELOPMENT.md</a>
-saying <em>what to keep from which</em>.</p>
-<ul>
-  <li><a href="/">current — merged v2.1</a><small>Andrea's brand v2 + Motiu rename + org-os (live site, tag <code>iteration/v2.1-aug17</code>)</small></li>
-  <li><a href="/versions/andrea-v2/">andrea-v2</a><small>Andrea's pure push: 15-page /lab, Voronoi hero, 08-07 palette+type relock (tag <code>iteration/andrea-v2</code>)</small></li>
-  <li><a href="/versions/luiz-i4/">luiz-i4</a><small>Luiz's iteration 4: editorial deepening, Averia headings, red primary, aurora fields (tag <code>iteration/luiz-4</code>)</small></li>
-</ul>
+
+<header>
+  <h1>Development instances</h1>
+  <p class="sub">Every surface we build, in one place — live instances, the design system and its
+  tools, and frozen snapshots of earlier iterations. Internal; not linked from the public site.</p>
+</header>
+
+<h2>Live instances</h2>
+<p class="h2note">The three-instance model (<code>BD-2026-046</code>) — separate surfaces, one brand.</p>
+<div class="card">
+  <a class="t" href="/">motiu — the co-op website</a>
+  <p>This site. Brand v2 + Motiu naming + org-os as a listed project. The Aug 17 landing.</p>
+</div>
+<div class="card">
+  <a class="t" href="https://knowledge.refibcn.cat/">Knowledge instance</a>
+  <p>Regenerant Catalunya: the KB engine, source containers, atlas, and the CRM directory.
+  <code>/commons</code> and <code>/atlas</code> here now redirect there.</p>
+  <p class="also">Also: <a href="https://knowledge.refibcn.cat/review">review lens</a> (password-gated)</p>
+</div>
+<div class="card">
+  <a class="t" href="https://bioregioning.earth">Bioregioning Earth</a>
+  <p>The third instance — Andrea's stewarded bioregional surface. Separate property, shared direction.</p>
+</div>
+
+<h2>Design system &amp; tools</h2>
+<p class="h2note">Built from the current <code>main</code>, so these track whatever is live at the root.</p>
+<div class="card">
+  <a class="t" href="/lab/">/lab/ — the design system</a>
+  <p>The brand book: tokens, atoms, molecules, organisms, documented against what is actually
+  wired into the build. Atomic-design structure (<code>BD-2026-041</code>); each page flags what
+  is unused, incomplete, or missing.</p>
+  <p class="also">Jump to:
+    <a href="/lab/colors/">colors</a> ·
+    <a href="/lab/typography/">typography</a> ·
+    <a href="/lab/motifs/">motifs</a> ·
+    <a href="/lab/sections/">sections</a> ·
+    <a href="/lab/maps/">maps</a></p>
+</div>
+<div class="card">
+  <a class="t" href="/lab-tools/">/lab-tools/ — raw experiment surfaces</a>
+  <p>Pre-Astro standalone tools, kept because they do things the documented lab does not:
+  live editors and side-by-side comparators.</p>
+  <p class="also">
+    <a href="/lab-tools/hero-lab.html">hero lab — Voronoi editor</a> ·
+    <a href="/lab-tools/colors-compare.html">colors compare</a> ·
+    <a href="/lab-tools/fonts-compare.html">fonts compare</a> ·
+    <a href="/lab-tools/motifs-explore.html">motifs explore</a> ·
+    <a href="/lab-tools/styles.html">styles</a></p>
+</div>
+
+<h2>Frozen iterations — compare &amp; pick</h2>
+<p class="h2note">Rebuilt from git tags on every deploy. Historically faithful, so they still read
+&ldquo;ReFi BCN&rdquo; — that is the point.</p>
+<div class="card">
+  <a class="t" href="/versions/andrea-v2/">andrea-v2</a>
+  <p>Andrea's pure push, 2026-08-07 — 15-page lab, live Voronoi hero, the palette + type relock.
+  Before the Motiu rename and the org-os entry. Tag <code>iteration/andrea-v2</code>.</p>
+  <p class="also">Its design system: <a href="/versions/andrea-v2/lab/">/versions/andrea-v2/lab/</a></p>
+</div>
+<div class="card">
+  <a class="t" href="/versions/luiz-i4/">luiz-i4</a>
+  <p>Luiz's iteration 4 — editorial deepening: Averia headings, red primary, aurora pillar fields,
+  tissue backgrounds. What was live until 2026-08-09. Tag <code>iteration/luiz-4</code>.</p>
+  <p class="also">Its design system: <a href="/versions/luiz-i4/lab/">/versions/luiz-i4/lab/</a></p>
+</div>
+
+<div class="note">
+  <strong>Filing feedback:</strong> walk the current site, then the two snapshots, and say
+  <em>what to keep from which</em> — in
+  <a href="https://github.com/refibcn/refibcn.github.io/blob/main/docs/DEVELOPMENT.md">DEVELOPMENT.md</a>.
+  Live comparisons worth making: Averia vs Geist headings · red vs terracotta primary ·
+  aurora fields vs photo-with-hover · compact editorial pillars vs full pillar rows.
+</div>
+
+<footer>
+  Regenerated on every deploy by <code>scripts/deploy-with-versions.sh</code> — deploy only via
+  that script, a bare <code>dist</code> push wipes the snapshots. Add an iteration: tag it, then
+  add one line to <code>VERSIONS</code>.
+</footer>
 </body></html>
 HTML
 

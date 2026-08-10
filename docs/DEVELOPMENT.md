@@ -7,7 +7,7 @@
 ---
 
 > **📣 FEEDBACK PASS OPEN — week of 2026-08-10** (`BD-2026-048`, deferred from 260730; the Astro consolidation it was gated on has landed). Walk the live site section by section and file your requests below.
-> **Compare iterations at https://refibcn.github.io/versions/** — frozen snapshots of **luiz-i4** (editorial build, live until 08-09) and **andrea-v2** (her pure brand push) alongside the merged current. When filing feedback, say **what to keep from which** — that's the point of the snapshots. (Rebuilt on every deploy by `scripts/deploy-with-versions.sh` — deploy only via that script, a bare dist push wipes them. Source states are git tags `iteration/*`.)
+> **🧭 Development hub: https://refibcn.github.io/versions/** — every surface we build, in one place: the three **live instances** (this site · knowledge.refibcn.cat · bioregioning.earth), the **design system** (`/lab/`) and **raw tools** (`/lab-tools/` — Voronoi editor, colour/font comparators), and **frozen iteration snapshots** — **luiz-i4** (editorial build, live until 08-09) and **andrea-v2** (her pure brand push), each with its own `/lab/` for direct design-system comparison. When filing feedback, say **what to keep from which**. (Snapshots rebuild from git tags `iteration/*` on every deploy via `scripts/deploy-with-versions.sh` — deploy only via that script, a bare dist push wipes them.)
 > **Context for prioritising:** the **landing page ships by 2026-08-17** (`BD-2026-062`, the Fito deadline). Landing-relevant asks filed by **~Wed 08-13** can make that cut; everything else is batched into iteration 5 — filed, not lost. The Aug 17 date wins over any individual request.
 
 ## How to Contribute
