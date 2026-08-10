@@ -7,7 +7,7 @@
 // Never deploys anything. brand/ is outside src/ and public/, so nothing here
 // reaches the built site.
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
-import { join, basename } from "node:path";
+import { join, basename, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { computeCellPaths } from "../src/lib/voronoi-core.mjs";
 import { loadTokens, getPalettes } from "./lib/brand-tokens.mjs";
@@ -86,10 +86,11 @@ async function main() {
     JSON.parse(readFileSync(presetPath, "utf8")),
     palettes,
   );
-  const outDir = get("--out") ?? "brand/renders/_scratch";
+  const outDirArg = get("--out") ?? "brand/renders/_scratch";
+  const outDir = isAbsolute(outDirArg) ? outDirArg : join(process.cwd(), outDirArg);
   mkdirSync(outDir, { recursive: true });
   const svg = renderSvg(preset, palettes);
-  const svgPath = join(process.cwd(), outDir, basename(presetPath, ".json") + ".svg");
+  const svgPath = join(outDir, basename(presetPath, ".json") + ".svg");
   writeFileSync(svgPath, svg);
   const cellCount = (svg.match(/<path /g) || []).length;
   console.log(`svg: ${svgPath} (${cellCount} cells, ${preset.format}, ${preset.palette})`);

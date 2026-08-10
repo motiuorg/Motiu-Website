@@ -25,7 +25,7 @@ test("valid preset normalizes with defaults", () => {
   assert.equal(p.stroke, 4);
   assert.equal(p.cornerRadius, 25);
   assert.equal(p.fill, "none");
-  assert.equal(p.padRatio, 0.28);
+  assert.equal(p.padRatio, 0.05);
   assert.deepEqual(p.transform, {
     scale: 1,
     stretchX: 1,

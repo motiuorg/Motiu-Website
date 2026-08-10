@@ -118,7 +118,11 @@ export function validatePreset(raw, palettes) {
     cornerRadius: raw.cornerRadius ?? 25,
     fill: raw.fill ?? "none",
     fillOpacity: raw.fillOpacity ?? 0.12,
-    padRatio: raw.padRatio ?? 0.28,
+    // Default 0.05: standalone assets should fill the frame. The old 0.28
+    // default was inherited from the live hero, where scattering sites over
+    // ~2.4x the canvas area gives a sparse, zoomed-in field behind text —
+    // correct there, wrong here. Request ~0.28 explicitly for that look.
+    padRatio: raw.padRatio ?? 0.05,
     notes: raw.notes ?? "",
   };
 }

@@ -6,5 +6,6 @@
   "fill": "ramp",
   "fillOpacity": 0.14,
   "cornerRadius": 40,
+  "padRatio": 0.28,
   "notes": "territorial cells — land register, no letterform"
 }
