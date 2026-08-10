@@ -1,4 +1,4 @@
-// src/lib/voronoi-core.d.ts
+// src/lib/voronoi-core.d.mts
 export type Point = [number, number];
 export interface Transform {
   scale: number; stretchX: number; stretchY: number;
@@ -13,5 +13,5 @@ export interface CellOpts {
 }
 export function transformPoint(p: Point, t: Transform, center: Point): Point;
 export function roundPolygonPath(points: Point[], radius: number): string;
-export function computeCellPolygons(opts: CellOpts): Point[][];
-export function computeCellPaths(opts: CellOpts): string[];
+export function computeCellPolygons(opts: CellOpts): Array<Point[] | null>;
+export function computeCellPaths(opts: CellOpts): Array<string | null>;

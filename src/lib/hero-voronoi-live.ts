@@ -281,6 +281,7 @@ export function initHeroVoronoiLive(): void {
     });
     const frag = document.createDocumentFragment();
     for (const poly of polys) {
+      if (!poly) continue;
       const pathEl = document.createElementNS(SVG_NS, "path");
       pathEl.setAttribute("d", roundPolygonPath(poly, CORNER_RADIUS));
       // Set presentation attributes directly rather than relying on the

@@ -49,7 +49,11 @@ export function roundPolygonPath(points, radius) {
 }
 
 /** sites (+ optional transform) → Voronoi cell polygon rings, clipped to the
- * padded viewBox (pad pushes clip edges off-screen, as the live hero does). */
+ * padded viewBox (pad pushes clip edges off-screen, as the live hero does).
+ * The returned array is aligned 1:1 with `sites` — d3 returns `null` for an
+ * empty cell (e.g. a duplicate site), and that `null` is passed straight
+ * through at the same index rather than compacted away, so callers that key
+ * off array position (e.g. renderSvg's per-index ramp fill) stay correct. */
 export function computeCellPolygons({ sites, transform, viewBox, pad }) {
   const center = [viewBox.w / 2, viewBox.h / 2];
   const effective = transform
@@ -61,16 +65,17 @@ export function computeCellPolygons({ sites, transform, viewBox, pad }) {
   ]);
   const polys = [];
   for (let i = 0; i < effective.length; i++) {
-    const poly = voronoi.cellPolygon(i);
-    if (poly) polys.push(poly);
+    polys.push(voronoi.cellPolygon(i));
   }
   return polys;
 }
 
-/** sites → rounded-corner SVG path strings, one per cell. */
+/** sites → rounded-corner SVG path strings, one per cell, aligned 1:1 with
+ * sites. A `null` polygon (empty/degenerate cell) maps straight through as
+ * `null` rather than being run through roundPolygonPath. */
 export function computeCellPaths(opts) {
   const { cornerRadius = 25 } = opts;
   return computeCellPolygons(opts).map((poly) =>
-    roundPolygonPath(poly, cornerRadius),
+    poly ? roundPolygonPath(poly, cornerRadius) : null,
   );
 }

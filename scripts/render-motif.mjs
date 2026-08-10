@@ -27,12 +27,17 @@ export function renderSvg(preset, palettes) {
   });
   const cells = paths
     .map((d, i) => {
+      // Keep the ramp indexed by site index (i) even though degenerate
+      // (null) cells are dropped from the joined output — otherwise a
+      // dropped cell would shift the ramp fill of every cell after it.
+      if (d === null) return null;
       const fill =
         preset.fill === "ramp"
           ? `fill="${pal.ramp[i % pal.ramp.length]}" fill-opacity="${preset.fillOpacity}"`
           : `fill="none"`;
       return `  <path d="${d}" ${fill} stroke="${pal.stroke}" stroke-width="${preset.stroke}" stroke-linejoin="round" stroke-linecap="round"/>`;
     })
+    .filter((s) => s !== null)
     .join("\n");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
   <rect width="${w}" height="${h}" fill="${pal.bg}"/>
