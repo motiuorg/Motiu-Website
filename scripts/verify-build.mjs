@@ -7,9 +7,12 @@ const DIST = "dist";
 const REQUIRED = [
   "index.html",
   "about/index.html",
+  // These three are now redirect stubs pointing at knowledge.refibcn.cat
+  // (BD-2026-060 / convergence 2026-08-10). Keep them in the REQUIRED list:
+  // the routes must keep emitting, so the old URLs stay redirected rather
+  // than 404ing. Do NOT "clean these up" — they assert the stubs render.
   "atlas/index.html",
   "commons/index.html",
-  "commons-review/index.html",
   "contact/index.html",
   "what-we-do/index.html",
   "who-we-serve/index.html",

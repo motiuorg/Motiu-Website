@@ -18,13 +18,15 @@ const { current = "home", section, dataset } = Astro.props;
 const loc = Astro.currentLocale ?? "en";
 const L = (href: string) => (loc === "en" ? href : `/${loc}${href}`);
 // Topbar IA (260723): About · Projects · Services · Knowledge · Contact.
-// "Services" = /what-we-do, "Knowledge" = /commons (Atlas folded in there).
-// who-we-serve stays reachable (linked from Services), just off the topbar.
-const items = [
+// "Services" = /what-we-do. who-we-serve stays reachable (linked from
+// Services), just off the topbar.
+// Knowledge now points at the knowledge instance (BD-2026-060 / convergence
+// 2026-08-10) — external, so no locale prefix and no L() wrapper.
+const items: { id: string; label: string; href: string; external?: boolean }[] = [
   { id: "about", label: "About", href: "/about/" },
   { id: "projects", label: "Projects", href: "/projects/" },
   { id: "what-we-do", label: "Services", href: "/what-we-do/" },
-  { id: "commons", label: "Knowledge", href: "/commons/" },
+  { id: "commons", label: "Knowledge", href: "https://knowledge.refibcn.cat/", external: true },
 ];
 ---
 <header class="site-nav">
@@ -36,7 +38,7 @@ const items = [
   <nav aria-label="Primary">
     <ul>
       {items.map((it) => (
-        <li><a href={L(it.href)} class:list={[{ active: current === it.id }]}>{it.label}</a></li>
+        <li><a href={it.external ? it.href : L(it.href)} class:list={[{ active: current === it.id }]}>{it.label}</a></li>
       ))}
       <li><a href={L("/contact/")} class:list={["nav-cta", { active: current === "contact" }]}>Contact</a></li>
       <li><LangSwitch /></li>
