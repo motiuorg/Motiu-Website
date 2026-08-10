@@ -47,7 +47,7 @@ const BASE_SITES: Point[] = [
 ];
 
 function getEffectiveSites(): Point[] {
-  return BASE_SITES.map((p) => transformPoint(p, TRANSFORM, CENTER) as Point);
+  return BASE_SITES.map((p) => transformPoint(p, TRANSFORM, CENTER));
 }
 
 function polygonBBox(points: Point[]) {
