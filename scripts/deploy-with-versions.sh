@@ -89,12 +89,10 @@ cat > dist/versions/index.html <<'HTML'
   *{box-sizing:border-box}
   body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;max-width:54rem;margin:0 auto;padding:5vh 1.5rem 10vh;color:var(--umber);background:var(--paper);line-height:1.55}
   a{color:var(--terracotta)}
-  header{border-bottom:1px solid var(--line);padding-bottom:1.3rem;margin-bottom:2.2rem}
+  header{border-bottom:1px solid var(--line);padding-bottom:1.2rem;margin-bottom:2.4rem}
   h1{font-size:1.6rem;margin:0 0 .45rem;letter-spacing:-.012em}
-  .sub{color:var(--rule);margin:0 0 .9rem;font-size:.95rem}
-  .fb{display:inline-block;border:1px solid var(--terracotta);border-radius:.35rem;padding:.4rem .8rem;font-size:.87rem;font-weight:600;text-decoration:none}
-  .fb:hover{background:var(--terracotta);color:var(--paper)}
-  .inst{margin:0 0 2.6rem}
+  .sub{color:var(--rule);margin:0;font-size:.95rem}
+  .inst{margin:0 0 2.8rem}
   .inst__line{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap;border-bottom:2px solid var(--umber);padding-bottom:.4rem}
   .inst__line h2{font-size:1.15rem;margin:0;letter-spacing:-.01em}
   .inst__host{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;color:var(--rule);margin-left:auto}
@@ -112,25 +110,21 @@ cat > dist/versions/index.html <<'HTML'
   .v__links{margin:0;font-size:.85rem}
   .v__links a{text-decoration:none;border-bottom:1px solid var(--line)}
   .v__links a:hover{border-bottom-color:var(--terracotta)}
-  h2.std{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--rule);margin:2.8rem 0 .3rem;font-weight:500}
-  .h2note{color:var(--rule);font-size:.85rem;margin:0 0 .9rem}
-  .card{border:1px solid var(--line);background:var(--bone);padding:.9rem 1.1rem;margin:.55rem 0;border-radius:.4rem}
-  .card a.t{font-weight:600;text-decoration:none;font-size:1rem}
-  .card a.t:hover{text-decoration:underline}
-  .card p{margin:.28rem 0 0;color:var(--rule);font-size:.87rem}
-  .also{margin:.45rem 0 0;font-size:.82rem}
-  .also a{color:var(--umber);text-decoration:none;border-bottom:1px solid var(--line)}
-  .also a:hover{border-bottom-color:var(--umber)}
+  .docs{margin:1.1rem 0 0;padding:.7rem .9rem;background:var(--bone);border:1px solid var(--line);border-radius:.35rem;font-size:.85rem}
+  .docs__k{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--rule);display:block;margin-bottom:.2rem}
+  .docs a{font-weight:600;text-decoration:none}
+  .docs a:hover{text-decoration:underline}
+  .docs em{color:var(--rule);font-style:normal}
+  .gap{color:var(--rule)}
   code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82em;background:#fff;border:1px solid var(--line);padding:.03rem .3rem;border-radius:.2rem;color:var(--rule)}
-  .note{border-left:3px solid var(--terracotta);padding:.15rem 0 .15rem 1rem;margin:1.4rem 0 0;color:var(--rule);font-size:.88rem}
+  .note{border-left:3px solid var(--terracotta);padding:.15rem 0 .15rem 1rem;margin:1.2rem 0 0;color:var(--rule);font-size:.88rem}
   .note strong{color:var(--umber)}
   footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--line);color:var(--rule);font-size:.82rem}
 </style></head><body>
 
 <header>
   <h1>Development instances</h1>
-  <p class="sub">Every surface we run, with its versions. Internal — not linked from the public site.</p>
-  <a class="fb" href="https://github.com/refibcn/refibcn.github.io/blob/main/docs/DEVELOPMENT.md">File feedback &rarr; DEVELOPMENT.md</a>
+  <p class="sub">Every surface we run, with its versions and its docs. Internal — not linked from the public site.</p>
 </header>
 
 <section class="inst">
@@ -163,11 +157,16 @@ cat > dist/versions/index.html <<'HTML'
     <p class="v__links"><a href="/versions/luiz-i4/">open site</a> &middot; <a href="/versions/luiz-i4/lab/">design system</a> &middot; <code>iteration/luiz-4</code></p>
   </div>
 
+  <div class="docs">
+    <span class="docs__k">Docs &amp; feedback</span>
+    <a href="https://github.com/refibcn/refibcn.github.io/blob/main/docs/DEVELOPMENT.md">DEVELOPMENT.md</a>
+    &mdash; <em>feedback pass, decisions log, open questions. File section-level notes here.</em>
+  </div>
+
   <div class="note">
     <strong>What to compare:</strong> Averia vs Geist headings &middot; red vs terracotta primary
     &middot; aurora fields vs photo-with-hover &middot; compact editorial pillars vs full pillar
-    rows. File it as <em>keep X from version Y</em> in
-    <a href="https://github.com/refibcn/refibcn.github.io/blob/main/docs/DEVELOPMENT.md">DEVELOPMENT.md</a>.
+    rows. File it as <em>keep X from version Y</em>.
   </div>
 </section>
 
@@ -184,6 +183,13 @@ cat > dist/versions/index.html <<'HTML'
     0 unattributed.</p>
     <p class="v__links"><a href="https://knowledge.refibcn.cat/">open site</a> &middot; <a href="https://knowledge.refibcn.cat/review">review lens</a> (password-gated)</p>
   </div>
+  <div class="docs">
+    <span class="docs__k">Docs &amp; feedback</span>
+    <a href="https://github.com/refibcn/refi-bcn-knowledge/blob/main/README.md">README.md</a>
+    &mdash; <em>architecture and setup.</em>
+    <span class="gap">⚠ No feedback doc yet — this instance has no DEVELOPMENT.md equivalent.
+    Send notes to the group until one exists.</span>
+  </div>
 </section>
 
 <section class="inst">
@@ -197,23 +203,48 @@ cat > dist/versions/index.html <<'HTML'
     <div class="v__head"><span class="v__name">current</span><span class="tag tag--live">live</span></div>
     <p class="v__links"><a href="https://bioregioning.earth">open site</a></p>
   </div>
+  <div class="docs">
+    <span class="docs__k">Docs &amp; feedback</span>
+    <a href="https://github.com/giulioquarta/bioregioning-earth-ui/blob/main/README.md">README.md</a>
+    &mdash; <em>repo still in a personal namespace, org transfer pending.</em>
+    <span class="gap">⚠ No feedback doc yet.</span>
+  </div>
 </section>
 
-<h2 class="std">Design system &amp; tools</h2>
-<p class="h2note">Built from the current <code>main</code>, so these track v2.1. Each frozen
-version above carries its own copy — that is how the design systems compare directly.</p>
-<div class="card">
-  <a class="t" href="/lab/">/lab/ — the design system</a>
-  <p>Tokens, atoms, molecules, organisms, documented against what is actually wired into the
-  build (<code>BD-2026-041</code>). Each page flags what is unused, incomplete, or missing.</p>
-  <p class="also">Jump to: <a href="/lab/colors/">colors</a> &middot; <a href="/lab/typography/">typography</a> &middot; <a href="/lab/motifs/">motifs</a> &middot; <a href="/lab/sections/">sections</a> &middot; <a href="/lab/maps/">maps</a></p>
-</div>
-<div class="card">
-  <a class="t" href="/lab-tools/">/lab-tools/ — raw experiment surfaces</a>
-  <p>Pre-Astro standalone tools, kept because they do things the documented lab does not:
-  live editors and side-by-side comparators.</p>
-  <p class="also"><a href="/lab-tools/hero-lab.html">hero lab — Voronoi editor</a> &middot; <a href="/lab-tools/colors-compare.html">colors compare</a> &middot; <a href="/lab-tools/fonts-compare.html">fonts compare</a> &middot; <a href="/lab-tools/motifs-explore.html">motifs explore</a> &middot; <a href="/lab-tools/styles.html">styles</a></p>
-</div>
+<section class="inst">
+  <div class="inst__line">
+    <h2>Design system &amp; tools</h2>
+    <span class="inst__host"><a href="/lab/">refibcn.github.io/lab</a></span>
+  </div>
+  <p class="inst__note">Not a separate deploy — built from the current <code>main</code>, so it
+  tracks the live website version. Each frozen website version above carries its own copy, which
+  is how the design systems compare directly.</p>
+
+  <div class="v v--current">
+    <div class="v__head"><span class="v__num">v2.1</span><span class="v__name">documented</span><span class="tag tag--live">live</span><span class="v__date">2026-08-09</span></div>
+    <p class="v__body">Tokens, atoms, molecules, organisms across 15 pages on the atomic-design
+    structure (<code>BD-2026-041</code>), documented against what is actually wired into the
+    build. Each page flags what is unused, incomplete, or missing.</p>
+    <p class="v__links"><a href="/lab/">open lab</a> &middot; <a href="/lab/colors/">colors</a> &middot; <a href="/lab/typography/">typography</a> &middot; <a href="/lab/motifs/">motifs</a> &middot; <a href="/lab/sections/">sections</a> &middot; <a href="/lab/maps/">maps</a></p>
+  </div>
+
+  <div class="v v--current">
+    <div class="v__head"><span class="v__name">raw editors</span><span class="tag tag--live">live</span></div>
+    <p class="v__body">Pre-Astro standalone tools at <code>/lab-tools/</code>, kept because they do
+    things the documented lab does not: live editing and side-by-side comparison.</p>
+    <p class="v__links"><a href="/lab-tools/hero-lab.html">hero lab — Voronoi editor</a> &middot; <a href="/lab-tools/colors-compare.html">colors compare</a> &middot; <a href="/lab-tools/fonts-compare.html">fonts compare</a> &middot; <a href="/lab-tools/motifs-explore.html">motifs explore</a> &middot; <a href="/lab-tools/styles.html">styles</a></p>
+  </div>
+
+  <div class="docs">
+    <span class="docs__k">Docs &amp; feedback</span>
+    <a href="https://github.com/refibcn/refi-bcn-os/blob/main/projects/branding/DESIGN.md">DESIGN.md</a>
+    &middot;
+    <a href="https://github.com/refibcn/refi-bcn-os/blob/main/projects/branding/DESIGN.canvas">DESIGN.canvas</a>
+    &mdash; <em>the agent-legible brand book, in refi-bcn-os (private, team access).</em>
+    <span class="gap">⚠ Consolidation back into <code>DESIGN.md</code> is deliberately deferred
+    until the visual layer settles (<code>BD-2026-064</code>) — the lab above leads for now.</span>
+  </div>
+</section>
 
 <footer>
   Regenerated on every deploy by <code>scripts/deploy-with-versions.sh</code> — deploy only via
