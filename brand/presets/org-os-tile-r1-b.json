@@ -1,0 +1,8 @@
+{
+  "name": "org-os-tile-r1-b",
+  "format": "tile",
+  "palette": "terracotta-on-paper",
+  "field": { "seed": 12, "count": 10 },
+  "stroke": 5,
+  "notes": "primary-colour statement variant"
+}
