@@ -116,6 +116,11 @@ cat > dist/versions/index.html <<'HTML'
   .docs a:hover{text-decoration:underline}
   .docs em{color:var(--rule);font-style:normal;font-size:.85rem}
   .gap{display:block;margin-top:.35rem;color:#8a5a00;background:#fff7e0;border:1px solid #f0e2b0;border-radius:.25rem;padding:.25rem .5rem;font-size:.82rem}
+  .cmp{display:block;margin-top:.5rem;padding-top:.5rem;border-top:1px dashed #f0ddd2;font-size:.85rem;color:var(--rule)}
+  .cmp strong{color:var(--umber)}
+  .ho{display:block;margin-top:.5rem;padding-top:.5rem;border-top:1px dashed #f0ddd2;font-size:.85rem}
+  .ho a{font-size:.9rem}
+  .ho em{font-size:.8rem}
   code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82em;background:#fff;border:1px solid var(--line);padding:.03rem .3rem;border-radius:.2rem;color:var(--rule)}
   .note{border-left:3px solid var(--terracotta);padding:.15rem 0 .15rem 1rem;margin:1.2rem 0 0;color:var(--rule);font-size:.88rem}
   .note strong{color:var(--umber)}
@@ -161,12 +166,12 @@ cat > dist/versions/index.html <<'HTML'
     <span class="docs__k">📝 Docs &amp; feedback</span>
     <a href="https://github.com/refibcn/refibcn.github.io/blob/main/docs/DEVELOPMENT.md">DEVELOPMENT.md</a>
     &mdash; <em>feedback pass, decisions log, open questions. File section-level notes here.</em>
-  </div>
-
-  <div class="note">
-    <strong>What to compare:</strong> Averia vs Geist headings &middot; red vs terracotta primary
-    &middot; aurora fields vs photo-with-hover &middot; compact editorial pillars vs full pillar
-    rows. File it as <em>keep X from version Y</em>.
+    <span class="cmp"><strong>What to compare:</strong> Averia vs Geist headings &middot; red vs
+    terracotta primary &middot; aurora fields vs photo-with-hover &middot; compact editorial
+    pillars vs full pillar rows. File it as <em>keep X from version Y</em>.</span>
+    <span class="ho">▶ Continue this work:
+    <a href="https://github.com/refibcn/refi-bcn-os/blob/luizfernando/docs/temp/2026-08-10-instances-session-prompts.md">session prompt 1 — feedback batch → Aug 17 ship</a>
+    <em>(paste into a fresh refi-bcn-os session)</em></span>
   </div>
 </section>
 
@@ -188,6 +193,9 @@ cat > dist/versions/index.html <<'HTML'
     <a href="https://github.com/refibcn/refi-bcn-knowledge/blob/main/docs/DEVELOPMENT.md">DEVELOPMENT.md</a>
     &mdash; <em>feedback pass for this instance (opened 2026-08-10) — KB &amp; typing, sources,
     atlas, directory, UX. Also: <a href="https://github.com/refibcn/refi-bcn-knowledge/blob/main/README.md" style="font-size:.85rem;font-weight:600">README.md</a> for architecture.</em>
+    <span class="ho">▶ Continue this work:
+    <a href="https://github.com/refibcn/refi-bcn-os/blob/luizfernando/docs/temp/2026-08-10-instances-session-prompts.md">session prompt 2 — CRM rules pull → consolidated ingestion batch</a>
+    <em>(paste into a fresh refi-bcn-os session)</em></span>
   </div>
 </section>
 
@@ -207,6 +215,9 @@ cat > dist/versions/index.html <<'HTML'
     <a href="https://github.com/giulioquarta/bioregioning-earth-ui/blob/main/README.md">README.md</a>
     &mdash; <em>repo still in a personal namespace, org transfer pending.</em>
     <span class="gap">⚠ No feedback doc yet.</span>
+    <span class="ho">▶ Continue this work:
+    <a href="https://github.com/refibcn/refi-bcn-os/blob/luizfernando/docs/temp/2026-08-10-instances-session-prompts.md">session prompt 3 — key rotation → org transfer → feedback surface</a>
+    <em>(paste into a fresh refi-bcn-os session)</em></span>
   </div>
 </section>
 
@@ -242,6 +253,9 @@ cat > dist/versions/index.html <<'HTML'
     &mdash; <em>the agent-legible brand book, in refi-bcn-os (private, team access).</em>
     <span class="gap">⚠ Consolidation back into <code>DESIGN.md</code> is deliberately deferred
     until the visual layer settles (<code>BD-2026-064</code>) — the lab above leads for now.</span>
+    <span class="ho">▶ Continue this work:
+    <a href="https://github.com/refibcn/refi-bcn-os/blob/luizfernando/docs/temp/2026-08-10-instances-session-prompts.md">session prompt 4 — ratification propagation + Voronoi production line</a>
+    <em>(paste into a fresh refi-bcn-os session)</em></span>
   </div>
 </section>
 
