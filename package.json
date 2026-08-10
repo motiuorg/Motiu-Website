@@ -20,15 +20,16 @@
     "maplibre-gl": "^5.24.0"
   },
   "devDependencies": {
-    "staticrypt": "^3.5.0",
     "@fontsource-variable/fraunces": "^5.0.0",
-    "@fontsource-variable/inter": "^5.0.0",
-    "@fontsource/ibm-plex-mono": "^5.0.0",
     "@fontsource-variable/geist": "^5.0.0",
     "@fontsource-variable/geist-mono": "^5.0.0",
+    "@fontsource-variable/inter": "^5.0.0",
     "@fontsource/averia-serif-libre": "^5.0.0",
-    "js-yaml": "^4.1.1",
+    "@fontsource/ibm-plex-mono": "^5.0.0",
+    "@types/d3": "^7.4.3",
     "@types/js-yaml": "^4.0.9",
-    "@types/d3": "^7.4.3"
+    "js-yaml": "^4.1.1",
+    "puppeteer-core": "^25.5.0",
+    "staticrypt": "^3.5.0"
   }
 }
