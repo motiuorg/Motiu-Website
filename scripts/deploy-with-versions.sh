@@ -190,4 +190,42 @@ git add -A
 git -c user.name="refibcn-deploy" -c user.email="hello@refibcn.cat" commit -q -m "deploy: $(cd "$REPO_ROOT" && git log -1 --format='%h %s') + version snapshots"
 git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 push -f https://github.com/refibcn/refibcn.github.io.git gh-pages:gh-pages
 cd "$REPO_ROOT" && rm -rf dist/.git
+
+# ---------------------------------------------------------------------------
+# Wait for the Pages build and RETRY ON ERROR.
+#
+# 2026-08-10: a deploy errored with a bare "Page build failed." (duration 0ms),
+# then the identical tree built fine in 59s on the next attempt. Not size — the
+# previous ~121MB deploy with the same /versions/ payload built in 33s. It is a
+# transient GitHub-side failure, and it is invisible unless you poll: the API
+# reports `building` for minutes before flipping to `errored`, and the old site
+# keeps serving 200 the whole time. Never verify a deploy with a root 200.
+# ---------------------------------------------------------------------------
+REPO_SLUG="refibcn/refibcn.github.io"
+if command -v gh >/dev/null 2>&1; then
+  for attempt in 1 2 3; do
+    echo "==> waiting for Pages build (attempt $attempt)"
+    status="building"
+    for _ in $(seq 1 40); do
+      sleep 15
+      status=$(gh api "repos/$REPO_SLUG/pages/builds/latest" --jq '.status' 2>/dev/null || echo building)
+      [ "$status" != "building" ] && break
+    done
+    if [ "$status" = "built" ]; then
+      echo "==> Pages build OK"
+      break
+    fi
+    echo "!! Pages build status=$status — re-pushing to trigger a fresh build"
+    [ "$attempt" = 3 ] && { echo "!! gave up after 3 attempts"; exit 1; }
+    (cd dist && rm -rf .git && git init -q -b gh-pages && git add -A \
+      && git -c user.name="refibcn-deploy" -c user.email="hello@refibcn.cat" \
+           commit -q -m "deploy: retry $attempt after failed Pages build" \
+      && git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 \
+           push -f "https://github.com/$REPO_SLUG.git" gh-pages:gh-pages >/dev/null 2>&1)
+    rm -rf dist/.git
+  done
+else
+  echo "!! gh CLI not found — CHECK THE BUILD MANUALLY, a silent 'errored' looks identical to success"
+fi
+
 echo "==> done — verify with a NEW hashed asset, never a root 200"
