@@ -11,7 +11,11 @@
 // containment session) — flat cells only, no nested subcells yet. Baseline
 // geometry (sites/transform/corner radius) matches hero-default-preset.mjs
 // there, which is also what the static fallback markup below is baked from.
-import { Delaunay } from "d3";
+import {
+  computeCellPolygons,
+  transformPoint,
+  roundPolygonPath,
+} from "./voronoi-core.mjs";
 
 type Point = [number, number];
 
@@ -42,29 +46,8 @@ const BASE_SITES: Point[] = [
   [1577.6, 922.52],
 ];
 
-function transformPoint([x, y]: Point): Point {
-  const dx = (x - CENTER[0]) * TRANSFORM.scale * TRANSFORM.stretchX;
-  const dy = (y - CENTER[1]) * TRANSFORM.scale * TRANSFORM.stretchY;
-  const rad = (TRANSFORM.rotation * Math.PI) / 180;
-  const cos = Math.cos(rad);
-  const sin = Math.sin(rad);
-  return [
-    CENTER[0] + dx * cos - dy * sin + TRANSFORM.offsetX,
-    CENTER[1] + dx * sin + dy * cos + TRANSFORM.offsetY,
-  ];
-}
-
 function getEffectiveSites(): Point[] {
-  return BASE_SITES.map(transformPoint);
-}
-
-function getParentVoronoiBounds(): [number, number, number, number] {
-  return [
-    -VORONOI_PAD.x,
-    -VORONOI_PAD.y,
-    VB.w + VORONOI_PAD.x,
-    VB.h + VORONOI_PAD.y,
-  ];
+  return BASE_SITES.map((p) => transformPoint(p, TRANSFORM, CENTER));
 }
 
 function polygonBBox(points: Point[]) {
@@ -79,33 +62,6 @@ function polygonBBox(points: Point[]) {
     maxY = Math.max(maxY, y);
   }
   return { minX, minY, maxX, maxY, w: maxX - minX, h: maxY - minY };
-}
-
-function roundPolygonPath(points: Point[], radius: number): string {
-  const n = points.length;
-  if (n < 3 || radius <= 0) {
-    return "M" + points.map((p) => p[0] + "," + p[1]).join(" L") + " Z";
-  }
-  let d = "";
-  for (let i = 0; i < n; i++) {
-    const prev = points[(i - 1 + n) % n];
-    const curr = points[i];
-    const next = points[(i + 1) % n];
-    const v1x = curr[0] - prev[0];
-    const v1y = curr[1] - prev[1];
-    const v2x = next[0] - curr[0];
-    const v2y = next[1] - curr[1];
-    const len1 = Math.hypot(v1x, v1y) || 1;
-    const len2 = Math.hypot(v2x, v2y) || 1;
-    const r = Math.min(radius, len1 * 0.45, len2 * 0.45);
-    const p1x = curr[0] - (v1x / len1) * r;
-    const p1y = curr[1] - (v1y / len1) * r;
-    const p2x = curr[0] + (v2x / len2) * r;
-    const p2y = curr[1] + (v2y / len2) * r;
-    d += (i === 0 ? "M" : " L") + p1x + "," + p1y;
-    d += " Q" + curr[0] + "," + curr[1] + " " + p2x + "," + p2y;
-  }
-  return d + " Z";
 }
 
 // --- Content protection ----------------------------------------------------
@@ -317,11 +273,14 @@ export function initHeroVoronoiLive(): void {
       ? applyContentProtection(effectiveSites, regions)
       : effectiveSites;
 
-    const delaunay = Delaunay.from(renderSites);
-    const voronoi = delaunay.voronoi(getParentVoronoiBounds());
+    const polys = computeCellPolygons({
+      sites: renderSites,
+      transform: null, // sites are already effective + protection-adjusted
+      viewBox: VB,
+      pad: VORONOI_PAD,
+    });
     const frag = document.createDocumentFragment();
-    for (let i = 0; i < renderSites.length; i++) {
-      const poly = voronoi.cellPolygon(i) as Point[] | null;
+    for (const poly of polys) {
       if (!poly) continue;
       const pathEl = document.createElementNS(SVG_NS, "path");
       pathEl.setAttribute("d", roundPolygonPath(poly, CORNER_RADIUS));
