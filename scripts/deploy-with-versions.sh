@@ -13,6 +13,13 @@
 # Requires: KB_DIR pointing at the org-os data/kb/ store (older iterations'
 # kb.mjs has no missing-dir fallback and their build fails without it).
 #
+# DO NOT DELETE THE KB_DIR GUARD (convergence 2026-08-10 / BD-2026-060). The
+# CURRENT site no longer needs it — its KB engine was removed and /commons,
+# /atlas, /commons-review are now redirect stubs to knowledge.refibcn.cat. But
+# each snapshot below builds in a worktree checked out at its own tag, and those
+# tags still carry their own src/lib/kb.mjs + commons.astro. Drop KB_DIR and
+# every snapshot build fails, which fails the whole deploy.
+#
 # Add/remove snapshots by editing VERSIONS ("url-name:git-ref").
 set -euo pipefail
 
