@@ -19,6 +19,7 @@ groups:
   - label: Molecules
     items:
       - { slug: cards, label: "Cards" }
+      - { slug: divider-lists, label: "Divider lists" }
       - { slug: stats, label: "Stats" }
   - label: Organisms
     items:
