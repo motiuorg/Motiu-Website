@@ -19,6 +19,25 @@ import LabShell from "../../components/lab/LabShell.astro";
 
   <div class="lab-section">
     <span class="lab-status lab-status--gap">doesn't exist — sketch only</span>
+    <h2>Segmented view toggle</h2>
+    <p>A two-or-more-way view switch (e.g. map/gallery) — square, umber-bordered, filled solid <code>--umber</code>
+      when a segment is active. This is the same square/flat direction <code>.btn</code> already uses, applied to a
+      button *group* instead of a single button — no rounded corners anywhere, matching the BIS direction.
+      Closest existing precedent in this codebase is <code>CatalunyaProgramMap.astro</code>'s province filter chips
+      (<code>.prov-chip</code>), which already do square + umber-on-active; this section documents that same
+      treatment as a reusable, named pattern instead of a one-off. It's also the pattern
+      <a href="https://github.com/refibcn/bioregioning-earth-ui" target="_blank" rel="noopener noreferrer">bioregioning-earth-ui</a>
+      shipped first (its map/gallery toggle was terracotta + rounded; restyled to this square/umber
+      treatment 2026-08-12) and is being carried back here, the same way <a href="/lab/badges">Badge</a>'s
+      pill/square split originated on that surface before landing in the lab.</p>
+    <div class="lab-toggle" role="group" aria-label="Example view toggle">
+      <button class="lab-toggle-btn active" type="button">🗺️ Map</button>
+      <button class="lab-toggle-btn" type="button">🗂️ Gallery</button>
+    </div>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--gap">doesn't exist — sketch only</span>
     <h2>Progress bar</h2>
     <p>Determinate — a filled track in <code>--primary</code>, flat (no radius) to match the BIS direction.</p>
     <div style="max-width: 24rem; display: flex; flex-direction: column; gap: var(--space-4);">
@@ -74,6 +93,26 @@ import LabShell from "../../components/lab/LabShell.astro";
   .lab-tab:hover:not(:disabled) { color: var(--text-primary); }
   .lab-tab.active { color: var(--text-primary); border-bottom-color: var(--primary); font-weight: 600; }
   .lab-tab:disabled { color: var(--border-default); cursor: not-allowed; }
+
+  .lab-toggle {
+    display: inline-flex;
+    gap: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-default);
+    box-shadow: 0 4px 16px rgba(42, 24, 16, 0.1);
+  }
+  .lab-toggle-btn {
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background: var(--bg);
+    color: var(--text-muted);
+    border: 0;
+    cursor: pointer;
+  }
+  .lab-toggle-btn.active { background: var(--umber); color: var(--paper); font-weight: 500; }
 
   .lab-progress-label {
     display: flex;
