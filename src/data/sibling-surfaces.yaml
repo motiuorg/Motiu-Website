@@ -5,6 +5,8 @@ siblings:
     url: https://bioregioning.earth
   - label: Regenerant Catalunya
     url: https://regenerant-catalunya.refibcn.cat
+  - label: Design system
+    url: /design-system/
 federation:
   - label: ReFi DAO
     url: https://refidao.com/

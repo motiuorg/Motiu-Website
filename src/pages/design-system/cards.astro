@@ -27,7 +27,7 @@ import TeamCard from "../../components/TeamCard.astro";
       none of the three just renders without a footer link.
       Alongside it, the smaller <code>.case-card</code> (right) — sized to its own content here rather
       than stretched to match the taller project cards. On the real page it's paired with a
-      <code>.pillar-service</code> divider row; see <a class="link" href="/lab/divider-lists/">Divider
+      <code>.pillar-service</code> divider row; see <a class="link" href="/design-system/divider-lists/">Divider
       lists</a> for that pairing.</p>
     <p class="lab-source">Used in: index.astro (#projects), projects.astro (full grid), NetworkSection.astro
       → projects/regenerant-catalunya (index + article, both networks), what-we-do.astro (case-card)</p>
@@ -70,10 +70,16 @@ import TeamCard from "../../components/TeamCard.astro";
   </div>
 
   <div class="lab-section">
-    <span class="lab-status lab-status--live">live</span>
+    <span class="lab-status lab-status--live">live — fixed</span>
     <h2>TeamCard</h2>
-    <p>No portrait photos exist, so the visual anchor is an Averia monogram over a pillar-tinted Aurora
-      header — a deliberate placeholder pattern, not a fallback for a missing feature.</p>
+    <p>Redesigned 2026-08-12: was a 21/9 cinematic-banner crop — built for the abstract Aurora
+      placeholder, before real portraits existed — in a flat-bordered, square-cornered shell that
+      predated <code>ProjectCard</code>/<code>.case-card</code>'s rounded, shadowed card language. Both
+      real portraits on file (Giulio, Luiz) are square source images, so the visual is now
+      <code>1/1</code> — the shape that actually fits what this card holds, not just a stylistic pick —
+      and the shell matches <code>ProjectCard</code>'s radius, shadow, and hover lift. The two examples
+      below have no photo, so they still show the Averia-monogram-over-Aurora fallback at the new
+      square ratio.</p>
     <p class="lab-source">Used in: about.astro and index.astro (team roster)</p>
     <div class="lab-grid">
       <TeamCard name="Jane Doe" role="Coordination" pillar="tissue" bio="Short bio line, one or two sentences." />
@@ -89,9 +95,12 @@ import TeamCard from "../../components/TeamCard.astro";
     reviving <code>FeatureGrid</code>'s separate card family. <code>ServiceCard</code> and
     <code>FeatureGrid</code> — both dead code, zero real callers — have been deleted. Divider-row patterns
     (<code>.pillar-service</code>, <code>.audiences</code>, <code>.theory</code>, <code>ProcessStrip</code>)
-    moved to their own <a class="link" href="/lab/divider-lists/">Divider lists</a> page — they aren't
-    cards, and were crowding this one. <code>Tile</code> moved to <a class="link" href="/lab/sections/">Content
+    moved to their own <a class="link" href="/design-system/divider-lists/">Divider lists</a> page — they aren't
+    cards, and were crowding this one. <code>Tile</code> moved to <a class="link" href="/design-system/sections/">Content
     sections</a> — closer in kind to the other organisms there than to these card molecules.
+    <code>TeamCard</code> was reshot from a 21/9 flat-bordered banner to a 1/1 rounded, shadowed tile
+    matching <code>ProjectCard</code>'s card language — the aspect ratio now fits the square portraits
+    actually on file instead of a crop chosen for the abstract placeholder.
   </div>
 </LabShell>
 

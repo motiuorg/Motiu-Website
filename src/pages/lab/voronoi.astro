@@ -1,8 +1,11 @@
 ---
 import LabShell from "../../components/lab/LabShell.astro";
 ---
-<LabShell title="Motifs" current="motifs"
-  intro="Hero generative lab — the real Voronoi tissue/network/flow editor, embedded live. Not wired into the Astro build (own copy of tokens/primitives, tunes via localStorage, exports JSON/PNG) — this is where the hero pattern actually gets designed before geometry gets baked into a live component.">
+<LabShell title="Voronoi hero editor" current="voronoi" section="lab"
+  intro="The real Voronoi tissue/network/flow editor, embedded live. Not wired into the Astro build
+  (own copy of tokens/primitives, tunes via localStorage, exports JSON/PNG) — this is where the hero
+  pattern actually gets designed before geometry gets baked into a live component. Moved here from
+  Design System → Motifs (2026-08-12), which now just shows a static preview of what this produces.">
 
   <div class="lab-section">
     <span class="lab-status lab-status--unused">exploration tool, not build-connected</span>
@@ -15,6 +18,8 @@ import LabShell from "../../components/lab/LabShell.astro";
 
   <div class="lab-note">
     <strong>Note:</strong> copied by hand from the org-os monorepo, not symlinked — if the hero lab changes over
-    there, this copy needs re-syncing manually. Worth automating if it turns out to churn a lot.
+    there, this copy needs re-syncing manually. Worth automating if it turns out to churn a lot. See
+    <a class="link" href="/design-system/motifs/">Design System → Motifs</a> for the static preview and where
+    this pattern actually gets used.
   </div>
 </LabShell>

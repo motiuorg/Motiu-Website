@@ -4,6 +4,7 @@ import PageHero from "../components/PageHero.astro";
 import PillarBadge from "../components/PillarBadge.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import CardGrid from "../components/CardGrid.astro";
+import CTABand from "../components/CTABand.astro";
 import yaml from "js-yaml";
 import fs from "node:fs";
 import path from "node:path";
@@ -59,15 +60,7 @@ const items = projects.map((p: any) => {
     </div>
   </section>
 
-  <section class="cta-band">
-    <div class="cta-band__inner">
-      <div>
-        <h2 class="cta-band__title">Working across a territory or network?</h2>
-        <p class="cta-band__body">Start with a free intro call — tell us what you're working on and we'll say honestly whether we can help.</p>
-      </div>
-      <a class="btn btn--paper" href="/contact/">Book a free intro call</a>
-    </div>
-  </section>
+  <CTABand />
 </Layout>
 
 <style>
@@ -77,14 +70,4 @@ const items = projects.map((p: any) => {
 
   /* Project gallery grid now lives in CardGrid.astro (shared with index.astro). */
 
-  /* Pre-footer CTA — umber, not the shared component's gradient */
-  .cta-band { background: var(--umber); padding: var(--space-16) var(--gutter); }
-  .cta-band__inner {
-    max-width: var(--container-default); margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); flex-wrap: wrap;
-  }
-  .cta-band__title { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin: 0 0 var(--space-3); max-width: 24ch; color: var(--paper); }
-  .cta-band__body { color: color-mix(in srgb, var(--paper) 80%, transparent); max-width: 52ch; margin: 0; line-height: var(--leading-body); }
-  .btn--paper { background: var(--paper); color: var(--umber); }
-  .btn--paper:hover:not(:disabled) { background: var(--ivory); color: var(--umber); }
 </style>

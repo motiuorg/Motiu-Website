@@ -54,10 +54,10 @@ import ProcessStrip from "../../components/ProcessStrip.astro";
     <span class="lab-status lab-status--live">live</span>
     <h2>Numbered rows (<code>.theory</code>)</h2>
     <p>About.astro, "Theory of change": numbered, single-column rows — same shape as
-      <code>.pillar-service</code> above, but with a mono index instead of a paired card. Note the
-      divider color: <code>1px solid var(--umber)</code>, not <code>var(--border-subtle)</code> like
-      <code>.pillar-service</code> and <code>.audience</code> — same idiom, different border color, no
-      apparent reason (see the gap note below).</p>
+      <code>.pillar-service</code> above, but with a mono index instead of a paired card. Divider color
+      is now <code>var(--border-subtle)</code>, matching <code>.pillar-service</code> and
+      <code>.audience</code> — was <code>1px solid var(--umber)</code>, a heavier dark line with no
+      apparent reason to differ from the other two (fixed 2026-08-12, see the gap note below).</p>
     <p class="lab-source">Used in: about.astro ("Theory of change")</p>
     <ol class="theory">
       <li class="theory__item">
@@ -91,11 +91,11 @@ import ProcessStrip from "../../components/ProcessStrip.astro";
   <div class="lab-note">
     <strong>Gap:</strong> only <code>ProcessStrip</code> is a component; <code>.pillar-service</code>,
     <code>.audiences</code>, and <code>.theory</code> are hand-duplicated markup, each in its own page.
-    Also found while collecting them: <code>.theory</code>'s divider rule is
+    Worth consolidating into one component with a horizontal/vertical + numbered/unnumbered +
+    paired-card/no-card set of variants. Also fixed: <code>.theory</code>'s divider rule was
     <code>1px solid var(--umber)</code> while <code>.pillar-service</code> and <code>.audience</code>
-    both use <code>var(--border-subtle)</code> — same idiom, different border color, no apparent reason.
-    Worth deciding which is correct before these get consolidated into one component with a
-    horizontal/vertical + numbered/unnumbered + paired-card/no-card set of variants. Also fixed:
+    both used <code>var(--border-subtle)</code> — same idiom, different border color, no apparent
+    reason; all three now use <code>var(--border-subtle)</code>.
     <code>.case-card__title</code> was setting <code>font-family: var(--serif)</code> (Averia) directly
     on a <code>&lt;span&gt;</code> — the same class of violation as the Tile and NetworkSection fixes
     elsewhere in this pass (Averia is h1–h3 <code>.display</code> only). Dropped in what-we-do.astro's
@@ -123,11 +123,11 @@ import ProcessStrip from "../../components/ProcessStrip.astro";
   .audience h3 { font-size: var(--text-md); font-weight: 600; margin: 0 0 var(--space-1); }
   .audience p { color: var(--text-muted); line-height: var(--leading-body); margin: 0; }
 
-  /* .theory — from about.astro. Note the border color: var(--umber), not var(--border-subtle) like
-     .pillar-service/.audience above — copied as-is, the inconsistency is the point (see gap note). */
+  /* .theory — from about.astro. Was var(--umber), inconsistent with .pillar-service/.audience above;
+     now var(--border-subtle) like both (fixed 2026-08-12, see gap note). */
   .theory { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  .theory__item { display: grid; grid-template-columns: 4rem 1fr; gap: var(--space-5); padding: var(--space-7) 0; border-top: 1px solid var(--umber); }
-  .theory__item:last-child { border-bottom: 1px solid var(--umber); }
+  .theory__item { display: grid; grid-template-columns: 4rem 1fr; gap: var(--space-5); padding: var(--space-7) 0; border-top: 1px solid var(--border-subtle); }
+  .theory__item:last-child { border-bottom: 1px solid var(--border-subtle); }
   .theory__index { font-family: var(--mono); font-size: var(--text-lg); color: var(--primary); }
   .theory__title { margin: 0 0 var(--space-2); font-size: var(--text-lg); }
   .theory__body { color: var(--text-muted); line-height: var(--leading-body); max-width: 60ch; margin: 0; }

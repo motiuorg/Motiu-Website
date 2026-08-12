@@ -1,27 +1,24 @@
 ---
 import LabShell from "../../components/lab/LabShell.astro";
 ---
-<LabShell title="Overview" current=""
-  intro="The living design system for refibcn.github.io — tokens, atoms, molecules, organisms, and the Catalunya map patterns, documented against what's actually wired into the Astro build.">
+<LabShell title="Overview" current="" section="lab"
+  intro="Experimental tools — live, interactive, not wired into the Astro build. Separate from
+  Design System, which documents what's actually shipped; this is where things get built before
+  that happens.">
 
   <div class="lab-note">
-    <strong>This design is a work in progress.</strong> Pages here document what exists today
-    and flag with a status tag what's unused, incomplete, or missing outright — this is meant to
-    stay accurate as the visual direction keeps changing, not to lock anything in.
+    <strong>This is a playground, not documentation.</strong> Pages here embed real, standalone
+    tools — most exist elsewhere in the org-os monorepo and are copied in by hand, so they can drift
+    out of sync (each page notes its source). Nothing here is guaranteed to reflect the live site;
+    see <a class="link" href="/design-system/">Design System</a> for that.
   </div>
 
   <div class="lab-section">
-    <h2>How this is organized</h2>
-    <p>Atomic-design tiers, left rail. Each page: what exists, where it's used on the live site,
-      and what's still a gap.</p>
+    <h2>What's here</h2>
     <ul>
-      <li><strong>Foundations</strong> — reference docs: this overview, and how the section works.</li>
-      <li><strong>Atoms</strong> — smallest reusable pieces: color, type, spacing/effects, motifs, image styles,
-        buttons/links, controls (tabs, loading), badges, inputs.</li>
-      <li><strong>Molecules</strong> — small compositions: cards, stat bands.</li>
-      <li><strong>Organisms</strong> — full page sections: heroes, CTA bands, feature grids, nav, footer, and the
-        Catalunya map components (d3 inset map + MapLibre program map) — not generic UI-kit material, but
-        load-bearing across several pages and worth keeping in view alongside everything else.</li>
+      <li><strong><a class="link" href="/lab/voronoi/">Voronoi hero editor</a></strong> — the live
+        tissue/network/flow pattern generator behind the homepage hero. Documented statically at
+        <a class="link" href="/design-system/motifs/">Design System → Motifs</a>.</li>
     </ul>
   </div>
 </LabShell>

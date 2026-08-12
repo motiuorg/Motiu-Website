@@ -66,10 +66,21 @@
   --accent: var(--pillar-neural-mid);
   --accent-foreground: var(--paper);          /* paper on #0055FF — AA 5.60:1 */
 
-  --success: var(--pillar-tissue-dark);       --success-foreground: #F4F6F2;  /* AAA 7.50:1 */
-  --warning: var(--pillar-flow-light);        --warning-foreground: var(--umber);  /* AAA 10.12:1 */
-  --danger:  #7A2618;                         --danger-foreground: var(--paper); /* dark brick, distinct from primary — 9.42:1 */
-  --info:    var(--pillar-neural-mid);        --info-foreground: var(--paper);   /* paper on #0055FF — AA 5.60:1 */
+  /* Status colors (2026-08-12) — deliberately adjacent to, not the same as, the pillar ramps.
+   * Status meanings (success/warning/danger/info) and pillar meanings (tissue/neural/flow) read
+   * as confusingly identical if they share hues — success was literally tissue-dark, info was
+   * literally neural-mid. Sourced from the same Color Library (src/pages/lab/colors.astro) as the
+   * pillars, at the same Soft/Dark/Shade steps, just from the neighboring family: green not lime,
+   * blue not cyan, yellow not orange, and a real red (not the old standalone brick #7A2618). */
+  --status-success-light: #33E894; --status-success-mid: #00804A; --status-success-dark: #00502E;
+  --status-info-light:    #8F97FF; --status-info-mid:    #3A3AC0; --status-info-dark:    #1F1D80;
+  --status-warning-light: #FFEE00; --status-warning-mid: #A69900; --status-warning-dark: #5C5400;
+  --status-danger-light:  #FF4D4D; --status-danger-mid:  #A30000; --status-danger-dark:  #5C0000;
+
+  --success: var(--status-success-dark);      --success-foreground: #F4F6F2;  /* 5.02:1 (AA) */
+  --warning: var(--status-warning-light);     --warning-foreground: var(--umber);  /* 14.27:1 (AAA) */
+  --danger:  var(--status-danger-mid);        --danger-foreground: var(--paper); /* 8.22:1 (AAA) */
+  --info:    var(--status-info-mid);          --info-foreground: var(--paper);   /* 8.26:1 (AAA) */
 
   --gradient-bridge: linear-gradient(135deg, var(--pillar-neural-mid), var(--pillar-flow-mid));
 

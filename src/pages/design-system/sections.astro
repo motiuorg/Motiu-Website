@@ -67,10 +67,9 @@ import PillarBadge from "../../components/PillarBadge.astro";
       projects/[slug]). The other 3 pages that render a closing CTA (about, what-we-do, projects) each
       pasted their own flat-umber + <code>.btn--paper</code> version instead, explicitly commented "not
       the shared component's gradient" — that's what the site actually looks like at this point in the
-      page, 3-to-2. This component now <em>is</em> that flat-umber version, so it matches everywhere it's
-      used and the 3 pages' own copies are candidates to delete in favor of it.</p>
-    <p class="lab-source">Used in: who-we-serve.astro, projects/[slug].astro (dynamic case-study template).
-      Still duplicated inline in: about.astro, what-we-do.astro, projects.astro.</p>
+      page, 3-to-2. This component now <em>is</em> that flat-umber version, and all 5 real callers use
+      it — the 3 pages' own inline copies (and their local <code>.btn--paper</code>) are gone.</p>
+    <p class="lab-source">Used in: who-we-serve.astro, projects/[slug].astro, about.astro, what-we-do.astro, projects.astro — every closing CTA on the site, one component.</p>
     <div class="lab-frame">
       <CTABand />
     </div>
@@ -142,7 +141,7 @@ import PillarBadge from "../../components/PillarBadge.astro";
     (<code>.project-gallery</code>, pasted into index.astro and projects.astro) got the same treatment as
     <code>CardGrid</code>. <code>CTABand</code> now matches the flat-umber style most of the site actually
     uses instead of its old, less-used gradient. <code>ProcessStrip</code> moved to the new
-    <a class="link" href="/lab/divider-lists/">Divider lists</a> page, grouped with the other row/column
+    <a class="link" href="/design-system/divider-lists/">Divider lists</a> page, grouped with the other row/column
     divider patterns instead of the section-level organisms here.
   </div>
 </LabShell>
