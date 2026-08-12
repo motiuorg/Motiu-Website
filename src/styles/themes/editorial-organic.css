@@ -85,11 +85,12 @@
   /* Type — Geist carries headings (full h1–h6 range) + body. Averia Serif
    * Libre is the display face only, for special occasions (hero titles,
    * pull quotes) — h1/h2/h3 may opt into it via .display, h4 and below
-   * never do (see the guard in global.css). IBM Plex Mono for labels
-   * (editorial signature). Andrea's 2026-07-04 direction. */
+   * never do (see the guard in global.css). Mono is Geist Mono (2026-08-11
+   * correction) — was IBM Plex Mono per Andrea's 2026-07-04 direction,
+   * changed back to keep the whole type system on one family. */
   --serif: "Averia Serif Libre", "Fraunces", Georgia, serif;
   --sans: "Geist Variable", "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --mono: "Geist Mono Variable", "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-headings: var(--sans);
   --font-display-weight: 400;
 

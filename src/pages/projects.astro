@@ -2,6 +2,8 @@
 import Layout from "../components/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import PillarBadge from "../components/PillarBadge.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import CardGrid from "../components/CardGrid.astro";
 import yaml from "js-yaml";
 import fs from "node:fs";
 import path from "node:path";
@@ -43,26 +45,17 @@ const items = projects.map((p: any) => {
 
   <section class="block block--alt">
     <div class="block__inner">
-      <div class="project-gallery">
+      <CardGrid>
         {items.map((it: any) => (
-          <article class="project-tile">
-            <div class="project-tile__media">
-              <img src={it.image} alt="" loading="lazy" />
-            </div>
-            <div class="project-tile__body">
-              <div class="project-tile__badges">
-                {it.pillars?.map((k: string) => <PillarBadge pillar={k as any} />)}
-              </div>
-              <h3 class="project-tile__heading">{it.heading}</h3>
-              <p class="project-tile__name">{it.name}</p>
-              <p class="project-tile__excerpt">{it.excerpt}</p>
-              <a class="project-tile__link" href={it.href} {...(it.external ? { target: "_blank", rel: "noopener" } : {})}>
-                {it.external ? "Visit site ↗" : "Read case study →"}
-              </a>
-            </div>
-          </article>
+          <ProjectCard image={it.image} title={it.heading} subtitle={it.name} body={it.excerpt} href={it.href} external={it.external}>
+            {it.pillars?.length > 0 && (
+              <Fragment slot="badges">
+                {it.pillars.map((k: string) => <PillarBadge pillar={k as any} />)}
+              </Fragment>
+            )}
+          </ProjectCard>
         ))}
-      </div>
+      </CardGrid>
     </div>
   </section>
 
@@ -82,23 +75,7 @@ const items = projects.map((p: any) => {
   .block--alt { background: var(--surface-1); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
   .block__inner { max-width: var(--container-default); margin: 0 auto; }
 
-  /* Project gallery — matches the home page's project cards */
-  .project-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: var(--space-8); }
-  .project-tile {
-    display: flex; flex-direction: column; overflow: hidden;
-    background: var(--paper); border-radius: 0.75rem;
-    box-shadow: var(--shadow-sm); transition: box-shadow var(--t-med), translate var(--t-med);
-  }
-  .project-tile:hover { box-shadow: var(--shadow-md); translate: 0 -2px; }
-  .project-tile__media { aspect-ratio: 16 / 10; background: var(--surface-2); min-height: 0; }
-  .project-tile__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .project-tile__body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
-  .project-tile__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2); }
-  .project-tile__heading { font-size: var(--text-lg); margin: 0; }
-  .project-tile__name { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin: 0; }
-  .project-tile__excerpt { color: var(--text-muted); font-size: var(--copy-md); line-height: var(--leading-body); margin: var(--space-2) 0 0; flex: 1; }
-  .project-tile__link { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); text-decoration: none; margin-top: var(--space-2); }
-  .project-tile__link:hover { text-decoration: underline; }
+  /* Project gallery grid now lives in CardGrid.astro (shared with index.astro). */
 
   /* Pre-footer CTA — umber, not the shared component's gradient */
   .cta-band { background: var(--umber); padding: var(--space-16) var(--gutter); }

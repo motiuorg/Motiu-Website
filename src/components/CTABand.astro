@@ -1,8 +1,10 @@
 ---
-// CTABand.astro — full-width closing call-to-action band: flow aurora +
-// grain behind an editorial panel. One per page, always last before footer.
-import Aurora from "./Aurora.astro";
-
+// CTABand.astro — full-width closing call-to-action band. One per page, always last before footer.
+// Was flow-Aurora + gradient + .btn--primary; that version had only 2 real callers (who-we-serve,
+// projects/[slug]) while 3 other pages (about, what-we-do, projects) each pasted their own flat-umber
+// + .btn--paper override instead of using this component, explicitly commented "not the shared
+// component's gradient." The umber version is what the site actually looks like; this is now that,
+// as the shared component, so those 3 pages' copies are candidates to delete in favor of this.
 interface Props {
   title?: string;
   body?: string;
@@ -17,27 +19,18 @@ const {
 } = Astro.props;
 ---
 <section class="cta-band">
-  <Aurora pillar="flow" opacity={0.5} />
   <div class="cta-band__inner">
     <div>
       <h2 class="cta-band__title">{title}</h2>
       <p class="cta-band__body">{body}</p>
     </div>
-    <a class="btn btn--primary" href={ctaHref}>{ctaLabel}</a>
+    <a class="btn btn--paper" href={ctaHref}>{ctaLabel}</a>
   </div>
 </section>
 
 <style>
-.cta-band {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-top: 1px solid var(--umber, var(--border-default));
-  padding: var(--space-16) var(--gutter);
-}
+.cta-band { background: var(--umber); padding: var(--space-16) var(--gutter); }
 .cta-band__inner {
-  position: relative;
-  z-index: 1;
   max-width: var(--container-default);
   margin: 0 auto;
   display: flex;
@@ -46,6 +39,8 @@ const {
   gap: var(--space-8);
   flex-wrap: wrap;
 }
-.cta-band__title { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin: 0 0 var(--space-3); max-width: 24ch; }
-.cta-band__body { color: var(--text-muted); max-width: 52ch; margin: 0; line-height: var(--leading-body); }
+.cta-band__title { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin: 0 0 var(--space-3); max-width: 24ch; color: var(--paper); }
+.cta-band__body { color: color-mix(in srgb, var(--paper) 80%, transparent); max-width: 52ch; margin: 0; line-height: var(--leading-body); }
+.btn--paper { background: var(--paper); color: var(--umber); }
+.btn--paper:hover:not(:disabled) { background: var(--ivory); color: var(--umber); }
 </style>

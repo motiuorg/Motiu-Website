@@ -176,7 +176,10 @@ function caseFor(serviceName: string) {
     font-size: 0.7rem;
     flex-shrink: 0;
   }
-  .case-card__title { font-family: var(--serif); font-size: var(--text-md); }
+  /* Was font-family: var(--serif) — Averia, the opt-in display face — set directly on a <span>, not
+     a .display-tagged h1–h3. Same violation as Tile's body copy and NetworkSection's summary; dropped
+     for the same reason (see Typography: Averia is h1–h3 .display only). */
+  .case-card__title { font-size: var(--text-md); }
   .case-card__excerpt { font-size: var(--text-sm); color: var(--text-muted); line-height: var(--leading-body); margin: 0; }
 
   /* Pre-footer CTA — umber, not the shared component's gradient */
