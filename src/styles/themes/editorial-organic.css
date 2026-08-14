@@ -11,6 +11,13 @@
    * not cooled toward grey) — tried site-wide first as a separate --bone-light token, liked it,
    * folded straight into --bone rather than keeping two near-identical neutrals. */
   --paper: #fffdfb; --bone: #fcf8f2; --ivory: #fbf5ea;
+  /* --eggshell (2026-08-14) — exactly halfway between --paper and --bone, for hover states that
+   * need a step warmer than the page background but a step lighter than --bone itself (surface
+   * would jump too far). Ported from bioregioning-earth-ui, where it was introduced first for
+   * this same purpose (.field-control/.filter-dropdown-option/.view-toggle-btn hovers). Derived
+   * via color-mix rather than a hand-picked hex so it stays centered if --paper/--bone relock
+   * again, same rationale as --rule below. */
+  --eggshell: color-mix(in srgb, var(--paper) 50%, var(--bone) 50%);
   --umber: #221a12;
   /* --rule is derived, not picked independently — a mix of umber and paper,
    * so it always sits in a fixed relationship to the two anchor neutrals
