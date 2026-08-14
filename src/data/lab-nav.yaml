@@ -6,3 +6,4 @@ groups:
     items:
       - { slug: "", label: "Overview" }
       - { slug: voronoi, label: "Voronoi hero editor" }
+      - { slug: voronoi-letters, label: "Voronoi letter-logo" }
