@@ -1,9 +1,9 @@
 {
-  "name": "refibcn-site",
+  "name": "motiu-website",
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "description": "ReFi BCN — the new coop website (refibcn.cat). Consolidated Astro site: marketing + Atlas (maps) + Bioregional Commons. Built on the BIS editorial shell with Andrea's organic atmosphere.",
+  "description": "motiu.org — the coop website for motiu: infrastructure for territorial regeneration. Consolidated Astro site: marketing + Atlas (maps) + Bioregional Commons. Built on the BIS editorial shell with Andrea's organic atmosphere.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/verify-build.mjs",

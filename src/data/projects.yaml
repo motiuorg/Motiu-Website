@@ -75,7 +75,7 @@ projects:
       - label: Regen Coordination
         url: https://hub.regencoordination.xyz/
     body: |
-      ReFi BCN is a local node within the wider ReFi DAO and Regen Coordination
+      motiu is a local node within the wider ReFi DAO and Regen Coordination
       network. We contribute governance design, funding-round mechanics, and the
       day-to-day coordination that keeps a distributed regenerative ecosystem
       moving.

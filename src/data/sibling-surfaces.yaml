@@ -11,9 +11,9 @@ federation:
   - label: Regen Coordination
     url: https://hub.regencoordination.xyz/
 contact:
-  - label: hello@refibcn.cat
-    url: mailto:hello@refibcn.cat
+  - label: hello@motiu.org
+    url: mailto:hello@motiu.org
   - label: Telegram
     url: https://t.me/+j4zOWZGsITwxNmY8
   - label: GitHub
-    url: https://github.com/refibcn
+    url: https://github.com/motiuorg

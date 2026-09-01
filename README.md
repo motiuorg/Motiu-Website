@@ -1,14 +1,9 @@
-# refibcn-site
+# motiu-website
 
-The new **ReFi BCN** coop website (refibcn.cat) — one consolidated Astro surface:
-the org/marketing site + **Atlas** (territorial maps) + the **Bioregional Commons**
+The **motiu** coop website (motiu.org) — one consolidated Astro surface: the
+org/marketing site + **Atlas** (territorial maps) + the **Bioregional Commons**
 (knowledge base). Built on the editorial shell from the Bioregional Intelligence
 project, with Andrea's organic palette + backgrounds as the atmosphere.
-
-> **Provisional naming.** "Bioregional Commons" (the Atlas + Commons surface) and the
-> overall identity are provisional — the final BIS-rename + group-rebrand + domain is
-> one converged decision (see the knowledge-commons-architecture session). Spec:
-> `../../projects/branding/REFIBCN-SITE-SPEC.md`.
 
 ## Run
 
@@ -48,14 +43,15 @@ as three capabilities).
 
 ## Deploy
 
-GitHub Actions → Pages via `.github/workflows/deploy.yml` (build on push to `main`). Served at
-base `/` (org root page or custom domain). For a project-page path, set `base` in
-`astro.config.mjs` and make internal links base-aware first.
+GitHub Actions → Pages via `.github/workflows/deploy.yml` (build on push to `main`, then
+deploy to Pages). Served at base `/` under the custom domain **motiu.org** — an apex
+(A-record) domain, so no `www` is served. DNS lives on GoDaddy; see the repo settings
+(Settings → Pages → Custom domain) for the current verification state.
 
 ## Naming
 
-Stays **ReFi BCN** / open per the 260630 decision — publishing is not gated on a rebrand.
-"Bioregional Commons" is a provisional surface label, not the group name.
+Public form is **motiu** alone; the cooperative designation comes out only selectively.
+Renamed from ReFi BCN on 2026-08-09 (BD-2026-049/050); motiu.org purchased on GoDaddy (2026).
 
 ## Phasing
 
@@ -69,6 +65,6 @@ Stays **ReFi BCN** / open per the 260630 decision — publishing is not gated on
 
 ## Provenance
 
-Forked from `bioregional-intelligence` (BIS) as the editorial base, then re-themed and
-extended. The standalone BIS deploy stays live until the maps are integrated here.
-Built by ReFi Barcelona.
+Forked from `refibcn/refibcn.github.io` (ReFi BCN) as the editorial base, then re-themed and
+extended. The standalone ReFi BCN deploy stays live until the maps are integrated here.
+Built by motiu (ex ReFi BCN), Barcelona.
