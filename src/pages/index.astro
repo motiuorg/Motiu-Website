@@ -6,284 +6,694 @@ import Layout from "../components/Layout.astro";
 import HeroVoronoi from "../components/HeroVoronoi.astro";
 import PillarBadge from "../components/PillarBadge.astro";
 
-const d = yaml.load(fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8")) as any;
+const d = yaml.load(
+    fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8"),
+) as any;
+// Hero headline rotation — per-locale title sentences + word map (landing.yaml).
+// The first word of the title is the rotating slot; the JS script reshuffles the
+// per-locale word list, so initial render = map order (matches the title).
+const loc = Astro.currentLocale ?? "en";
+const heroTitle = ((d.hero.title as any)?.[loc] ??
+    (d.hero.title as any)?.en) as string;
+const rotateWords = ((d.hero.rotate as any[]) ?? [])
+    .map((w) => w[loc] ?? w.en)
+    .filter((w): w is string => Boolean(w));
+const heroParts = heroTitle.split(" ");
+const heroFirstWord = heroParts[0];
+const heroRest = heroParts.slice(1).join(" ");
 // Motif photography per pillar — aerial photos supplied directly (2026-08-06), replacing the
 // earlier watermarked stock placeholders from projects/branding/preview/assets/motif-inspo/.
 const pillarMotifs: Record<string, string> = {
-  tissue: "/assets/pillar-photos/network-coordination.jpg",
-  neural: "/assets/pillar-photos/collective-intelligence.jpg",
-  flow: "/assets/pillar-photos/regenerative-finance.jpg",
+    tissue: "/assets/pillar-photos/network-coordination.jpg",
+    neural: "/assets/pillar-photos/collective-intelligence.jpg",
+    flow: "/assets/pillar-photos/regenerative-finance.jpg",
 };
 // Stylized/abstract renders of the same photos (supplied 2026-08-07) — shown by default; hovering
 // reveals the clear photo above. Replaces the earlier CSS-blur attempt at the same effect.
 const pillarMotifsAbstract: Record<string, string> = {
-  tissue: "/assets/pillar-photos/network-coordination-abstract.png",
-  neural: "/assets/pillar-photos/collective-intelligence-abstract.png",
-  flow: "/assets/pillar-photos/regenerative-finance-abstract.png",
+    tissue: "/assets/pillar-photos/network-coordination-abstract.png",
+    neural: "/assets/pillar-photos/collective-intelligence-abstract.png",
+    flow: "/assets/pillar-photos/regenerative-finance-abstract.png",
 };
 ---
+
 <Layout title="Home" current="home">
-  <!-- Hero + Approach share one generative backdrop, like one continuous opening -->
-  <div class="opening">
-    <HeroVoronoi opacity={0.55} />
+    <!-- Hero + Approach share one generative backdrop, like one continuous opening -->
+    <div class="opening">
+        <HeroVoronoi opacity={0.55} />
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero__inner">
-        <h1 class="display hero__title">{d.hero.title}</h1>
-        <div class="hero__badges">
-          <PillarBadge pillar="tissue" /><PillarBadge pillar="neural" /><PillarBadge pillar="flow" />
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero__inner">
+                <h1 class="display hero__title">
+                    {
+                        rotateWords.length > 0 ? (
+                            <span
+                                class="hero-rotate"
+                                data-rotate-words={JSON.stringify(rotateWords)}
+                                data-rotate-interval="2000"
+                            >
+                                {heroFirstWord}
+                            </span>
+                        ) : (
+                            heroFirstWord
+                        )
+                    }
+                    {heroRest ? ` ${heroRest}` : ""}
+                </h1>
+                <div class="hero__badges">
+                    <PillarBadge pillar="tissue" /><PillarBadge
+                        pillar="neural"
+                    /><PillarBadge pillar="flow" />
+                </div>
+                <p class="lede hero__tagline">{d.hero.tagline}</p>
+            </div>
+        </section>
+
+        <!-- Our approach -->
+        <section class="block" id="approach">
+            <div class="block__inner">
+                <p class="approach__text">{d.approach}</p>
+                <p class="block__more">
+                    <a class="link" href="/about/">About us →</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- What we do — the three capabilities -->
+    <section class="block" id="what-we-do">
+        <div class="block__inner">
+            <h2>What we do</h2>
+            <p class="lede block__intro">{d.whatWeDoIntro}</p>
+            <div class="pillars">
+                {
+                    d.pillars.map((p: any) => (
+                        <article class={`pillar-row pillar-row--${p.key}`}>
+                            <div class="pillar-row__media">
+                                <img
+                                    class="pillar-row__media-photo"
+                                    src={pillarMotifs[p.key]}
+                                    alt=""
+                                    loading="lazy"
+                                />
+                                <img
+                                    class="pillar-row__media-abstract"
+                                    src={pillarMotifsAbstract[p.key]}
+                                    alt=""
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="pillar-row__content">
+                                <div class="pillar-row__head">
+                                    <PillarBadge
+                                        pillar={p.key}
+                                        label={p.badge}
+                                    />
+                                    <h3 class="pillar-row__title">{p.title}</h3>
+                                    <p class="pillar-row__intro">{p.intro}</p>
+                                </div>
+                                <ul class="pillar-row__services">
+                                    {p.services.map((s: any) => (
+                                        <li>
+                                            <span
+                                                class="pillar-row__check"
+                                                aria-hidden="true"
+                                            >
+                                                ✓
+                                            </span>
+                                            {s.name}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <a
+                                    class="pillar-row__link"
+                                    href={`/what-we-do/#pillar-${p.key}`}
+                                >
+                                    See full services →
+                                </a>
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+            <div class="cta-panel">
+                <div>
+                    <h3>{d.whatWeDoCta.title}</h3>
+                    <p>{d.whatWeDoCta.body}</p>
+                </div>
+                <a class="btn btn--primary" href="#contact">Contact us</a>
+            </div>
         </div>
-        <p class="lede hero__tagline">{d.hero.tagline}</p>
-      </div>
     </section>
 
-    <!-- Our approach -->
-    <section class="block" id="approach">
-      <div class="block__inner">
-        <p class="approach__text">{d.approach}</p>
-        <p class="block__more"><a class="link" href="/about/">About us →</a></p>
-      </div>
+    <!-- Projects -->
+    <section class="block block--alt" id="projects">
+        <div class="block__inner">
+            <h2>Projects</h2>
+            <p class="lede block__intro">{d.projectsIntro}</p>
+            <div class="project-gallery">
+                {
+                    d.projects.map((it: any) => (
+                        <article class="project-tile">
+                            <div class="project-tile__media">
+                                <img src={it.image} alt="" loading="lazy" />
+                            </div>
+                            <div class="project-tile__body">
+                                <div class="project-tile__badges">
+                                    {it.pillars?.map((k: string) => (
+                                        <PillarBadge pillar={k as any} />
+                                    ))}
+                                </div>
+                                <h3 class="project-tile__heading">
+                                    {it.heading}
+                                </h3>
+                                <p class="project-tile__name">{it.name}</p>
+                                <p class="project-tile__excerpt">
+                                    {it.excerpt}
+                                </p>
+                                <a
+                                    class="project-tile__link"
+                                    href={it.href}
+                                    {...(it.external
+                                        ? { target: "_blank", rel: "noopener" }
+                                        : {})}
+                                >
+                                    {it.external
+                                        ? "Visit site ↗"
+                                        : "Read case study →"}
+                                </a>
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+            <p class="block__more">
+                <a class="link" href="/projects/">All case studies →</a>
+            </p>
+        </div>
     </section>
-  </div>
 
-  <!-- What we do — the three capabilities -->
-  <section class="block" id="what-we-do">
-    <div class="block__inner">
-      <h2>What we do</h2>
-      <p class="lede block__intro">{d.whatWeDoIntro}</p>
-      <div class="pillars">
-        {d.pillars.map((p: any) => (
-          <article class={`pillar-row pillar-row--${p.key}`}>
-            <div class="pillar-row__media">
-              <img class="pillar-row__media-photo" src={pillarMotifs[p.key]} alt="" loading="lazy" />
-              <img class="pillar-row__media-abstract" src={pillarMotifsAbstract[p.key]} alt="" loading="lazy" />
+    <!-- Who we work with -->
+    <section class="block" id="who-we-work-with">
+        <div class="block__inner">
+            <h2>Who we work with</h2>
+            <p class="lede block__intro">{d.whoWeWorkWithIntro}</p>
+            <div class="audiences">
+                {
+                    d.audiences.map((a: any) => (
+                        <article class="audience">
+                            <>
+                                <h3>{a.name}</h3>
+                                <p>{a.body}</p>
+                            </>
+                        </article>
+                    ))
+                }
             </div>
-            <div class="pillar-row__content">
-              <div class="pillar-row__head">
-                <PillarBadge pillar={p.key} label={p.badge} />
-                <h3 class="pillar-row__title">{p.title}</h3>
-                <p class="pillar-row__intro">{p.intro}</p>
-              </div>
-              <ul class="pillar-row__services">
-                {p.services.map((s: any) => (
-                  <li><span class="pillar-row__check" aria-hidden="true">✓</span>{s.name}</li>
-                ))}
-              </ul>
-              <a class="pillar-row__link" href={`/what-we-do/#pillar-${p.key}`}>See full services →</a>
-            </div>
-          </article>
-        ))}
-      </div>
-      <div class="cta-panel">
-        <div>
-          <h3>{d.whatWeDoCta.title}</h3>
-          <p>{d.whatWeDoCta.body}</p>
         </div>
-        <a class="btn btn--primary" href="#contact">Contact us</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Projects -->
-  <section class="block block--alt" id="projects">
-    <div class="block__inner">
-      <h2>Projects</h2>
-      <p class="lede block__intro">{d.projectsIntro}</p>
-      <div class="project-gallery">
-        {d.projects.map((it: any) => (
-          <article class="project-tile">
-            <div class="project-tile__media">
-              <img src={it.image} alt="" loading="lazy" />
+    <!-- Contact -->
+    <section class="block block--alt" id="contact">
+        <div class="block__inner">
+            <div class="contact-layout">
+                <div class="contact-layout__copy">
+                    <h2>{d.contact.title}</h2>
+                    <p class="lede">{d.contact.body}</p>
+                    <p class="contact__email">
+                        Prefer email directly? Write to <a
+                            class="link"
+                            href={`mailto:${d.contact.email}`}
+                            >{d.contact.email}</a
+                        >.
+                    </p>
+                </div>
+                <form
+                    class="contact-form"
+                    action={`mailto:${d.contact.email}`}
+                    method="post"
+                    enctype="text/plain"
+                >
+                    <div class="field">
+                        <label class="field__label" for="contact-name"
+                            >Name</label
+                        >
+                        <input
+                            class="field__input"
+                            type="text"
+                            id="contact-name"
+                            name="name"
+                            required
+                            autocomplete="name"
+                        />
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="contact-email"
+                            >Email</label
+                        >
+                        <input
+                            class="field__input"
+                            type="email"
+                            id="contact-email"
+                            name="email"
+                            required
+                            autocomplete="email"
+                        />
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="contact-message"
+                            >Message</label
+                        >
+                        <textarea
+                            class="field__input"
+                            id="contact-message"
+                            name="message"
+                            required
+                            placeholder="What are you working on?"></textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="btn btn--ink contact-form__submit"
+                        >Send message</button
+                    >
+                </form>
             </div>
-            <div class="project-tile__body">
-              <div class="project-tile__badges">
-                {it.pillars?.map((k: string) => <PillarBadge pillar={k as any} />)}
-              </div>
-              <h3 class="project-tile__heading">{it.heading}</h3>
-              <p class="project-tile__name">{it.name}</p>
-              <p class="project-tile__excerpt">{it.excerpt}</p>
-              <a class="project-tile__link" href={it.href} {...(it.external ? { target: "_blank", rel: "noopener" } : {})}>
-                {it.external ? "Visit site ↗" : "Read case study →"}
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-      <p class="block__more"><a class="link" href="/projects/">All case studies →</a></p>
-    </div>
-  </section>
-
-  <!-- Who we work with -->
-  <section class="block" id="who-we-work-with">
-    <div class="block__inner">
-      <h2>Who we work with</h2>
-      <p class="lede block__intro">{d.whoWeWorkWithIntro}</p>
-      <div class="audiences">
-        {d.audiences.map((a: any) => (
-          <article class="audience"><h3>{a.name}</h3><p>{a.body}</p></article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="block block--alt" id="contact">
-    <div class="block__inner">
-      <div class="contact-layout">
-        <div class="contact-layout__copy">
-          <h2>{d.contact.title}</h2>
-          <p class="lede">{d.contact.body}</p>
-          <p class="contact__email">Prefer email directly? Write to <a class="link" href={`mailto:${d.contact.email}`}>{d.contact.email}</a>.</p>
         </div>
-        <form class="contact-form" action={`mailto:${d.contact.email}`} method="post" enctype="text/plain">
-          <div class="field">
-            <label class="field__label" for="contact-name">Name</label>
-            <input class="field__input" type="text" id="contact-name" name="name" required autocomplete="name" />
-          </div>
-          <div class="field">
-            <label class="field__label" for="contact-email">Email</label>
-            <input class="field__input" type="email" id="contact-email" name="email" required autocomplete="email" />
-          </div>
-          <div class="field">
-            <label class="field__label" for="contact-message">Message</label>
-            <textarea class="field__input" id="contact-message" name="message" required placeholder="What are you working on?"></textarea>
-          </div>
-          <button type="submit" class="btn btn--ink contact-form__submit">Send message</button>
-        </form>
-      </div>
-    </div>
-  </section>
+    </section>
 </Layout>
 
+<script is:inline>
+    // Hero headline rotation: swaps the first word every 2s.
+    // Shuffled-deck order: each pass shows every word once, the pass order
+    // changes every loop, and no word repeats twice in a row (guarded across
+    // reshuffles). Respects prefers-reduced-motion; without JS the static
+    // first word from the SSR render stays.
+    var rotateEl = document.querySelector("[data-rotate-words]");
+    if (
+        rotateEl &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+        var words = [];
+        try {
+            words = JSON.parse(
+                rotateEl.getAttribute("data-rotate-words") || "[]",
+            );
+        } catch (e) {}
+        if (words.length > 1) {
+            var interval = Number(
+                rotateEl.getAttribute("data-rotate-interval") || 2000,
+            );
+            var indices = words.map(function (_, i) {
+                return i;
+            });
+            function shuffled(arr) {
+                var a = arr.slice();
+                for (var i = a.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var tmp = a[i];
+                    a[i] = a[j];
+                    a[j] = tmp;
+                }
+                return a;
+            }
+            var order = shuffled(indices);
+            var pos = 0;
+            setInterval(function () {
+                rotateEl.textContent = words[order[pos]];
+                pos += 1;
+                if (pos >= order.length) {
+                    pos = 0;
+                    var next = shuffled(indices);
+                    // Don't restart a pass with the word that just finished one.
+                    if (next[0] === order[order.length - 1]) {
+                        var head = next[0];
+                        next[0] = next[1];
+                        next[1] = head;
+                    }
+                    order = next;
+                }
+            }, interval);
+        }
+    }
+</script>
+
 <style>
-  .opening {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    background: var(--bone);
-  }
-  .hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  .hero__inner {
-    position: relative;
-    z-index: 1;
-    max-width: 56ch;
-    margin: 0 auto;
-    padding: var(--space-16) var(--gutter);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .hero__title { font-size: clamp(2.6rem, 5.5vw, 4.4rem); max-width: 18ch; margin: 0 0 var(--space-5); }
-  .hero__badges { display: flex; justify-content: center; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-6); }
-  .hero__tagline { max-width: 52ch; }
+    .opening {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        background: var(--bone);
+    }
+    .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .hero__inner {
+        position: relative;
+        z-index: 1;
+        max-width: 56ch;
+        margin: 0 auto;
+        padding: var(--space-16) var(--gutter);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .hero__title {
+        font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+        max-width: 18ch;
+        margin: 0 0 var(--space-5);
+    }
+    .hero__badges {
+        display: flex;
+        justify-content: center;
+        gap: var(--space-2);
+        flex-wrap: wrap;
+        margin-bottom: var(--space-6);
+    }
+    .hero__tagline {
+        max-width: 52ch;
+    }
 
-  .btn--ink { background: var(--umber); color: var(--paper); }
-  .btn--ink:hover:not(:disabled) { background: var(--rule); color: var(--paper); }
+    .btn--ink {
+        background: var(--umber);
+        color: var(--paper);
+    }
+    .btn--ink:hover:not(:disabled) {
+        background: var(--rule);
+        color: var(--paper);
+    }
 
-  .block { padding: var(--space-16) var(--gutter); }
-  #approach { position: relative; z-index: 1; }
-  .block--alt { background: var(--surface-1); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
-  .block__inner { max-width: var(--container-default); margin: 0 auto; }
-  .block__inner.narrow { max-width: 65ch; }
-  .block h2 { font-size: clamp(1.8rem, 3.2vw, 2.6rem); max-width: 22ch; margin: var(--space-2) 0 var(--space-4); }
-  .block__intro { margin-bottom: var(--space-10); max-width: 62ch; }
-  .block__more { margin-top: var(--space-8); }
+    .block {
+        padding: var(--space-16) var(--gutter);
+    }
+    #approach {
+        position: relative;
+        z-index: 1;
+    }
+    .block--alt {
+        background: var(--surface-1);
+        border-top: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .block__inner {
+        max-width: var(--container-default);
+        margin: 0 auto;
+    }
+    .block__inner.narrow {
+        max-width: 65ch;
+    }
+    .block h2 {
+        font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+        max-width: 22ch;
+        margin: var(--space-2) 0 var(--space-4);
+    }
+    .block__intro {
+        margin-bottom: var(--space-10);
+        max-width: 62ch;
+    }
+    .block__more {
+        margin-top: var(--space-8);
+    }
 
-  .approach__text {
-    font-family: var(--sans);
-    font-size: var(--text-xl);
-    line-height: var(--leading-heading);
-    max-width: 40ch;
-    margin: 0;
-  }
+    .approach__text {
+        font-family: var(--sans);
+        font-size: var(--text-xl);
+        line-height: var(--leading-heading);
+        max-width: 40ch;
+        margin: 0;
+    }
 
-  /* Pillar rows */
-  .pillars { display: flex; flex-direction: column; gap: var(--space-16); }
-  .pillar-row { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-10); padding-top: var(--space-10); border-top: 1px solid var(--border-subtle); align-items: start; }
-  .pillar-row__media { position: relative; border-radius: 0.75rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--surface-2); }
-  .pillar-row__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-  .pillar-row__media-abstract { transition: opacity var(--t-slow); }
-  .pillar-row__media:hover .pillar-row__media-abstract { opacity: 0; }
-  .pillar-row__title { font-size: var(--text-xl); margin: var(--space-3) 0 var(--space-3); }
-  .pillar-row__intro { color: var(--text-muted); line-height: var(--leading-body); }
-  .pillar-row__services { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
-  .pillar-row__services li { display: flex; align-items: baseline; gap: var(--space-3); font-size: var(--text-md); }
-  .pillar-row__check { font-family: var(--mono); font-size: var(--text-sm); color: var(--primary); }
-  .pillar-row__link {
-    display: inline-block; margin-top: var(--space-6);
-    font-family: var(--mono); font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.04em;
-    color: var(--primary); text-decoration: none;
-  }
-  .pillar-row__link:hover { text-decoration: underline; }
-  .pillar-row:nth-child(even) .pillar-row__media { order: 2; }
+    /* Pillar rows */
+    .pillars {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-16);
+    }
+    .pillar-row {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: var(--space-10);
+        padding-top: var(--space-10);
+        border-top: 1px solid var(--border-subtle);
+        align-items: start;
+    }
+    .pillar-row__media {
+        position: relative;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        background: var(--surface-2);
+    }
+    .pillar-row__media img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .pillar-row__media-abstract {
+        transition: opacity var(--t-slow);
+    }
+    .pillar-row__media:hover .pillar-row__media-abstract {
+        opacity: 0;
+    }
+    .pillar-row__title {
+        font-size: var(--text-xl);
+        margin: var(--space-3) 0 var(--space-3);
+    }
+    .pillar-row__intro {
+        color: var(--text-muted);
+        line-height: var(--leading-body);
+    }
+    .pillar-row__services {
+        list-style: none;
+        margin: var(--space-6) 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+    .pillar-row__services li {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-3);
+        font-size: var(--text-md);
+    }
+    .pillar-row__check {
+        font-family: var(--mono);
+        font-size: var(--text-sm);
+        color: var(--primary);
+    }
+    .pillar-row__link {
+        display: inline-block;
+        margin-top: var(--space-6);
+        font-family: var(--mono);
+        font-size: var(--text-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--primary);
+        text-decoration: none;
+    }
+    .pillar-row__link:hover {
+        text-decoration: underline;
+    }
+    .pillar-row:nth-child(even) .pillar-row__media {
+        order: 2;
+    }
 
-  .cta-panel {
-    display: flex; align-items: center; justify-content: space-between; gap: var(--space-6);
-    flex-wrap: wrap; margin-top: var(--space-12); padding: var(--space-8);
-    background: var(--umber); color: var(--paper); border-radius: 0.75rem;
-  }
-  .cta-panel h3 { margin: 0 0 var(--space-2); color: var(--paper); }
-  .cta-panel p { margin: 0; color: color-mix(in srgb, var(--paper) 80%, transparent); max-width: 60ch; }
-  .cta-panel .btn--primary { background: var(--paper); color: var(--umber); }
-  .cta-panel .btn--primary:hover:not(:disabled) { background: var(--ivory); color: var(--umber); }
+    .cta-panel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-6);
+        flex-wrap: wrap;
+        margin-top: var(--space-12);
+        padding: var(--space-8);
+        background: var(--umber);
+        color: var(--paper);
+        border-radius: 0.75rem;
+    }
+    .cta-panel h3 {
+        margin: 0 0 var(--space-2);
+        color: var(--paper);
+    }
+    .cta-panel p {
+        margin: 0;
+        color: color-mix(in srgb, var(--paper) 80%, transparent);
+        max-width: 60ch;
+    }
+    .cta-panel .btn--primary {
+        background: var(--paper);
+        color: var(--umber);
+    }
+    .cta-panel .btn--primary:hover:not(:disabled) {
+        background: var(--ivory);
+        color: var(--umber);
+    }
 
-  /* Project gallery */
-  .project-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: var(--space-8); }
-  .project-tile {
-    display: flex; flex-direction: column; overflow: hidden;
-    background: var(--paper); border-radius: 0.75rem;
-    box-shadow: var(--shadow-sm); transition: box-shadow var(--t-med), translate var(--t-med);
-  }
-  .project-tile:hover { box-shadow: var(--shadow-md); translate: 0 -2px; }
-  .project-tile__media { aspect-ratio: 16 / 10; background: var(--surface-2); min-height: 0; }
-  .project-tile__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .project-tile__body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
-  .project-tile__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2); }
-  .project-tile__heading { font-size: var(--text-lg); margin: 0; }
-  .project-tile__name { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin: 0; }
-  .project-tile__excerpt { color: var(--text-muted); font-size: var(--copy-md); line-height: var(--leading-body); margin: var(--space-2) 0 0; flex: 1; }
-  .project-tile__link { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); text-decoration: none; margin-top: var(--space-2); }
-  .project-tile__link:hover { text-decoration: underline; }
+    /* Project gallery */
+    .project-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+        gap: var(--space-8);
+    }
+    .project-tile {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: var(--paper);
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow-sm);
+        transition:
+            box-shadow var(--t-med),
+            translate var(--t-med);
+    }
+    .project-tile:hover {
+        box-shadow: var(--shadow-md);
+        translate: 0 -2px;
+    }
+    .project-tile__media {
+        aspect-ratio: 16 / 10;
+        background: var(--surface-2);
+        min-height: 0;
+    }
+    .project-tile__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .project-tile__body {
+        padding: var(--space-6);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+        flex: 1;
+    }
+    .project-tile__badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin-bottom: var(--space-2);
+    }
+    .project-tile__heading {
+        font-size: var(--text-lg);
+        margin: 0;
+    }
+    .project-tile__name {
+        font-family: var(--mono);
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        margin: 0;
+    }
+    .project-tile__excerpt {
+        color: var(--text-muted);
+        font-size: var(--copy-md);
+        line-height: var(--leading-body);
+        margin: var(--space-2) 0 0;
+        flex: 1;
+    }
+    .project-tile__link {
+        font-family: var(--mono);
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--primary);
+        text-decoration: none;
+        margin-top: var(--space-2);
+    }
+    .project-tile__link:hover {
+        text-decoration: underline;
+    }
 
-  /* Audiences — two-column list with row dividers (matches the branding lab experiment) */
-  .audiences { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 var(--space-12); }
-  .audience { padding: var(--space-5) 0; border-bottom: 1px solid var(--border-subtle); }
-  .audience:nth-last-child(-n+2) { border-bottom: none; }
-  .audience h3 { font-size: var(--text-md); font-weight: 600; margin: 0 0 var(--space-1); }
-  .audience p { color: var(--text-muted); line-height: var(--leading-body); margin: 0; }
+    /* Audiences — two-column list with row dividers (matches the branding lab experiment) */
+    .audiences {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0 var(--space-12);
+    }
+    .audience {
+        padding: var(--space-5) 0;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .audience:nth-last-child(-n + 2) {
+        border-bottom: none;
+    }
+    .audience h3 {
+        font-size: var(--text-md);
+        font-weight: 600;
+        margin: 0 0 var(--space-1);
+    }
+    .audience p {
+        color: var(--text-muted);
+        line-height: var(--leading-body);
+        margin: 0;
+    }
 
-  .contact__email { margin-top: var(--space-4); }
+    .contact__email {
+        margin-top: var(--space-4);
+    }
 
-  /* Contact */
-  .contact-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--space-12); align-items: start; }
-  .contact-layout__copy h2 { margin-top: 0; }
-  .contact-form {
-    padding: var(--space-8);
-    background: var(--bg);
-    border: 1px solid var(--border-subtle);
-    border-radius: 0.75rem;
-    box-shadow: var(--shadow-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-  }
-  .contact-form textarea.field__input { min-height: 9rem; resize: vertical; }
-  .contact-form__submit { align-self: flex-start; margin-top: var(--space-1); }
+    /* Contact */
+    .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: var(--space-12);
+        align-items: start;
+    }
+    .contact-layout__copy h2 {
+        margin-top: 0;
+    }
+    .contact-form {
+        padding: var(--space-8);
+        background: var(--bg);
+        border: 1px solid var(--border-subtle);
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow-md);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-5);
+    }
+    .contact-form textarea.field__input {
+        min-height: 9rem;
+        resize: vertical;
+    }
+    .contact-form__submit {
+        align-self: flex-start;
+        margin-top: var(--space-1);
+    }
 
-  @media (max-width: 720px) {
-    .pillar-row { grid-template-columns: 1fr; gap: var(--space-5); }
-    .pillar-row__media, .pillar-row:nth-child(even) .pillar-row__media { order: -1; }
-    .cta-panel { flex-direction: column; align-items: flex-start; }
-    .contact-layout { grid-template-columns: 1fr; }
-    .audiences { grid-template-columns: 1fr; }
-    .audience:nth-last-child(-n+2) { border-bottom: 1px solid var(--border-subtle); }
-    .audience:last-child { border-bottom: none; }
-  }
+    @media (max-width: 720px) {
+        .pillar-row {
+            grid-template-columns: 1fr;
+            gap: var(--space-5);
+        }
+        .pillar-row__media,
+        .pillar-row:nth-child(even) .pillar-row__media {
+            order: -1;
+        }
+        .cta-panel {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .contact-layout {
+            grid-template-columns: 1fr;
+        }
+        .audiences {
+            grid-template-columns: 1fr;
+        }
+        .audience:nth-last-child(-n + 2) {
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .audience:last-child {
+            border-bottom: none;
+        }
+    }
 </style>

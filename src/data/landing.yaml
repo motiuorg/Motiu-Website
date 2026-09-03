@@ -2,7 +2,22 @@
 # The three pillars frame the org's three capabilities:
 #   tissue → Network coordination · neural → Collective intelligence · flow → Regenerative finance
 hero:
-  title: Infrastructure for territorial regeneration
+  # Rotating headline: the first word of the title swaps every 2s (list below).
+  # Per-locale titles — EN is the default; CA/ES pages still serve EN copy
+  # elsewhere (i18n rewrite fallback), so only the headline is localized for now.
+  title:
+    en: Infrastructure for territorial regeneration
+    ca: Infraestructura per a la regeneració territorial
+    es: Infraestructura para la regeneración territorial
+  # Word rotation: one entry per rotating word, translated per locale.
+  # The first entry must match the first word of the matching title above
+  # (it's the initial render; the JS rotation then reshuffles the order).
+  rotate:
+    - { en: Infrastructure, ca: Infraestructura, es: Infraestructura }
+    - { en: Intelligence, ca: Intel·ligència, es: Inteligencia }
+    - { en: Networks, ca: Xarxes, es: Redes }
+    - { en: Financing, ca: Finançament, es: Financiación }
+    - { en: Capacitation, ca: Capacitació, es: Capacitación }
   tagline: >-
     Regeneration that doesn't reach the economic and social roots doesn't last. We build the
     coordination, shared knowledge, and financial architecture that let networks of initiatives
