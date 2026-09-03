@@ -7,152 +7,322 @@ import PageHero from "../components/PageHero.astro";
 import StatBand from "../components/StatBand.astro";
 import TeamCard from "../components/TeamCard.astro";
 
-const d = yaml.load(fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8")) as any;
+const d = yaml.load(
+    fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8"),
+) as any;
 const teamPillars = ["neural", "tissue", "flow"];
 // Portraits where we have them; TeamCard falls back to the monogram otherwise.
 const teamPhotos: Record<string, string> = {
-  "Giulio Quarta": "/assets/team/giulio-quarta.jpg",
-  "Luiz Fernando Gomez Segala": "/assets/team/luiz-fernando-gomez-segala.jpg",
+    "Giulio Quarta": "/assets/team/giulio-quarta.jpg",
+    "Luiz Fernando Gomez Segala": "/assets/team/luiz-fernando-gomez-segala.jpg",
 };
 
 // Theory of change — the three moves, grounded in existing About copy.
 const theory = [
-  {
-    title: "ESS ↔ Web3 bridge",
-    body: "Translate Web3 and ReFi tools into cooperative language and context; bring local ESS projects to global funding channels; and co-design governance that respects cooperative values while leveraging decentralized infrastructure.",
-  },
-  {
-    title: "Regenerant Catalunya as proof",
-    body: "€27K+ pooled, 10+ local projects funded, a multi-sig treasury operated by local stakeholders — a working model other bioregions can adapt.",
-  },
-  {
-    title: "Cooperative formation pathway",
-    body: "Evolving from informal coordination into a formal cooperative structure, with a target of Q3 2026.",
-  },
+    {
+        title: "Finance and knowledge, as one connective layer",
+        body: "Two practiced lines — BioFi and landscape-scale financial strategies, and collective knowledge infrastructure — applied together: the same partners, the same territory, the same commons.",
+    },
+    {
+        title: "Regenerant Catalunya as proof",
+        body: "€27K+ pooled, 10+ local projects funded, a shared treasury operated by local stakeholders — a working model other bioregions can adapt.",
+    },
+    {
+        title: "Cooperative formation pathway",
+        body: "Evolving from informal coordination into a formal cooperative structure, with a target of Q3 2026.",
+    },
 ];
 
 const partners = [
-  { name: "Miceli", note: "Regenerative culture and the catalunya.place surface.", href: "https://catalunya.place" },
-  { name: "La Fundició", note: "Cultural and community practice in Barcelona." },
-  { name: "Keras Buti", note: "Agroecology and community land in the La Fundició cluster." },
+    {
+        name: "Miceli",
+        note: "Regenerative culture and the catalunya.place surface.",
+        href: "https://catalunya.place",
+    },
+    {
+        name: "La Fundició",
+        note: "Cultural and community practice in Barcelona.",
+    },
+    {
+        name: "Keras Buti",
+        note: "Agroecology and community land in the La Fundició cluster.",
+    },
 ];
 ---
-<Layout title="About" current="about" description="A local ReFi node and cooperative-in-formation in Barcelona, working across coordination, sensemaking, and regenerative finance.">
-  <PageHero
-    eyebrow="About"
-    title="A local ReFi node, becoming a cooperative"
-    lede="We sit at the meeting point of Catalonia's Economia Social i Solidària and the regenerative-finance tooling emerging globally — translating between them, surfacing what's useful, refusing the rest."
-  />
 
-  <section class="block block--alt">
-    <div class="block__inner narrow">
-      <p class="lede">We work where cooperatives, community land trusts, and time banks meet the tools of regenerative finance — anchored at Bloc4, Barcelona, and rooted in the Economia Social i Solidària tradition that runs deep across Catalonia.</p>
-      <p>The gap we work in is practical: local projects that hold real regenerative value but can't yet reach the funding, coordination, or shared knowledge that would let them do more. We build that connective infrastructure, and we insist the tooling stays in service of cooperative governance — never the other way around.</p>
-    </div>
-    <div class="block__inner statband-wrap">
-      <StatBand />
-    </div>
-  </section>
+<Layout
+    title="About"
+    current="about"
+    description="A cooperative-in-formation in Barcelona designing and running financial strategies, shared knowledge systems, and coordination for territorial regeneration."
+>
+    <PageHero
+        eyebrow="About"
+        title="A cooperative-in-formation at the meeting point of finance and knowledge"
+        lede="We sit at the meeting point of Catalonia's Economia Social i Solidària and the regenerative-finance practice emerging globally — translating between them, surfacing what's useful, refusing the rest."
+    />
 
-  <section class="block">
-    <div class="block__inner">
-      <p class="eyebrow">Theory of change</p>
-      <h2>Three moves, one direction.</h2>
-      <ol class="theory">
-        {theory.map((t, i) => (
-          <li class="theory__item">
-            <span class="theory__index">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <h3 class="theory__title">{t.title}</h3>
-              <p class="theory__body">{t.body}</p>
+    <section class="block block--alt">
+        <div class="block__inner narrow">
+            <p class="lede">
+                We work where cooperatives, community land trusts, and time
+                banks meet the tools of regenerative finance — anchored at
+                Bloc4, Barcelona, and rooted in the Economia Social i Solidària
+                tradition that runs deep across Catalonia.
+            </p>
+            <p>
+                Our work is practical: local projects that hold real
+                regenerative value but can't yet reach the funding,
+                coordination, or shared knowledge that would let them do more.
+                We design and run that connective work — financial strategies,
+                knowledge systems, coordination — and we insist it stays in
+                service of cooperative governance, never the other way around.
+            </p>
+        </div>
+        <div class="block__inner statband-wrap">
+            <StatBand />
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="block__inner">
+            <p class="eyebrow">Theory of change</p>
+            <h2>Three moves, one direction.</h2>
+            <ol class="theory">
+                {
+                    theory.map((t, i) => (
+                        <li class="theory__item">
+                            <span class="theory__index">
+                                {String(i + 1).padStart(2, "0")}
+                            </span>
+                            <div>
+                                <h3 class="theory__title">{t.title}</h3>
+                                <p class="theory__body">{t.body}</p>
+                            </div>
+                        </li>
+                    ))
+                }
+            </ol>
+        </div>
+    </section>
+
+    <section class="block block--alt">
+        <div class="block__inner">
+            <p class="eyebrow">Who we are</p>
+            <h2>Three operators at Bloc4, Barcelona.</h2>
+            <p class="lede block__intro">{d.teamIntro}</p>
+            <div class="team-cards">
+                {
+                    d.team.map((m: any, i: number) => (
+                        <TeamCard
+                            name={m.name}
+                            role={m.role}
+                            bio={m.bio}
+                            pillar={teamPillars[i % teamPillars.length]}
+                            photo={teamPhotos[m.name]}
+                        />
+                    ))
+                }
             </div>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
+        </div>
+    </section>
 
-  <section class="block block--alt">
-    <div class="block__inner">
-      <p class="eyebrow">Who we are</p>
-      <h2>Three operators at Bloc4, Barcelona.</h2>
-      <p class="lede block__intro">{d.teamIntro}</p>
-      <div class="team-cards">
-        {d.team.map((m: any, i: number) => (
-          <TeamCard name={m.name} role={m.role} bio={m.bio} pillar={teamPillars[i % teamPillars.length]} photo={teamPhotos[m.name]} />
-        ))}
-      </div>
-    </div>
-  </section>
+    <section class="block">
+        <div class="block__inner">
+            <p class="eyebrow">Partners</p>
+            <h2>We work alongside grounded local organizations.</h2>
+            <div class="partners">
+                {
+                    partners.map((p) => (
+                        <article class="partner">
+                            <h3 class="partner__name">{p.name}</h3>
+                            <p class="partner__note">{p.note}</p>
+                            {p.href && (
+                                <a
+                                    class="partner__link"
+                                    href={p.href}
+                                    target="_blank"
+                                    rel="noopener"
+                                >
+                                    Visit ↗
+                                </a>
+                            )}
+                        </article>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
 
-  <section class="block">
-    <div class="block__inner">
-      <p class="eyebrow">Partners</p>
-      <h2>We work alongside grounded local organizations.</h2>
-      <div class="partners">
-        {partners.map((p) => (
-          <article class="partner">
-            <h3 class="partner__name">{p.name}</h3>
-            <p class="partner__note">{p.note}</p>
-            {p.href && <a class="partner__link" href={p.href} target="_blank" rel="noopener">Visit ↗</a>}
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-band">
-    <div class="cta-band__inner">
-      <div>
-        <h2 class="cta-band__title">Working across a territory or network?</h2>
-        <p class="cta-band__body">Start with a free intro call — tell us what you're working on and we'll say honestly whether we can help.</p>
-      </div>
-      <a class="btn btn--paper" href="/contact/">Book a free intro call</a>
-    </div>
-  </section>
+    <section class="cta-band">
+        <div class="cta-band__inner">
+            <div>
+                <h2 class="cta-band__title">
+                    Working across a territory or network?
+                </h2>
+                <p class="cta-band__body">
+                    Start with a free intro call — tell us what you're working
+                    on and we'll say honestly whether we can help.
+                </p>
+            </div>
+            <a class="btn btn--paper" href="/contact/">Book a free intro call</a
+            >
+        </div>
+    </section>
 </Layout>
 
 <style>
-  .block { padding: var(--space-16) var(--gutter); }
-  .block--alt { background: var(--surface-1); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
-  .block__inner { max-width: var(--container-default); margin: 0 auto; }
-  /* Left-aligned prose (not centered) so the story shares the page's left
+    .block {
+        padding: var(--space-16) var(--gutter);
+    }
+    .block--alt {
+        background: var(--surface-1);
+        border-top: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .block__inner {
+        max-width: var(--container-default);
+        margin: 0 auto;
+    }
+    /* Left-aligned prose (not centered) so the story shares the page's left
      edge with the PageHero lede and the full-width StatBand below it. */
-  .block__inner.narrow { max-width: 66ch; margin-inline: 0; }
-  .block h2 { font-size: clamp(1.8rem, 3.2vw, 2.6rem); max-width: 22ch; margin: var(--space-2) 0 var(--space-6); }
-  .block__intro { margin-bottom: var(--space-10); max-width: 62ch; }
-  .block__inner.narrow p { line-height: var(--leading-body); }
-  .block__inner.narrow p + p { margin-top: var(--space-5); }
-  .statband-wrap { margin-top: var(--space-12); }
+    .block__inner.narrow {
+        max-width: 66ch;
+        margin-inline: 0;
+    }
+    .block h2 {
+        font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+        max-width: 22ch;
+        margin: var(--space-2) 0 var(--space-6);
+    }
+    .block__intro {
+        margin-bottom: var(--space-10);
+        max-width: 62ch;
+    }
+    .block__inner.narrow p {
+        line-height: var(--leading-body);
+    }
+    .block__inner.narrow p + p {
+        margin-top: var(--space-5);
+    }
+    .statband-wrap {
+        margin-top: var(--space-12);
+    }
 
-  .theory { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  .theory__item { display: grid; grid-template-columns: 4rem 1fr; gap: var(--space-5); padding: var(--space-7) 0; border-top: 1px solid var(--umber); }
-  .theory__item:last-child { border-bottom: 1px solid var(--umber); }
-  .theory__index { font-family: var(--mono); font-size: var(--text-lg); color: var(--primary); }
-  .theory__title { margin: 0 0 var(--space-2); font-size: var(--text-lg); }
-  .theory__body { color: var(--text-muted); line-height: var(--leading-body); max-width: 60ch; margin: 0; }
+    .theory {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .theory__item {
+        display: grid;
+        grid-template-columns: 4rem 1fr;
+        gap: var(--space-5);
+        padding: var(--space-7) 0;
+        border-top: 1px solid var(--umber);
+    }
+    .theory__item:last-child {
+        border-bottom: 1px solid var(--umber);
+    }
+    .theory__index {
+        font-family: var(--mono);
+        font-size: var(--text-lg);
+        color: var(--primary);
+    }
+    .theory__title {
+        margin: 0 0 var(--space-2);
+        font-size: var(--text-lg);
+    }
+    .theory__body {
+        color: var(--text-muted);
+        line-height: var(--leading-body);
+        max-width: 60ch;
+        margin: 0;
+    }
 
-  .team-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-6); }
+    .team-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+        gap: var(--space-6);
+    }
 
-  .partners { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--space-5); }
-  .partner { border: 1px solid var(--umber); background: var(--bg); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2); }
-  .partner__name { margin: 0; font-size: var(--text-lg); }
-  .partner__note { color: var(--text-muted); font-size: var(--text-sm); line-height: var(--leading-body); margin: 0; flex: 1; }
-  .partner__link { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); text-decoration: none; margin-top: auto; }
-  .partner__link:hover { text-decoration: underline; }
+    .partners {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+        gap: var(--space-5);
+    }
+    .partner {
+        border: 1px solid var(--umber);
+        background: var(--bg);
+        padding: var(--space-6);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    .partner__name {
+        margin: 0;
+        font-size: var(--text-lg);
+    }
+    .partner__note {
+        color: var(--text-muted);
+        font-size: var(--text-sm);
+        line-height: var(--leading-body);
+        margin: 0;
+        flex: 1;
+    }
+    .partner__link {
+        font-family: var(--mono);
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--primary);
+        text-decoration: none;
+        margin-top: auto;
+    }
+    .partner__link:hover {
+        text-decoration: underline;
+    }
 
-  @media (max-width: 640px) {
-    .theory__item { grid-template-columns: 1fr; gap: var(--space-2); }
-  }
+    @media (max-width: 640px) {
+        .theory__item {
+            grid-template-columns: 1fr;
+            gap: var(--space-2);
+        }
+    }
 
-  /* Pre-footer CTA — umber, not the shared component's gradient (matches projects.astro / what-we-do.astro) */
-  .cta-band { background: var(--umber); padding: var(--space-16) var(--gutter); }
-  .cta-band__inner {
-    max-width: var(--container-default); margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); flex-wrap: wrap;
-  }
-  .cta-band__title { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin: 0 0 var(--space-3); max-width: 24ch; color: var(--paper); }
-  .cta-band__body { color: color-mix(in srgb, var(--paper) 80%, transparent); max-width: 52ch; margin: 0; line-height: var(--leading-body); }
-  .btn--paper { background: var(--paper); color: var(--umber); }
-  .btn--paper:hover:not(:disabled) { background: var(--ivory); color: var(--umber); }
+    /* Pre-footer CTA — umber, not the shared component's gradient (matches projects.astro / what-we-do.astro) */
+    .cta-band {
+        background: var(--umber);
+        padding: var(--space-16) var(--gutter);
+    }
+    .cta-band__inner {
+        max-width: var(--container-default);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-8);
+        flex-wrap: wrap;
+    }
+    .cta-band__title {
+        font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+        margin: 0 0 var(--space-3);
+        max-width: 24ch;
+        color: var(--paper);
+    }
+    .cta-band__body {
+        color: color-mix(in srgb, var(--paper) 80%, transparent);
+        max-width: 52ch;
+        margin: 0;
+        line-height: var(--leading-body);
+    }
+    .btn--paper {
+        background: var(--paper);
+        color: var(--umber);
+    }
+    .btn--paper:hover:not(:disabled) {
+        background: var(--ivory);
+        color: var(--umber);
+    }
 </style>

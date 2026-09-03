@@ -11,186 +11,362 @@ import path from "node:path";
 // "What we do" — pillars + their services, from src/data/landing.yaml (copied from index.astro).
 // This page used to also render a separate five-item list from services.yaml; that list has been
 // folded into the pillar sections below instead of kept as its own section.
-const landing = yaml.load(fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8")) as any;
-const projects = (yaml.load(fs.readFileSync(path.join(process.cwd(), "src/data/projects.yaml"), "utf8")) as any).projects;
-const projectBySlug: Record<string, any> = Object.fromEntries(projects.map((p: any) => [p.slug, p]));
-const landingProjectByHref: Record<string, any> = Object.fromEntries(landing.projects.map((p: any) => [p.href, p]));
+const landing = yaml.load(
+    fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8"),
+) as any;
+const projects = (
+    yaml.load(
+        fs.readFileSync(
+            path.join(process.cwd(), "src/data/projects.yaml"),
+            "utf8",
+        ),
+    ) as any
+).projects;
+const projectBySlug: Record<string, any> = Object.fromEntries(
+    projects.map((p: any) => [p.slug, p]),
+);
+const landingProjectByHref: Record<string, any> = Object.fromEntries(
+    landing.projects.map((p: any) => [p.href, p]),
+);
 
 const trimExcerpt = (text: string, max = 140) => {
-  const first = (text ?? "").split(/\n\s*\n/)[0].replace(/\s+/g, " ").trim();
-  if (first.length <= max) return first;
-  return first.slice(0, first.lastIndexOf(" ", max)).trim() + "…";
+    const first = (text ?? "")
+        .split(/\n\s*\n/)[0]
+        .replace(/\s+/g, " ")
+        .trim();
+    if (first.length <= max) return first;
+    return first.slice(0, first.lastIndexOf(" ", max)).trim() + "…";
 };
 
 // Case-study link per service, mapped by hand — the two data sources don't line up 1:1 (6 pillar
 // services vs. 5 case studies), so this is judgment, not a mechanical join. Not every service has
 // an existing case study to point to; those are left without one rather than force a weak match.
 const serviceCaseSlug: Record<string, string> = {
-  "Program facilitation & network accompaniment": "regenerant-catalunya",
-  "Process alignment & automation": "refi-dao-regen-coordination",
-  "Collective knowledge infrastructure": "bioregional-garden",
-  "Grant programs & collaborative funding": "regenerant-catalunya", // reused deliberately — it's literally the funding program
-  "Landscape-scale finance strategy": "altiplano-estepario",
+    "Bioregional network weaving & sensemaking": "regenerant-catalunya",
+    "Funding & capacity-building programs": "regenerant-catalunya",
+    "Collective knowledge infrastructure": "bioregional-garden",
+    "BioFi & landscape-scale finance strategy": "regenerant-catalunya",
+    // "Collective financial infrastructures" has no case study yet — left without one.
 };
 
 function caseFor(serviceName: string) {
-  // Atlas isn't a src/data/projects.yaml case study (no /projects/<slug> page of its own) — it's
-  // sourced from landing.yaml's project list instead, which already has image + excerpt for it.
-  if (serviceName === "Complex research & visualizations") {
-    const pr = landingProjectByHref["/atlas/"];
-    return { title: pr.name, href: pr.href, external: false, image: pr.image, pillar: pr.pillars?.[0], excerpt: trimExcerpt(pr.excerpt) };
-  }
-  const slug = serviceCaseSlug[serviceName];
-  if (!slug) return null;
-  const p = projectBySlug[slug];
-  return {
-    title: p.title,
-    href: p.external ? p.href : `/projects/${p.slug}/`,
-    external: !!p.external,
-    image: p.image,
-    pillar: p.pillars?.[0],
-    excerpt: trimExcerpt(p.body),
-  };
+    // Atlas isn't a src/data/projects.yaml case study (no /projects/<slug> page of its own) — it's
+    // sourced from landing.yaml's project list instead, which already has image + excerpt for it.
+    if (serviceName === "Complex research & visualizations") {
+        const pr = landingProjectByHref["/atlas/"];
+        return {
+            title: pr.name,
+            href: pr.href,
+            external: false,
+            image: pr.image,
+            pillar: pr.pillars?.[0],
+            excerpt: trimExcerpt(pr.excerpt),
+        };
+    }
+    const slug = serviceCaseSlug[serviceName];
+    if (!slug) return null;
+    const p = projectBySlug[slug];
+    return {
+        title: p.title,
+        href: p.external ? p.href : `/projects/${p.slug}/`,
+        external: !!p.external,
+        image: p.image,
+        pillar: p.pillars?.[0],
+        excerpt: trimExcerpt(p.body),
+    };
 }
 ---
-<Layout title="What we do" current="what-we-do" description="Five operational service lines bridging social-economy practice with regenerative-finance infrastructure.">
-  <PageHero
-    eyebrow="SERVICES"
+
+<Layout
     title="What we do"
-    lede={landing.whatWeDoIntro}
-  />
+    current="what-we-do"
+    description="Three capabilities — network coordination, collective intelligence, and regenerative finance — practiced through programs we have designed and run."
+>
+    <PageHero
+        eyebrow="SERVICES"
+        title="What we do"
+        lede={landing.whatWeDoIntro}
+    />
 
-  <!-- What we do — the three capabilities, each its own section (copied from index.astro). -->
-  {landing.pillars.map((p: any, i: number) => (
-    <section class:list={["block", "pillar-section", { "block--alt": i % 2 === 0 }]} id={`pillar-${p.key}`}>
-      <div class="block__inner">
-        <div class="pillar-head">
-          <PillarBadge pillar={p.key} label={p.badge} />
-          <h2 class="pillar-head__title">{p.title}</h2>
-          <p class="pillar-head__intro">{p.intro}</p>
-        </div>
-        <div class="pillar-services">
-          {p.services.map((s: any) => {
-            const c = caseFor(s.name);
-            return (
-              <div class="pillar-service">
-                <div class="pillar-service__main">
-                  <h3 class="pillar-service__name">{s.name}</h3>
-                  <p class="pillar-service__body">{s.body}</p>
+    <!-- What we do — the three capabilities, each its own section (copied from index.astro). -->
+    {
+        landing.pillars.map((p: any, i: number) => (
+            <section
+                class:list={[
+                    "block",
+                    "pillar-section",
+                    { "block--alt": i % 2 === 0 },
+                ]}
+                id={`pillar-${p.key}`}
+            >
+                <div class="block__inner">
+                    <div class="pillar-head">
+                        <PillarBadge pillar={p.key} label={p.badge} />
+                        <h2 class="pillar-head__title">{p.title}</h2>
+                        <p class="pillar-head__intro">{p.intro}</p>
+                    </div>
+                    <div class="pillar-services">
+                        {p.services.map((s: any) => {
+                            const c = caseFor(s.name);
+                            return (
+                                <div class="pillar-service">
+                                    <div class="pillar-service__main">
+                                        <h3 class="pillar-service__name">
+                                            {s.name}
+                                        </h3>
+                                        <p class="pillar-service__body">
+                                            {s.body}
+                                        </p>
+                                    </div>
+                                    {c && (
+                                        <a
+                                            class="case-card"
+                                            href={c.href}
+                                            {...(c.external
+                                                ? {
+                                                      target: "_blank",
+                                                      rel: "noopener",
+                                                  }
+                                                : {})}
+                                        >
+                                            <div class="case-card__media">
+                                                {c.image ? (
+                                                    <img
+                                                        src={c.image}
+                                                        alt=""
+                                                        loading="lazy"
+                                                    />
+                                                ) : (
+                                                    <Aurora
+                                                        pillar={
+                                                            c.pillar ?? "tissue"
+                                                        }
+                                                        opacity={0.7}
+                                                    />
+                                                )}
+                                            </div>
+                                            <div class="case-card__body">
+                                                <div class="case-card__head">
+                                                    <span class="case-card__label">
+                                                        Case study
+                                                    </span>
+                                                    <span
+                                                        class="case-card__arrow"
+                                                        aria-hidden="true"
+                                                    >
+                                                        ↗
+                                                    </span>
+                                                </div>
+                                                <span class="case-card__title">
+                                                    {c.title}
+                                                </span>
+                                                <p class="case-card__excerpt">
+                                                    {c.excerpt}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
-                {c && (
-                  <a class="case-card" href={c.href} {...(c.external ? { target: "_blank", rel: "noopener" } : {})}>
-                    <div class="case-card__media">
-                      {c.image
-                        ? <img src={c.image} alt="" loading="lazy" />
-                        : <Aurora pillar={c.pillar ?? "tissue"} opacity={0.7} />}
-                    </div>
-                    <div class="case-card__body">
-                      <div class="case-card__head">
-                        <span class="case-card__label">Case study</span>
-                        <span class="case-card__arrow" aria-hidden="true">↗</span>
-                      </div>
-                      <span class="case-card__title">{c.title}</span>
-                      <p class="case-card__excerpt">{c.excerpt}</p>
-                    </div>
-                  </a>
-                )}
-              </div>
-            );
-          })}
+            </section>
+        ))
+    }
+
+    <section class="block">
+        <div class="block__inner">
+            <ProcessStrip />
         </div>
-      </div>
     </section>
-  ))}
 
-  <section class="block">
-    <div class="block__inner">
-      <ProcessStrip />
-    </div>
-  </section>
-
-  <section class="cta-band">
-    <div class="cta-band__inner">
-      <div>
-        <h2 class="cta-band__title">Working across a territory or network?</h2>
-        <p class="cta-band__body">Start with a free intro call — tell us what you're working on and we'll say honestly whether we can help.</p>
-      </div>
-      <a class="btn btn--paper" href="/contact/">Book a free intro call</a>
-    </div>
-  </section>
+    <section class="cta-band">
+        <div class="cta-band__inner">
+            <div>
+                <h2 class="cta-band__title">
+                    Working across a territory or network?
+                </h2>
+                <p class="cta-band__body">
+                    Start with a free intro call — tell us what you're working
+                    on and we'll say honestly whether we can help.
+                </p>
+            </div>
+            <a class="btn btn--paper" href="/contact/">Book a free intro call</a
+            >
+        </div>
+    </section>
 </Layout>
 
 <style>
-  .block { padding: var(--space-16) var(--gutter); }
-  .block--alt { background: var(--surface-1); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
-  .block__inner { max-width: var(--container-default); margin: 0 auto; }
+    .block {
+        padding: var(--space-16) var(--gutter);
+    }
+    .block--alt {
+        background: var(--surface-1);
+        border-top: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .block__inner {
+        max-width: var(--container-default);
+        margin: 0 auto;
+    }
 
-  /* Pillar head — badge/title/intro, no image */
-  .pillar-head { max-width: 62ch; }
-  .pillar-head__title { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin: var(--space-3) 0 var(--space-3); }
-  .pillar-head__intro { color: var(--text-muted); line-height: var(--leading-body); }
+    /* Pillar head — badge/title/intro, no image */
+    .pillar-head {
+        max-width: 62ch;
+    }
+    .pillar-head__title {
+        font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+        margin: var(--space-3) 0 var(--space-3);
+    }
+    .pillar-head__intro {
+        color: var(--text-muted);
+        line-height: var(--leading-body);
+    }
 
-  /* Services — divider rows (matches the theory/services pattern used elsewhere on the site),
+    /* Services — divider rows (matches the theory/services pattern used elsewhere on the site),
      each with an optional case-study mini-card alongside. */
-  .pillar-services { display: flex; flex-direction: column; margin-top: var(--space-8); }
-  .pillar-service {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: var(--space-8);
-    padding: var(--space-8) 0;
-    border-top: 1px solid var(--border-subtle);
-    align-items: start;
-  }
-  .pillar-service:last-child { border-bottom: 1px solid var(--border-subtle); }
-  .pillar-service__name { margin: 0 0 var(--space-2); font-size: var(--text-lg); }
-  .pillar-service__body { color: var(--text-muted); line-height: var(--leading-body); margin: 0; }
+    .pillar-services {
+        display: flex;
+        flex-direction: column;
+        margin-top: var(--space-8);
+    }
+    .pillar-service {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: var(--space-8);
+        padding: var(--space-8) 0;
+        border-top: 1px solid var(--border-subtle);
+        align-items: start;
+    }
+    .pillar-service:last-child {
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .pillar-service__name {
+        margin: 0 0 var(--space-2);
+        font-size: var(--text-lg);
+    }
+    .pillar-service__body {
+        color: var(--text-muted);
+        line-height: var(--leading-body);
+        margin: 0;
+    }
 
-  .case-card {
-    display: grid;
-    grid-template-columns: 6rem 1fr;
-    background: var(--bg);
-    border: 1px solid var(--border-subtle);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    text-decoration: none;
-    color: var(--text-primary);
-    transition: translate var(--t-med), box-shadow var(--t-med);
-  }
-  .case-card:hover { translate: 0 -2px; box-shadow: var(--shadow-md); }
-  .case-card__media { position: relative; background: var(--surface-2); }
-  .case-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .case-card__media :global(.aurora) { position: absolute; inset: 0; }
-  .case-card__body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
-  .case-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
-  .case-card__label { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary); }
-  .case-card__arrow {
-    width: 1.375rem;
-    height: 1.375rem;
-    border-radius: 50%;
-    background: var(--umber);
-    color: var(--paper);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    flex-shrink: 0;
-  }
-  .case-card__title { font-family: var(--serif); font-size: var(--text-md); }
-  .case-card__excerpt { font-size: var(--text-sm); color: var(--text-muted); line-height: var(--leading-body); margin: 0; }
+    .case-card {
+        display: grid;
+        grid-template-columns: 6rem 1fr;
+        background: var(--bg);
+        border: 1px solid var(--border-subtle);
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        color: var(--text-primary);
+        transition:
+            translate var(--t-med),
+            box-shadow var(--t-med);
+    }
+    .case-card:hover {
+        translate: 0 -2px;
+        box-shadow: var(--shadow-md);
+    }
+    .case-card__media {
+        position: relative;
+        background: var(--surface-2);
+    }
+    .case-card__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .case-card__media :global(.aurora) {
+        position: absolute;
+        inset: 0;
+    }
+    .case-card__body {
+        padding: var(--space-4);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+        min-width: 0;
+    }
+    .case-card__head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-2);
+    }
+    .case-card__label {
+        font-family: var(--mono);
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--primary);
+    }
+    .case-card__arrow {
+        width: 1.375rem;
+        height: 1.375rem;
+        border-radius: 50%;
+        background: var(--umber);
+        color: var(--paper);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        flex-shrink: 0;
+    }
+    .case-card__title {
+        font-family: var(--serif);
+        font-size: var(--text-md);
+    }
+    .case-card__excerpt {
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        line-height: var(--leading-body);
+        margin: 0;
+    }
 
-  /* Pre-footer CTA — umber, not the shared component's gradient */
-  .cta-band { background: var(--umber); padding: var(--space-16) var(--gutter); }
-  .cta-band__inner {
-    max-width: var(--container-default); margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); flex-wrap: wrap;
-  }
-  .cta-band__title { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin: 0 0 var(--space-3); max-width: 24ch; color: var(--paper); }
-  .cta-band__body { color: color-mix(in srgb, var(--paper) 80%, transparent); max-width: 52ch; margin: 0; line-height: var(--leading-body); }
-  .btn--paper { background: var(--paper); color: var(--umber); }
-  .btn--paper:hover:not(:disabled) { background: var(--ivory); color: var(--umber); }
+    /* Pre-footer CTA — umber, not the shared component's gradient */
+    .cta-band {
+        background: var(--umber);
+        padding: var(--space-16) var(--gutter);
+    }
+    .cta-band__inner {
+        max-width: var(--container-default);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-8);
+        flex-wrap: wrap;
+    }
+    .cta-band__title {
+        font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+        margin: 0 0 var(--space-3);
+        max-width: 24ch;
+        color: var(--paper);
+    }
+    .cta-band__body {
+        color: color-mix(in srgb, var(--paper) 80%, transparent);
+        max-width: 52ch;
+        margin: 0;
+        line-height: var(--leading-body);
+    }
+    .btn--paper {
+        background: var(--paper);
+        color: var(--umber);
+    }
+    .btn--paper:hover:not(:disabled) {
+        background: var(--ivory);
+        color: var(--umber);
+    }
 
-  @media (max-width: 720px) {
-    .pillar-service { grid-template-columns: 1fr; gap: var(--space-4); }
-  }
+    @media (max-width: 720px) {
+        .pillar-service {
+            grid-template-columns: 1fr;
+            gap: var(--space-4);
+        }
+    }
 </style>

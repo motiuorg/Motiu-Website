@@ -17,8 +17,8 @@ projects:
         label: pooled across local + global sources
       - value: "10+"
         label: local regenerative projects funded
-      - value: "GG24"
-        label: Gitcoin Grants round designed & run
+      - value: "2"
+        label: local networks facilitated end-to-end
     links:
       - label: Visit the program site
         url: https://regenerant-catalunya.refibcn.cat
@@ -30,16 +30,32 @@ projects:
       on the ground.
 
       We designed the round, facilitated the participating networks — Miceli
-      Social and the La Fundició / Keras Buti cluster — and ran the treasury
-      through a Safe multisig that our partners co-operate, so decisions and
-      flows stay legible to everyone involved. The round drew on Gitcoin Grants
-      tooling for the global match.
+      Social and the La Fundició / Keras Buti cluster — and ran the treasury as
+      a shared fund our partners co-operate, so decisions and flows stay legible
+      to everyone involved. The round paired local capital with a global
+      matching-fund pool.
 
       The result was capital pooled across local cooperatives and global match
       funding, with the large majority directed to a cohort of local
       regenerative projects rather than to overhead. It is the clearest proof of
-      the model we offer: cooperative governance first, on-chain transparency in
+      the model we offer: cooperative governance first, transparent flows in
       service of it.
+
+  - title: Regenerant Catalunya Maps
+    slug: regenerant-catalunya-maps
+    role: Maps platform · data commons
+    theme: Interactive territorial maps
+    locality: Catalonia
+    pillars: [neural]
+    image: /assets/ecosystem_map.png
+    external: true
+    href: https://motiuorg.github.io/Regenerant-Catalunya-Maps/
+    body: |
+      Regenerant Catalunya Maps is a collaborative, searchable map of the
+      organizations, programs, and events working toward a regenerative
+      Catalunya — 179+ entities mapped and growing. It runs on the same data
+      commons as our other knowledge work, so the map is a living surface the
+      network can revise, not a snapshot that goes stale.
 
   - title: Bioregional Weaving Labs — portfolio mapping
     slug: bwl-portfolio-mapping
@@ -61,80 +77,7 @@ projects:
       report that goes stale. It is the same capability we bring to any
       organization sitting on knowledge it cannot yet see clearly.
 
-  - title: ReFi DAO / Regen Coordination
-    slug: refi-dao-regen-coordination
-    role: Local node · governance design · funding-round coordination
-    theme: Network coordination
-    locality: Global federation
-    pillars: [tissue]
-    image: /assets/projects/refi-dao-knowledge-graph.png
-    external: false
-    links:
-      - label: ReFi DAO
-        url: https://refidao.com/
-      - label: Regen Coordination
-        url: https://hub.regencoordination.xyz/
-    body: |
-      motiu is a local node within the wider ReFi DAO and Regen Coordination
-      network. We contribute governance design, funding-round mechanics, and the
-      day-to-day coordination that keeps a distributed regenerative ecosystem
-      moving.
-
-      In practice this means bridging two worlds: the cooperative and Economia
-      Social i Solidària traditions we are rooted in locally, and the global
-      regenerative-finance infrastructure — Safe, Karma GAP, Gitcoin, Celo Public
-      Goods — that the network runs on. We name those tools specifically and use
-      them where they add value, without letting the tooling drive the work.
-
-  - title: org-os — the organizational operating system
-    slug: org-os
-    role: Internal infrastructure · agent-native operations
-    theme: Organizational operating system
-    locality: Barcelona · federated
-    pillars: [neural, tissue]
-    # FLAG (image): interim brand card — replace with a Voronoi-generated tile or a dashboard
-    # capture before the September launch (the generator is the intended production route, BD-2026-043).
-    image: /assets/og-image.png
-    external: false
-    # BD-2026-063 (2026-08-06): org-os is publicly claimed co-op work. Body drafted 2026-08-09;
-    # the closing paragraph is the first public answer to the differentiation question
-    # (task-260806-luiz-orgos-differentiation) — it does not close that task.
-    # FLAG (stats): confirm counts at deploy — they move weekly.
-    stats:
-      - value: "119"
-        label: decisions logged with full provenance
-      - value: "63"
-        label: meetings processed into structured records
-      - value: "3"
-        label: federated org instances run on the same system
-    body: |
-      org-os is the operating system this cooperative actually runs on — and a
-      project in its own right. The organization's entire working state lives in
-      plain, versioned files: registries for members, projects, finances, tasks,
-      meetings and relationships, published as machine-readable schemas under the
-      EIP-4824 DAO standard. Nothing about how we operate is locked inside a
-      platform; the org's memory is a repository the co-op owns.
-
-      Agents operate inside it, not on top of it. Meeting recordings become
-      structured notes, minted decisions, and tracked tasks through a processing
-      pipeline with named sources for every claim. A Telegram agent handles
-      intake and routing from the team's daily channels into the same registries.
-      Knowledge work — from scattered markdown to typed, reviewable objects — runs
-      through the same discipline: local files first, human review gates, an
-      auditable trail.
-
-      Why build this instead of adopting an agent platform? Because the current
-      wave of tools hosts your operations on their infrastructure — org-os
-      inverts that. The substrate is git, YAML and Markdown: readable by any
-      tool, portable to any host, forkable by any sister organization. Three
-      federated instances already run on it across our network, and the same
-      structure is what lets agents work reliably: they read and write the same
-      files humans do, under the same review. That inversion — your organization
-      as a commons you own, with agents as accountable operators inside it — is
-      the difference, and it is the operating layer beneath every service we
-      offer.
-
-  - title: Bioregional Garden
+  - title: bioregioning.earth
     slug: bioregional-garden
     role: Knowledge-base structuring · commons stewardship
     theme: Bioregional knowledge commons
@@ -142,10 +85,10 @@ projects:
     pillars: [neural]
     external: false
     links:
-      - label: Visit the garden
+      - label: Visit bioregioning.earth
         url: https://bioregioning.earth
     body: |
-      The Bioregional Garden is a stewarded knowledge surface for Catalonia's
+      bioregioning.earth is a stewarded knowledge surface for Catalonia's
       regenerative ecosystem — a place where the territory's actors, practices,
       and resources are gathered into a shared, reusable commons rather than
       scattered across private drives and chat threads.

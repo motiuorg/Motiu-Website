@@ -18,47 +18,51 @@ hero:
     - { en: Networks, ca: Xarxes, es: Redes }
     - { en: Financing, ca: Finançament, es: Financiación }
     - { en: Capacitation, ca: Capacitació, es: Capacitación }
+    - { en: Strategies, ca: Estratègies, es: Estrategias }
   tagline: >-
-    Regeneration that doesn't reach the economic and social roots doesn't last. We build the
-    coordination, shared knowledge, and financial architecture that let networks of initiatives
+    Regenerative work fails when it runs on separate tracks — projects in isolation, ecological
+    and social goals apart, finance that can't follow a transition through decades. We design
+    and run the strategies, shared knowledge, and coordination that let networks of initiatives
     act coherently across their territory.
 
 approach: >-
-  There's a gap at the heart of most regenerative work: between the ambition and the
-  infrastructure needed to realize it. Projects that should reinforce each other operate in
-  isolation. Ecological and social goals run on separate tracks. Financial systems designed for
-  a different era can't sustain transitions that take decades. We work in that gap — the
-  connective tissue between initiatives, the conditions beneath the visible work.
+  Most regenerative work is stronger than the conditions around it. Projects that should
+  reinforce each other operate in isolation. Ecological and social goals run on separate tracks.
+  Financial systems designed for a different era can't sustain transitions that take decades.
+  We work on those conditions — the strategies, shared knowledge, and coordination between
+  initiatives — because that is where regeneration either compounds or stalls.
 
 whatWeDoIntro: >-
-  We work at the substrate level — building the coordination, shared knowledge, and financial
-  architecture that allow networks of initiatives to act coherently across their territory.
+  We work on the connective layer of regeneration: financial strategies designed for landscape
+  scale, knowledge systems networks can actually use, and the coordination that lets initiatives
+  act together across their territory.
 
 pillars:
   - key: tissue
     badge: Network coordination
-    title: Build the trust and rhythms that let networks move together
+    title: Weave the relationships and programs that make a territory coherent
     intro: >-
-      Regenerative transitions are, above all, coordination problems. We build the relational
-      and organizational infrastructure that makes sustained collaboration possible.
+      Regenerative transitions are coordination problems before they are anything else. We weave
+      bioregional networks, and we design and run the funding and capacity-building programs
+      that give them shared rhythm and direction.
     services:
-      - name: Program facilitation & network accompaniment
+      - name: Bioregional network weaving & sensemaking
         body: >-
-          We facilitate multi-stakeholder processes, governance design, and network convenings —
-          the shared rhythms that keep decisions moving, newcomers oriented, and friction from
-          turning into fracture when too many relationships sit on one group.
-      - name: Process alignment & automation
+          We map and convene the actors of a territory — cooperatives, initiatives, institutions —
+          and build the shared picture and the working rhythms that let them recognize each other
+          as part of one movement and act like it, grounded in our ongoing work across Catalunya.
+      - name: Funding & capacity-building programs
         body: >-
-          We map and align workflows across a network — funding pipelines, application tracking,
-          governance handoffs — and automate only where it actually cuts coordination tax instead
-          of adding another layer.
+          We design and run programs end-to-end that pair capital with capacity — like Regenerant
+          Catalunya, which pooled local and global funding and routed it directly to a cohort of
+          local regenerative projects through a shared treasury our partners co-operate.
   - key: neural
     badge: Collective intelligence
-    title: Make the territory legible so actors can see the whole
+    title: Make knowledge something a whole network can use
     intro: >-
-      Networks can't align around what they can't see. Through research, mapping, and
-      visualization we build the shared understanding that lets actors recognize themselves as
-      part of something larger.
+      Networks can't align around what they can't see. We design and maintain the knowledge
+      infrastructure — bases, maps, and dashboards — that turns scattered material into a commons
+      a whole territory can build on.
     services:
       - name: Complex research & visualizations
         body: >-
@@ -67,32 +71,36 @@ pillars:
           moment it's delivered.
       - name: Collective knowledge infrastructure
         body: >-
-          Linked knowledge bases, dashboards, and repositories the whole network can build on —
-          designed for collective editing and complex decisions, not one drive or one person's
-          memory.
+          Design and maintenance of linked knowledge bases, maps, and dashboards a network can
+          build on and revise together — made for collective editing and complex decisions, not
+          one drive or one person's memory. In production today with partners like Commonland,
+          Bioregional Weaving Labs, and bioregioning.earth.
   - key: flow
     badge: Regenerative finance
     title: Finance transitions at the pace and scale regeneration needs
     intro: >-
       The financial systems that exist weren't built to sustain territorial regeneration. We
-      design and operate alternatives that reward systemic outcomes, not isolated outputs.
+      design and run alternatives — BioFi and landscape-scale strategies, and the collective
+      financial infrastructures that carry them — that reward systemic outcomes, not isolated
+      outputs.
     services:
-      - name: Grant programs & collaborative funding
+      - name: BioFi & landscape-scale finance strategy
         body: >-
-          We design and run grant rounds and collaborative treasuries — from local pools to
-          multi-sig funds — so more capital reaches more projects, with governance anyone in the
-          network can verify.
-      - name: Landscape-scale finance strategy
+          Design, execution, and coordination of landscape-scale financial strategies — from
+          diagnosis to investment architecture — working with the people who hold the land and
+          the communities on it. We practice this today alongside landscape partners like
+          Commonland.
+      - name: Collective financial infrastructures
         body: >-
-          Portfolio development, fundraising support, and experiments in network-level financial
-          infrastructure — for when you're ready to move beyond one-off grants toward capital
-          that can follow regeneration over time.
+          Design and implementation of the financial vehicles a network owns together — from
+          shared treasuries to bioregional investment cooperatives — with governance that keeps
+          capital accountable to the territory, never the other way around.
 
 whatWeDoCta:
   title: Working across a territory or network?
   body: >-
-    We help initiatives move from isolated projects to shared infrastructure — coordination,
-    sensemaking, and finance designed for the scale of regeneration.
+    We help initiatives move from isolated projects to shared strategies — finance, knowledge,
+    and coordination designed for the scale of regeneration.
 
 projectsIntro: >-
   Work we've done at the connective layer — funding programs, network coordination, and
@@ -104,19 +112,20 @@ projects:
     image: /assets/projects/regenerant-catalunya-montserrat-dusk.jpg
     pillars: [tissue, flow]
     excerpt: >-
-      A territorial funding program we designed and operated for Gitcoin Grants Round 24 —
+      A territorial funding program we designed and operated for a global matching-funds round —
       pooling capital from Catalan donors and global matchers, then distributing it to local
-      regenerative projects through a cooperative multi-sig treasury.
+      regenerative projects through a cooperative shared treasury.
     href: /projects/regenerant-catalunya/
-  - heading: Keeping global federations aligned when the round ends
-    name: ReFi DAO / Regen Coordination
-    image: /assets/projects/refi-dao-knowledge-graph.png
-    pillars: [tissue]
+  - heading: An interactive map of who is regenerating Catalunya
+    name: Regenerant Catalunya Maps
+    image: /assets/ecosystem_map.png
+    pillars: [neural]
     excerpt: >-
-      As a local node in the ReFi DAO federation, we contribute operational design and
-      coordination — funding-round architecture, evaluation frameworks, and governance patterns
-      that let distributed contributors move together without centralizing power.
-    href: /projects/refi-dao-regen-coordination/
+      A collaborative, searchable map of the organizations, programs, and events working toward
+      a regenerative Catalunya — 179+ entities mapped and growing, built on the same data
+      commons that powers our knowledge work.
+    href: https://motiuorg.github.io/Regenerant-Catalunya-Maps/
+    external: true
   - heading: A portfolio view the whole network can orient around
     name: Bioregional Weaving Labs
     image: /assets/projects/bioregional-weaving-labs-map.png
@@ -126,16 +135,6 @@ projects:
       funding status — then built portfolio views and maps that let stewards compare initiatives
       without collapsing local context.
     href: /projects/bwl-portfolio-mapping/
-  - heading: An operating system the cooperative actually runs on
-    name: org-os
-    # FLAG (image): interim brand card — replace with a Voronoi-generated tile before the Sept launch.
-    image: /assets/og-image.png
-    pillars: [neural, tissue]
-    excerpt: >-
-      Our agent-native organizational OS — the co-op's registries, decisions, meetings and
-      knowledge as versioned, machine-readable files the organization owns, with agents working
-      inside the same review discipline as people. Three federated instances run on it today.
-    href: /projects/org-os/
   - heading: Making a bioregion legible for collective decisions
     name: Bioregional Intelligence
     image: /assets/projects/bioregional-intelligence-map.png

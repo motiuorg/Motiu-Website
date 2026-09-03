@@ -4,61 +4,128 @@ import PageHero from "../components/PageHero.astro";
 import ProcessStrip from "../components/ProcessStrip.astro";
 
 const channels = [
-  { label: "Email", value: "hello@refibcn.cat", href: "mailto:hello@refibcn.cat", note: "The surest way to reach us." },
-  { label: "Telegram", value: "Message the team", href: "https://t.me/+j4zOWZGsITwxNmY8", external: true, note: "For a quick, informal first hello." },
-  { label: "Federation", value: "ReFi DAO · Regen Coordination", href: "https://hub.regencoordination.xyz/", external: true, note: "Find us across the wider network." },
-  { label: "Code", value: "github.com/refibcn", href: "https://github.com/refibcn", external: true, note: "Everything we build is open." },
+    {
+        label: "Email",
+        value: "hello@motiu.org",
+        href: "mailto:hello@motiu.org",
+        note: "The surest way to reach us.",
+    },
+    {
+        label: "Telegram",
+        value: "Message the team",
+        href: "https://t.me/+j4zOWZGsITwxNmY8",
+        external: true,
+        note: "For a quick, informal first hello.",
+    },
+    {
+        label: "Code",
+        value: "github.com/motiuorg",
+        href: "https://github.com/motiuorg",
+        external: true,
+        note: "Everything we build is open.",
+    },
 ];
 ---
-<Layout title="Contact" current="contact" description="Get in touch with Motiu — a small team operating from Bloc4, Barcelona.">
-  <PageHero
-    eyebrow="Contact"
-    title="Start with a short intro call"
-    lede="We're a small team operating from Bloc4 in Barcelona. The best way to begin is a short, no-obligation call — tell us what you're working on and we'll take it from there."
-    motif="aurora-flow"
-  />
 
-  <section class="block block--alt">
-    <div class="block__inner">
-      <div class="channels">
-        {channels.map((c) => (
-          <a class="channel" href={c.href} target={c.external ? "_blank" : undefined} rel={c.external ? "noopener" : undefined}>
-            <span class="channel__label">{c.label}</span>
-            <span class="channel__value">{c.value}{c.external && <span class="channel__ext"> ↗</span>}</span>
-            <span class="channel__note">{c.note}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+<Layout
+    title="Contact"
+    current="contact"
+    description="Get in touch with Motiu — a small team operating from Bloc4, Barcelona."
+>
+    <PageHero
+        eyebrow="Contact"
+        title="Start with a short intro call"
+        lede="We're a small team operating from Bloc4 in Barcelona. The best way to begin is a short, no-obligation call — tell us what you're working on and we'll take it from there."
+        motif="aurora-flow"
+    />
 
-  <section class="block">
-    <div class="block__inner">
-      <ProcessStrip title="What happens next" />
-    </div>
-  </section>
+    <section class="block block--alt">
+        <div class="block__inner">
+            <div class="channels">
+                {
+                    channels.map((c) => (
+                        <a
+                            class="channel"
+                            href={c.href}
+                            target={c.external ? "_blank" : undefined}
+                            rel={c.external ? "noopener" : undefined}
+                        >
+                            <span class="channel__label">{c.label}</span>
+                            <span class="channel__value">
+                                {c.value}
+                                {c.external && (
+                                    <span class="channel__ext"> ↗</span>
+                                )}
+                            </span>
+                            <span class="channel__note">{c.note}</span>
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="block">
+        <div class="block__inner">
+            <ProcessStrip title="What happens next" />
+        </div>
+    </section>
 </Layout>
 
 <style>
-  .block { padding: var(--space-16) var(--gutter); }
-  .block--alt { background: var(--surface-1); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
-  .block__inner { max-width: var(--container-default); margin: 0 auto; }
+    .block {
+        padding: var(--space-16) var(--gutter);
+    }
+    .block--alt {
+        background: var(--surface-1);
+        border-top: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .block__inner {
+        max-width: var(--container-default);
+        margin: 0 auto;
+    }
 
-  .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-5); }
-  .channel {
-    border: 1px solid var(--umber);
-    background: var(--bg);
-    padding: var(--space-7);
-    text-decoration: none;
-    color: var(--text-primary);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    transition: translate var(--t-med), box-shadow var(--t-med);
-  }
-  .channel:hover { translate: 0 -2px; box-shadow: 4px 4px 0 color-mix(in srgb, var(--umber) 12%, transparent); }
-  .channel__label { font-family: var(--mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
-  .channel__value { font-family: var(--serif); font-size: var(--text-lg); color: var(--text-primary); }
-  .channel__ext { color: var(--primary); }
-  .channel__note { color: var(--text-muted); font-size: var(--text-sm); line-height: var(--leading-body); }
+    .channels {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+        gap: var(--space-5);
+    }
+    .channel {
+        border: 1px solid var(--umber);
+        background: var(--bg);
+        padding: var(--space-7);
+        text-decoration: none;
+        color: var(--text-primary);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+        transition:
+            translate var(--t-med),
+            box-shadow var(--t-med);
+    }
+    .channel:hover {
+        translate: 0 -2px;
+        box-shadow: 4px 4px 0 color-mix(in srgb, var(--umber) 12%, transparent);
+    }
+    .channel__label {
+        font-family: var(--mono);
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+    }
+    .channel__value {
+        font-family: var(--serif);
+        font-size: var(--text-lg);
+        color: var(--text-primary);
+    }
+    .channel__ext {
+        color: var(--primary);
+    }
+    .channel__note {
+        color: var(--text-muted);
+        font-size: var(--text-sm);
+        line-height: var(--leading-body);
+    }
 </style>

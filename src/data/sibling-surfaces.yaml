@@ -1,15 +1,10 @@
 siblings:
   - label: Knowledge (commons + atlas)
     url: /commons/
-  - label: Bioregional Garden
+  - label: bioregioning.earth
     url: https://bioregioning.earth
   - label: Regenerant Catalunya
     url: https://regenerant-catalunya.refibcn.cat
-federation:
-  - label: ReFi DAO
-    url: https://refidao.com/
-  - label: Regen Coordination
-    url: https://hub.regencoordination.xyz/
 contact:
   - label: hello@motiu.org
     url: mailto:hello@motiu.org

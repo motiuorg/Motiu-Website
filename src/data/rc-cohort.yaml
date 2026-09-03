@@ -50,8 +50,8 @@ projects:
     image: "/images/projects/resilience-earth.png"
     summary: >
       Worker cooperative on bioregional governance and digital river stewardship.
-      The Fluvià River project applies blockchain and AI for environmental data
-      collection and basin governance.
+      The Fluvià River project applies digital monitoring and AI for environmental
+      data collection and basin governance.
     links:
       web: "https://resilience.earth/"
       karma: null
@@ -212,16 +212,7 @@ pending:
   - name: "Arran de Terra"
   - name: "Decolonizing Permaculture"
 
-funders:
-  - name: "Regen Coordination"
-    role: "Global Partner"
-    web: "https://www.regencoordination.xyz/"
-  - name: "Celo Public Goods"
-    role: "Global Funder"
-    web: "https://celo.org/"
-  - name: "Gitcoin"
-    role: "Global Funder"
-    web: "https://www.gitcoin.co/"
-  - name: "Ethereum Foundation"
-    role: "Global Funder"
-    web: "https://ethereum.org/"
+funders: []
+  # Removed 2026-09-03 per motiu-vision.md: web3 funders (Regen Coordination,
+  # Celo Public Goods, Gitcoin, Ethereum Foundation) are no longer surfaced
+  # on the site. The Funders section renders conditionally.

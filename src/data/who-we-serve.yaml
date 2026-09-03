@@ -1,4 +1,4 @@
-# Audience segments for /who-we-serve. Plain, grounded, ESS↔Web3 voice (SOUL.md).
+# Audience segments for /who-we-serve. Plain, grounded voice (see docs/motiu-vision.md).
 # `signals` = "you're a fit if…" lines, each drawn from the segment's body copy.
 # `pillars` maps the segment to the capabilities that serve it.
 intro: |
@@ -14,8 +14,9 @@ audiences:
       Cooperatives, associations, and social-economy enterprises sitting on
       knowledge, processes, and relationships they can't yet see clearly. We
       structure that into living systems, automate the repetitive parts, and —
-      where it helps — open transparent funding pathways through tools like Safe
-      and Gitcoin. Cooperative governance stays in charge; the tooling serves it.
+      where it helps — open transparent funding pathways that keep cooperative
+      governance in charge: the tooling always serves it, never the other way
+      around.
     signals:
       - Your knowledge lives in people's heads and scattered drives
       - Repetitive admin eats the time that should go to the mission
@@ -41,13 +42,13 @@ audiences:
       - Shared resources scattered across private drives and chat threads
       - Documentation that decays faster than it grows
       - New members can't find what the community already knows
-  - name: Funders & ReFi infrastructure
+  - name: Funders & regenerative-finance infrastructure
     pillars: [flow, tissue]
     body: |
       Funders and global regenerative-finance infrastructure looking for a
-      grounded local node in Catalonia. We bridge between on-the-ground
-      cooperatives and the wider ReFi ecosystem — naming specific tools (Safe,
-      Karma GAP, Celo Public Goods) and using them where they add real value.
+      grounded local operator in Catalonia. We bridge between on-the-ground
+      cooperatives and the wider regenerative-finance ecosystem — naming
+      specific instruments and using them where they add real value.
     signals:
       - You need a trusted local operator, not another intermediary
       - Your tooling needs grounding in real cooperative practice

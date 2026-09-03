@@ -9,166 +9,235 @@ const entries = await getCollection("cohort");
 const doc = entries[0]!.data;
 const miceli = doc.projects.filter((p) => p.network === "miceli");
 const kerasButi = doc.projects.filter((p) => p.network === "keras-buti");
-const fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
-const totalMatching = doc.networks.miceli.contribution_eur + doc.networks["keras-buti"].contribution_eur;
+const fmt = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+});
+const totalMatching =
+    doc.networks.miceli.contribution_eur +
+    doc.networks["keras-buti"].contribution_eur;
 ---
 
-<Layout title="Regenerant Catalunya · Program" current="projects" dataset="Regenerant Catalunya">
-  <section class="hero">
-    <p class="eyebrow">Program · 2025–2026 · GG24</p>
-    <h1>Regenerant Catalunya</h1>
-    <p class="lede">
-      11 projects · 2 networks · {fmt.format(totalMatching)} matching pool · funded through Gitcoin Grants Round 24.
-    </p>
-    <p class="prose">
-      Regenerant Catalunya unites a diverse cohort of regenerative initiatives across Catalonia under one
-      funding umbrella. Projects were scouted by two trusted local networks — <strong>Miceli Social</strong>
-      (rural) and <strong>La Fundició / Keras Buti</strong> (urban) — and back a broad definition of regeneration
-      that spans ecological restoration, community projects, and civic innovation.
-    </p>
-    <div class="cta-row">
-      <a href="https://regenerant-catalunya.refibcn.cat">↗ Regenerant Catalunya site</a>
-    </div>
-  </section>
+<Layout
+    title="Regenerant Catalunya · Program"
+    current="projects"
+    dataset="Regenerant Catalunya"
+>
+    <section class="hero">
+        <p class="eyebrow">Program · 2025–2026 · GG24</p>
+        <h1>Regenerant Catalunya</h1>
+        <p class="lede">
+            11 projects · 2 networks · {fmt.format(totalMatching)} matching pool ·
+            funded through Gitcoin Grants Round 24.
+        </p>
+        <p class="prose">
+            Regenerant Catalunya unites a diverse cohort of regenerative
+            initiatives across Catalonia under one funding umbrella. Projects
+            were scouted by two trusted local networks — <strong
+                >Miceli Social</strong
+            >
+            (rural) and <strong>La Fundició / Keras Buti</strong> (urban) — and back
+            a broad definition of regeneration that spans ecological restoration,
+            community projects, and civic innovation.
+        </p>
+        <div class="cta-row">
+            <a href="https://regenerant-catalunya.refibcn.cat"
+                >↗ Regenerant Catalunya site</a
+            >
+        </div>
+    </section>
 
-  <section class="overview">
-    <div class="overview-grid">
-      <div class="map-pane">
-        <CatalunyaInsetMap projects={doc.projects} />
-      </div>
-      <div class="summary-pane">
-        <article class="net-tile" data-accent="forest">
-          <p class="eyebrow">Rural network</p>
-          <h2>{doc.networks.miceli.name}</h2>
-          <p>{doc.networks.miceli.summary}</p>
-          <p class="meta">{fmt.format(doc.networks.miceli.contribution_eur)} · {miceli.length} projects</p>
-        </article>
-        <article class="net-tile" data-accent="rust">
-          <p class="eyebrow">Urban network</p>
-          <h2>{doc.networks["keras-buti"].name}</h2>
-          <p>{doc.networks["keras-buti"].summary}</p>
-          <p class="meta">{fmt.format(doc.networks["keras-buti"].contribution_eur)} · {kerasButi.length} projects</p>
-        </article>
-      </div>
-    </div>
-  </section>
+    <section class="overview">
+        <div class="overview-grid">
+            <div class="map-pane">
+                <CatalunyaInsetMap projects={doc.projects} />
+            </div>
+            <div class="summary-pane">
+                <article class="net-tile" data-accent="forest">
+                    <p class="eyebrow">Rural network</p>
+                    <h2>{doc.networks.miceli.name}</h2>
+                    <p>{doc.networks.miceli.summary}</p>
+                    <p class="meta">
+                        {fmt.format(doc.networks.miceli.contribution_eur)} · {
+                            miceli.length
+                        } projects
+                    </p>
+                </article>
+                <article class="net-tile" data-accent="rust">
+                    <p class="eyebrow">Urban network</p>
+                    <h2>{doc.networks["keras-buti"].name}</h2>
+                    <p>{doc.networks["keras-buti"].summary}</p>
+                    <p class="meta">
+                        {
+                            fmt.format(
+                                doc.networks["keras-buti"].contribution_eur,
+                            )
+                        } · {kerasButi.length} projects
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
 
-  <NetworkSection networkId="miceli" meta={doc.networks.miceli} projects={miceli} />
-  <NetworkSection networkId="keras-buti" meta={doc.networks["keras-buti"]} projects={kerasButi} />
+    <NetworkSection
+        networkId="miceli"
+        meta={doc.networks.miceli}
+        projects={miceli}
+    />
+    <NetworkSection
+        networkId="keras-buti"
+        meta={doc.networks["keras-buti"]}
+        projects={kerasButi}
+    />
 
-  <section class="cohort-footer">
-    <div class="pending">
-      <p class="eyebrow">Pending cohort · TBC</p>
-      <ul>
-        {doc.pending.map((p) => <li>{p.name}</li>)}
-      </ul>
-    </div>
-    <div class="funders">
-      <p class="eyebrow">Funders</p>
-      <ul>
-        {doc.funders.map((f) => (
-          <li><a href={f.web}>{f.name}</a> · <span>{f.role}</span></li>
-        ))}
-      </ul>
-    </div>
-  </section>
+    <section class="cohort-footer">
+        <div class="pending">
+            <p class="eyebrow">Pending cohort · TBC</p>
+            <ul>
+                {doc.pending.map((p) => <li>{p.name}</li>)}
+            </ul>
+        </div>
+        {
+            doc.funders.length > 0 && (
+                <div class="funders">
+                    <p class="eyebrow">Funders</p>
+                    <ul>
+                        {doc.funders.map((f) => (
+                            <li>
+                                <a href={f.web}>{f.name}</a> ·{" "}
+                                <span>{f.role}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )
+        }
+    </section>
 </Layout>
 
 <style>
-.hero {
-  max-width: 60rem;
-  margin: 0 auto;
-  padding: 4rem 2rem 2rem;
-}
-.hero h1 { margin: 0.25rem 0 0.5rem; }
-.hero .lede {
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--rule);
-  margin-bottom: 1.5rem;
-}
-.hero .prose {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  max-width: 50ch;
-  margin: 0 0 1rem;
-}
-.cta-row {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-}
-.cta-row a {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  border: 1px solid var(--umber);
-  padding: 0.4rem 0.8rem;
-  color: var(--umber);
-  transition: background var(--t-fast);
-}
-.cta-row a:hover { background: var(--umber); color: var(--paper); }
+    .hero {
+        max-width: 60rem;
+        margin: 0 auto;
+        padding: 4rem 2rem 2rem;
+    }
+    .hero h1 {
+        margin: 0.25rem 0 0.5rem;
+    }
+    .hero .lede {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--rule);
+        margin-bottom: 1.5rem;
+    }
+    .hero .prose {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        max-width: 50ch;
+        margin: 0 0 1rem;
+    }
+    .cta-row {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+    .cta-row a {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        border: 1px solid var(--umber);
+        padding: 0.4rem 0.8rem;
+        color: var(--umber);
+        transition: background var(--t-fast);
+    }
+    .cta-row a:hover {
+        background: var(--umber);
+        color: var(--paper);
+    }
 
-.overview {
-  padding: 2rem;
-  background: var(--ivory);
-  border-top: 1px solid var(--umber);
-  border-bottom: 1px solid var(--umber);
-}
-.overview-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 2rem;
-  max-width: 80rem;
-  margin: 0 auto;
-  align-items: stretch;
-}
-@media (max-width: 1024px) {
-  .overview-grid { grid-template-columns: 1fr; }
-}
-.summary-pane { display: flex; flex-direction: column; gap: 1rem; }
-.net-tile {
-  border: 1px solid var(--umber);
-  background: var(--paper);
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-.net-tile h2 { margin: 0; font-size: 1.3rem; }
-.net-tile[data-accent="forest"] h2 { color: var(--forest); }
-.net-tile[data-accent="rust"] h2 { color: var(--rust); }
-.net-tile p { margin: 0; font-family: var(--serif); }
-.net-tile .meta {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--rule);
-  margin-top: 0.25rem;
-}
-.cohort-footer {
-  padding: 3rem 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  max-width: 80rem;
-  margin: 0 auto;
-}
-@media (max-width: 640px) {
-  .cohort-footer { grid-template-columns: 1fr; }
-}
-.cohort-footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0 0;
-  font-family: var(--serif);
-}
-.cohort-footer li { margin-bottom: 0.4rem; }
-.cohort-footer a { color: var(--umber); }
+    .overview {
+        padding: 2rem;
+        background: var(--ivory);
+        border-top: 1px solid var(--umber);
+        border-bottom: 1px solid var(--umber);
+    }
+    .overview-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 2rem;
+        max-width: 80rem;
+        margin: 0 auto;
+        align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+        .overview-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    .summary-pane {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .net-tile {
+        border: 1px solid var(--umber);
+        background: var(--paper);
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+    .net-tile h2 {
+        margin: 0;
+        font-size: 1.3rem;
+    }
+    .net-tile[data-accent="forest"] h2 {
+        color: var(--forest);
+    }
+    .net-tile[data-accent="rust"] h2 {
+        color: var(--rust);
+    }
+    .net-tile p {
+        margin: 0;
+        font-family: var(--serif);
+    }
+    .net-tile .meta {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--rule);
+        margin-top: 0.25rem;
+    }
+    .cohort-footer {
+        padding: 3rem 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 80rem;
+        margin: 0 auto;
+    }
+    @media (max-width: 640px) {
+        .cohort-footer {
+            grid-template-columns: 1fr;
+        }
+    }
+    .cohort-footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 0;
+        font-family: var(--serif);
+    }
+    .cohort-footer li {
+        margin-bottom: 0.4rem;
+    }
+    .cohort-footer a {
+        color: var(--umber);
+    }
 </style>
