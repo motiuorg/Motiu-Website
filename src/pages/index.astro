@@ -5,6 +5,8 @@ import yaml from "js-yaml";
 import Layout from "../components/Layout.astro";
 import HeroVoronoi from "../components/HeroVoronoi.astro";
 import PillarBadge from "../components/PillarBadge.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import CardGrid from "../components/CardGrid.astro";
 
 const d = yaml.load(
     fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8"),
@@ -152,42 +154,28 @@ const pillarMotifsAbstract: Record<string, string> = {
         <div class="block__inner">
             <h2>Projects</h2>
             <p class="lede block__intro">{d.projectsIntro}</p>
-            <div class="project-gallery">
+            <CardGrid>
                 {
                     d.projects.map((it: any) => (
-                        <article class="project-tile">
-                            <div class="project-tile__media">
-                                <img src={it.image} alt="" loading="lazy" />
-                            </div>
-                            <div class="project-tile__body">
-                                <div class="project-tile__badges">
-                                    {it.pillars?.map((k: string) => (
+                        <ProjectCard
+                            image={it.image}
+                            title={it.heading}
+                            subtitle={it.name}
+                            body={it.excerpt}
+                            href={it.href}
+                            external={it.external}
+                        >
+                            {it.pillars?.length > 0 && (
+                                <Fragment slot="badges">
+                                    {it.pillars.map((k: string) => (
                                         <PillarBadge pillar={k as any} />
                                     ))}
-                                </div>
-                                <h3 class="project-tile__heading">
-                                    {it.heading}
-                                </h3>
-                                <p class="project-tile__name">{it.name}</p>
-                                <p class="project-tile__excerpt">
-                                    {it.excerpt}
-                                </p>
-                                <a
-                                    class="project-tile__link"
-                                    href={it.href}
-                                    {...(it.external
-                                        ? { target: "_blank", rel: "noopener" }
-                                        : {})}
-                                >
-                                    {it.external
-                                        ? "Visit site ↗"
-                                        : "Read case study →"}
-                                </a>
-                            </div>
-                        </article>
+                                </Fragment>
+                            )}
+                        </ProjectCard>
                     ))
                 }
-            </div>
+            </CardGrid>
             <p class="block__more">
                 <a class="link" href="/projects/">All case studies →</a>
             </p>
@@ -536,82 +524,7 @@ const pillarMotifsAbstract: Record<string, string> = {
         color: var(--umber);
     }
 
-    /* Project gallery */
-    .project-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-        gap: var(--space-8);
-    }
-    .project-tile {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: var(--paper);
-        border-radius: 0.75rem;
-        box-shadow: var(--shadow-sm);
-        transition:
-            box-shadow var(--t-med),
-            translate var(--t-med);
-    }
-    .project-tile:hover {
-        box-shadow: var(--shadow-md);
-        translate: 0 -2px;
-    }
-    .project-tile__media {
-        aspect-ratio: 16 / 10;
-        background: var(--surface-2);
-        min-height: 0;
-    }
-    .project-tile__media img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-    .project-tile__body {
-        padding: var(--space-6);
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-2);
-        flex: 1;
-    }
-    .project-tile__badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-2);
-        margin-bottom: var(--space-2);
-    }
-    .project-tile__heading {
-        font-size: var(--text-lg);
-        margin: 0;
-    }
-    .project-tile__name {
-        font-family: var(--mono);
-        font-size: var(--text-xs);
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: var(--text-muted);
-        margin: 0;
-    }
-    .project-tile__excerpt {
-        color: var(--text-muted);
-        font-size: var(--copy-md);
-        line-height: var(--leading-body);
-        margin: var(--space-2) 0 0;
-        flex: 1;
-    }
-    .project-tile__link {
-        font-family: var(--mono);
-        font-size: var(--text-xs);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: var(--primary);
-        text-decoration: none;
-        margin-top: var(--space-2);
-    }
-    .project-tile__link:hover {
-        text-decoration: underline;
-    }
+    /* Project gallery grid now lives in CardGrid.astro. */
 
     /* Audiences — two-column list with row dividers (matches the branding lab experiment) */
     .audiences {

@@ -1,6 +1,7 @@
 ---
 // src/components/NetworkSection.astro
 import ProjectCard from "./ProjectCard.astro";
+import FeaturedCardGrid from "./FeaturedCardGrid.astro";
 import type { Project, NetworkMeta } from "../content.config";
 
 interface Props {
@@ -10,6 +11,29 @@ interface Props {
 }
 const { networkId, meta, projects } = Astro.props;
 const fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+
+// ProjectCard's props are title/subtitle/body/href, not this schema's name/locality/theme/summary/links —
+// map them by hand. Link priority: own site, then the Regen Coordination page, then Karma GAP; a project
+// with none of the three (rare, usually still-pending) just renders without a footer link.
+function linkFor(p: Project) {
+  if (p.links.web) return { href: p.links.web, label: "Visit site ↗" };
+  if (p.links.rc_page) return { href: p.links.rc_page, label: "View on Regen Coordination ↗" };
+  if (p.links.karma) return { href: p.links.karma, label: "View on Karma GAP ↗" };
+  return { href: undefined, label: undefined };
+}
+function badgeFor(p: Project) {
+  return p.status === "confirmed"
+    ? { cls: "badge--success", label: "Confirmed" }
+    : { cls: "badge--warning", label: "Pending" };
+}
+
+// Featured-first layout — the first project runs large (image left, content right), the rest fall
+// into a compact grid below. The layout itself lives in FeaturedCardGrid (content-agnostic, no
+// network-specific knowledge); this component's own job is just the header above it and mapping the
+// cohort data shape onto ProjectCard's props.
+const [featuredProject, ...restProjects] = projects;
+const featuredLink = featuredProject ? linkFor(featuredProject) : null;
+const featuredBadge = featuredProject ? badgeFor(featuredProject) : null;
 ---
 
 <section class="network" data-network={networkId}>
@@ -24,8 +48,43 @@ const fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "EUR",
     <p class="summary">{meta.summary}</p>
   </header>
 
-  <div class="grid">
-    {projects.map((p) => <ProjectCard project={p} networkMeta={meta} />)}
+  <div class="network-grid-wrap">
+    <FeaturedCardGrid>
+      {featuredProject && featuredLink && featuredBadge && (
+        <ProjectCard
+          slot="featured"
+          featured
+          image={featuredProject.image}
+          title={featuredProject.name}
+          subtitle={`${featuredProject.locality} · ${featuredProject.theme}`}
+          body={featuredProject.summary}
+          href={featuredLink.href}
+          external={true}
+          linkLabel={featuredLink.label}
+          mediaPillar="flow"
+        >
+          <span slot="badges" class={`badge ${featuredBadge.cls}`}>{featuredBadge.label}</span>
+        </ProjectCard>
+      )}
+      {restProjects.map((p) => {
+        const link = linkFor(p);
+        const badge = badgeFor(p);
+        return (
+          <ProjectCard
+            image={p.image}
+            title={p.name}
+            subtitle={`${p.locality} · ${p.theme}`}
+            body={p.summary}
+            href={link.href}
+            external={true}
+            linkLabel={link.label}
+            mediaPillar="flow"
+          >
+            <span slot="badges" class={`badge ${badge.cls}`}>{badge.label}</span>
+          </ProjectCard>
+        );
+      })}
+    </FeaturedCardGrid>
   </div>
 </section>
 
@@ -53,23 +112,16 @@ const fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "EUR",
   color: var(--rule);
   margin-bottom: 1rem;
 }
+/* Was font-family: var(--serif) — Averia, the opt-in display face — on a plain paragraph. Same
+   violation as Tile's body copy; dropped for the same reason (see Typography: Averia is h1–h3
+   .display only, never body text). */
 .network-header .summary {
-  font-family: var(--serif);
   font-size: 1.05rem;
   color: var(--umber);
   max-width: 50ch;
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
+.network-grid-wrap {
   max-width: 80rem;
   margin: 0 auto;
-}
-@media (max-width: 1024px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 640px) {
-  .grid { grid-template-columns: 1fr; }
 }
 </style>

@@ -1,7 +1,8 @@
 ---
 import LabShell from "../../components/lab/LabShell.astro";
 
-const neutrals = ["--paper", "--bone", "--ivory", "--rule", "--umber", "--terracotta"];
+const neutrals = ["--paper", "--eggshell", "--bone", "--ivory", "--rule", "--umber"];
+const primary = ["--primary", "--primary-hover"];
 const neural = ["--pillar-neural-1", "--pillar-neural-2", "--pillar-neural-3", "--pillar-neural-4"];
 const tissue = ["--pillar-tissue-1", "--pillar-tissue-2", "--pillar-tissue-3", "--pillar-tissue-4"];
 const flow = ["--pillar-flow-1", "--pillar-flow-2", "--pillar-flow-3", "--pillar-flow-4"];
@@ -33,6 +34,27 @@ const LIB_FAMILIES = [
     <span class="lab-status lab-status--live">live</span>
     <h2>Editorial neutrals</h2>
     <div class="lab-swatches">{neutrals.map((t) => (<div class="lab-swatch" style={`background: var(${t})`}><code>{t}</code></div>))}</div>
+    <p class="lab-source">All three relocked 2026-08-13 — lighter and warmer than the previous
+      <code>--paper #fffffd / --bone #faf8f4 / --ivory #f8f4ed</code>, with the warmth ratio (R−B spread)
+      now increasing smoothly across the ramp instead of jumping unevenly step to step.
+      <code>--bone</code> was tried site-wide first as a separate <code>--bone-light</code> token before
+      folding it straight in; <code>--ivory</code> got an extra lightening pass afterward.
+      <code>--eggshell</code> (2026-08-14) is a fourth, later addition — an even color-mix
+      halfway between <code>--paper</code> and <code>--bone</code>, for hover states that need a
+      step warmer than the background without jumping all the way to a surface color; ported
+      from bioregioning-earth-ui, where it was introduced first.</p>
+  </div>
+
+  <div class="lab-section">
+    <span class="lab-status lab-status--live">live</span>
+    <h2>Primary</h2>
+    <p><code>--primary</code> is <code>pillar-flow-4</code> (Shade) as of 2026-08-14 — this site had a
+      standalone <code>--terracotta</code> brand color between 2026-08-07 and 2026-08-14, now removed.
+      Flow was picked because it's also the finance pillar, closest to "the brand" — but that's a
+      per-surface choice, not a rule: <strong>any of the three pillar Shade steps (tissue-4, neural-4,
+      flow-4) is a valid <code>--primary</code> for a given surface.</strong> Pick whichever pillar that
+      surface leans on most, not necessarily flow.</p>
+    <div class="lab-swatches">{primary.map((t) => (<div class="lab-swatch" style={`background: var(${t})`}><code>{t}</code></div>))}</div>
   </div>
 
   <div class="lab-section">
@@ -40,7 +62,7 @@ const LIB_FAMILIES = [
     <h2>Pillar ramps</h2>
     <p>Three 4-step ramps, one per pillar: coordination, intelligence, finance. Each also exposes
       <code>-light</code> / <code>-mid</code> / <code>-dark</code> aliases. Used by <code>PillarBadge</code>,
-      <code>Aurora</code>.</p>
+      <code>Aurora</code>, and — as of 2026-08-14 — <code>--primary</code> (see above).</p>
     <h3>Coordination pillar</h3>
     <div class="lab-swatches">{tissue.map((t) => (<div class="lab-swatch" style={`background: var(${t})`}><code>{t}</code></div>))}</div>
     <h3>Intelligence pillar</h3>

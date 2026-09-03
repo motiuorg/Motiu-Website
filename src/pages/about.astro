@@ -5,6 +5,7 @@ import yaml from "js-yaml";
 import Layout from "../components/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import StatBand from "../components/StatBand.astro";
+import CTABand from "../components/CTABand.astro";
 import TeamCard from "../components/TeamCard.astro";
 
 const d = yaml.load(
@@ -153,21 +154,34 @@ const partners = [
         </div>
     </section>
 
-    <section class="cta-band">
-        <div class="cta-band__inner">
-            <div>
-                <h2 class="cta-band__title">
-                    Working across a territory or network?
-                </h2>
-                <p class="cta-band__body">
-                    Start with a free intro call — tell us what you're working
-                    on and we'll say honestly whether we can help.
-                </p>
+    <section class="block">
+        <div class="block__inner">
+            <p class="eyebrow">Partners</p>
+            <h2>We work alongside grounded local organizations.</h2>
+            <div class="partners">
+                {
+                    partners.map((p) => (
+                        <article class="partner">
+                            <h3 class="partner__name">{p.name}</h3>
+                            <p class="partner__note">{p.note}</p>
+                            {p.href && (
+                                <a
+                                    class="partner__link"
+                                    href={p.href}
+                                    target="_blank"
+                                    rel="noopener"
+                                >
+                                    Visit ↗
+                                </a>
+                            )}
+                        </article>
+                    ))
+                }
             </div>
-            <a class="btn btn--paper" href="/contact/">Book a free intro call</a
-            >
         </div>
     </section>
+
+    <CTABand />
 </Layout>
 
 <style>
@@ -220,10 +234,10 @@ const partners = [
         grid-template-columns: 4rem 1fr;
         gap: var(--space-5);
         padding: var(--space-7) 0;
-        border-top: 1px solid var(--umber);
+        border-top: 1px solid var(--border-subtle);
     }
     .theory__item:last-child {
-        border-bottom: 1px solid var(--umber);
+        border-bottom: 1px solid var(--border-subtle);
     }
     .theory__index {
         font-family: var(--mono);
@@ -253,7 +267,6 @@ const partners = [
         gap: var(--space-5);
     }
     .partner {
-        border: 1px solid var(--umber);
         background: var(--bg);
         padding: var(--space-6);
         display: flex;
@@ -289,40 +302,5 @@ const partners = [
             grid-template-columns: 1fr;
             gap: var(--space-2);
         }
-    }
-
-    /* Pre-footer CTA — umber, not the shared component's gradient (matches projects.astro / what-we-do.astro) */
-    .cta-band {
-        background: var(--umber);
-        padding: var(--space-16) var(--gutter);
-    }
-    .cta-band__inner {
-        max-width: var(--container-default);
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--space-8);
-        flex-wrap: wrap;
-    }
-    .cta-band__title {
-        font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-        margin: 0 0 var(--space-3);
-        max-width: 24ch;
-        color: var(--paper);
-    }
-    .cta-band__body {
-        color: color-mix(in srgb, var(--paper) 80%, transparent);
-        max-width: 52ch;
-        margin: 0;
-        line-height: var(--leading-body);
-    }
-    .btn--paper {
-        background: var(--paper);
-        color: var(--umber);
-    }
-    .btn--paper:hover:not(:disabled) {
-        background: var(--ivory);
-        color: var(--umber);
     }
 </style>

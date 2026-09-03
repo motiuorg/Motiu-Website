@@ -1,31 +1,42 @@
 ---
-// LabShell.astro — persistent side-nav shell for /lab/*. Wraps the real
-// site Layout (Nav + Footer stay, so you can always get back to the site)
-// and adds a docs-style left rail driven by src/data/lab-nav.yaml.
+// LabShell.astro — persistent side-nav shell shared by /design-system/* (docs) and /lab/*
+// (experimental playground). Standalone chrome (2026-08-12): used to wrap the real site Layout
+// with Nav+Footer intact "so you can always get back to the site" — now wraps Layout in `minimal`
+// mode instead and renders LabTopNav (Design System · Lab · Website ↗) in their place, so this
+// area reads as its own small site rather than another page of refibcn.github.io. Drives its side
+// rail from design-system-nav.yaml or lab-nav.yaml depending on `section`.
 import fs from "node:fs";
 import path from "node:path";
 import yaml from "js-yaml";
 import Layout from "../Layout.astro";
+import LabTopNav from "./LabTopNav.astro";
 import "../../styles/lab.css";
 
 interface NavItem { slug: string; label: string }
 interface NavGroup { label: string; items: NavItem[] }
-const nav = (yaml.load(
-  fs.readFileSync(path.join(process.cwd(), "src/data/lab-nav.yaml"), "utf8"),
-) as { groups: NavGroup[] }).groups;
 
 interface Props {
   title: string;
-  current: string; // slug matching lab-nav.yaml, "" for the index
+  current: string; // slug matching the active section's nav yaml, "" for that section's index
   intro?: string;
+  section?: "design-system" | "lab"; // which standalone section this page belongs to — default keeps every existing call site (docs) working unchanged
 }
-const { title, current, intro } = Astro.props;
-const href = (slug: string) => (slug ? `/lab/${slug}/` : "/lab/");
+const { title, current, intro, section = "design-system" } = Astro.props;
+
+const navFile = section === "lab" ? "lab-nav.yaml" : "design-system-nav.yaml";
+const nav = (yaml.load(
+  fs.readFileSync(path.join(process.cwd(), "src/data", navFile), "utf8"),
+) as { groups: NavGroup[] }).groups;
+
+const basePath = section === "lab" ? "/lab" : "/design-system";
+const href = (slug: string) => (slug ? `${basePath}/${slug}/` : `${basePath}/`);
+const titlePrefix = section === "lab" ? "Lab" : "Design System";
 ---
-<Layout title={`Lab — ${title}`} current="home" noindex={true}
-  description={`Internal design-system reference: ${title}.`}>
+<Layout title={`${titlePrefix} — ${title}`} current="home" noindex={true} minimal={true}
+  description={`${titlePrefix} reference: ${title}.`}>
+  <LabTopNav current={section} />
   <div class="lab-shell">
-    <nav class="lab-nav" aria-label="Lab sections">
+    <nav class="lab-nav" aria-label={`${titlePrefix} sections`}>
       {nav.map((group) => (
         <div class="lab-nav__group">
           <p class="lab-nav__label">{group.label}</p>

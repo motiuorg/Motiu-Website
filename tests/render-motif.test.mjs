@@ -13,10 +13,10 @@ test("renderSvg: bg rect + one path per cell + correct dimensions", () => {
   );
   const svg = renderSvg(preset, palettes);
   assert.match(svg, /viewBox="0 0 1200 800"/);
-  assert.match(svg, /<rect[^>]+fill="#fffffd"/);
+  assert.match(svg, /<rect[^>]+fill="#fffdfb"/);
   const cells = svg.match(/<path /g) || [];
   assert.equal(cells.length, 12);
-  assert.match(svg, /stroke="#6f6a64"/);
+  assert.match(svg, /stroke="#6f6964"/);
   assert.doesNotMatch(svg, /C92637/); // stale pre-relock red never renders
 });
 
@@ -26,7 +26,7 @@ test("renderSvg: ramp fill cycles the pillar ramp", () => {
     palettes,
   );
   const svg = renderSvg(preset, palettes);
-  assert.match(svg, /fill="#4DEFFF"/);  // ramp step 1 appears
+  assert.match(svg, /fill="#96F3FF"/);  // ramp step 1 (v5 relock)
   assert.match(svg, /fill-opacity="0.12"/);
 });
 

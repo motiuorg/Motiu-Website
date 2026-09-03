@@ -29,7 +29,7 @@ export function loadTokens(cssPath = THEME_CSS) {
   for (const m of css.matchAll(/--([a-z0-9-]+):\s*(#[0-9a-fA-F]{6})\b/g)) {
     if (!(m[1] in tokens)) tokens[m[1]] = m[2];
   }
-  for (const req of ["terracotta", "umber", "paper", "pillar-neural-3"]) {
+  for (const req of ["pillar-flow-4", "umber", "paper", "pillar-neural-3"]) {
     if (!tokens[req]) {
       throw new Error(
         `brand-tokens: --${req} not found in ${cssPath} — theme moved or renamed?`,
@@ -52,8 +52,8 @@ export function getPalettes(tokens = loadTokens()) {
   return {
     "rule-on-paper": { bg: t.paper, stroke: t.rule, ramp: null },
     "umber-on-paper": { bg: t.paper, stroke: t.umber, ramp: null },
-    "terracotta-on-paper": { bg: t.paper, stroke: t.terracotta, ramp: null },
-    "terracotta-on-bone": { bg: t.bone, stroke: t.terracotta, ramp: null },
+    "primary-on-paper": { bg: t.paper, stroke: t["pillar-flow-4"], ramp: null },
+    "primary-on-bone": { bg: t.bone, stroke: t["pillar-flow-4"], ramp: null },
     "paper-on-umber": { bg: t.umber, stroke: t.paper, ramp: null },
     neural: {
       bg: t.paper,
