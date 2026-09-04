@@ -1,0 +1,579 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import yaml from "js-yaml";
+import Layout from "../components/Layout.astro";
+import HeroVoronoi from "../components/HeroVoronoi.astro";
+import PillarBadge from "../components/PillarBadge.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import CardGrid from "../components/CardGrid.astro";
+import TeamCard from "../components/TeamCard.astro";
+import LangSwitch from "../components/LangSwitch.astro";
+
+// Single-page fast-launch build (260904): same content as index.astro (home) — including the
+// rotating hero headline word — plus a Team section (from about.astro) inserted right after "Who
+// we work with," so a visitor gets "who's behind this" without the multi-page About build needing
+// to be finished first. Nav is a local anchor bar, not the shared Nav.astro (which links out to
+// /about/, /projects/, /what-we-do/ — real routes, but not what a single-page launch wants).
+// Footer is also local — this launch only needs the contact email, not Nav.astro's full set.
+const d = yaml.load(fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8")) as any;
+
+// Hero tagline + approach copy, scoped to this page (260904, per Andrea) — local override rather
+// than editing landing.yaml, which index.astro also reads.
+const heroTagline =
+  "Transitioning to a regenerative economy, aligned with people and planet, means building the infrastructure that holds it together: shared intelligence, coordinated networks, and finance built for the long run.";
+const approachText =
+  "For regeneration to compound into real, lasting impact, it needs social, intelligence, and financial infrastructure connecting individual efforts into a larger whole. Without it, projects that could reinforce each other operate in isolation, ecological and social goals run on separate tracks, and financial systems built for a different era can't sustain transitions that take decades to unfold. We build that connecting layer that holds the transition together.";
+
+// Hero headline rotation — per-locale title sentences + word map (landing.yaml), same as index.astro.
+const loc = Astro.currentLocale ?? "en";
+const heroTitle = ((d.hero.title as any)?.[loc] ?? (d.hero.title as any)?.en) as string;
+const rotateWords = ((d.hero.rotate as any[]) ?? [])
+  .map((w) => w[loc] ?? w.en)
+  .filter((w): w is string => Boolean(w));
+const heroParts = heroTitle.split(" ");
+const heroFirstWord = heroParts[0];
+const heroRest = heroParts.slice(1).join(" ");
+
+// Hand-edited "highlight" pillar photos (260904, per Andrea) — the same single-image-per-pillar
+// set used on the original landing page, not this repo's older original+abstract hover pair
+// (which predates the highlight edits and isn't what "the landing page we made" showed).
+const pillarMotifs: Record<string, string> = {
+  tissue: "/assets/pillar-photos/network-coordination-highlight.jpg",
+  neural: "/assets/pillar-photos/collective-intelligence-highlight.jpg",
+  flow: "/assets/pillar-photos/regenerative-finance-highlight.jpg",
+};
+
+// Projects, scoped to this page (260904, per Andrea): the project set from the landing page we
+// built together — Bioregioning Earth back in (dropped from this repo's own landing.yaml by the
+// "motiu positioning pass" rework) — plus Regenerant Catalunya Maps kept from that same rework
+// (still a real, live project). Plain grid, no featured card: with 5 items a featured slot
+// leaves a lone orphan on the last row. None of these link to the (unpublished-here) internal
+// /projects/ or /atlas/ case-study pages — every href below is a
+// real external destination. Local list rather than editing landing.yaml, which index.astro and
+// projects.astro still read.
+const projects = [
+  {
+    heading: "Long-term financing facilities for landscape-scale regeneration",
+    name: "Altiplano Estepario",
+    image: "/assets/projects/altiplano-estepario-reservoir.jpg",
+    pillars: ["flow", "tissue"],
+    excerpt:
+      "A bioregional financing facility for one of Europe's largest semi-arid landscapes — built to fund landscape-scale regeneration over years and decades, not single grant cycles.",
+    href: "https://andrea-diome.github.io/altiplano-estepario",
+    external: true,
+  },
+  {
+    heading: "A portfolio view the whole network can orient around",
+    name: "Bioregional Weaving Labs",
+    image: "/assets/projects/bioregional-weaving-labs-map.png",
+    pillars: ["neural", "tissue"],
+    excerpt:
+      "We structured BWL's portfolio of place-based labs — relationships, programs, geographies, funding status — then built portfolio views and maps that let stewards compare initiatives without collapsing local context.",
+    href: "https://refibcn.github.io/bwl-map/",
+    external: true,
+  },
+  {
+    heading: "Territorial grantmaking locals can trust — and verify",
+    name: "Regenerant Catalunya",
+    image: "/assets/projects/regenerant-catalunya-montserrat-dusk.jpg",
+    pillars: ["tissue", "flow"],
+    excerpt:
+      "A territorial funding program we designed and operated for a global matching-funds round — pooling capital from Catalan donors and global matchers, then distributing it to local regenerative projects through a cooperative shared treasury.",
+    href: "https://regenerant.refibcn.cat/",
+    external: true,
+  },
+  {
+    heading: "An interactive map of who is regenerating Catalunya",
+    name: "Regenerant Catalunya Maps",
+    image: "/assets/ecosystem_map.png",
+    pillars: ["neural"],
+    excerpt:
+      "A collaborative, searchable map of the organizations, programs, and events working toward a regenerative Catalunya — 179+ entities mapped and growing, built on the same data commons that powers our knowledge work.",
+    href: "https://motiuorg.github.io/Regenerant-Catalunya-Maps/",
+    external: true,
+  },
+  {
+    heading: "Mapping ecosocial transformation worldwide",
+    name: "Bioregioning Earth",
+    image: "/assets/projects/bioregioning-earth-map.png",
+    pillars: ["neural"],
+    excerpt:
+      "A research project mapping the organizations stewarding transitions at bioregional scale around the world — the practices, actors, and models this work can learn from.",
+    href: "https://bioregioning.earth/",
+    external: true,
+  },
+];
+
+// This single page's own contact address (260904, per Andrea) — distinct from the full site's
+// hello@motiu.org in landing.yaml/site.yaml, so scoped to this page rather than the shared data.
+const contactEmail = "contact@motiu.org";
+
+// Team, scoped to this page (260904, per Andrea): drop Luiz, keep Andrea + Giulio only, with
+// Andrea's real portrait (about.astro's local teamPhotos map has no entry for her yet — TeamCard's
+// initials-monogram fallback covered the gap until now) and her updated title.
+const teamPhotos: Record<string, string> = {
+  "Andrea Farias": "/assets/team/andrea-farias.jpg",
+  "Giulio Quarta": "/assets/team/giulio-quarta.jpg",
+};
+const teamPillars = ["neural", "tissue", "flow"];
+const team = d.team
+  .filter((m: any) => m.name !== "Luiz Fernando Gomez Segala")
+  .map((m: any) =>
+    m.name === "Andrea Farias"
+      ? {
+          ...m,
+          role: "Strategy & program design",
+          bio: "Andrea brings a research and design background to bioregional governance and regenerative finance — building the infrastructure this transition needs.",
+        }
+      : m,
+  );
+
+// "Who we work with", scoped to this page (260904, per Andrea): drops Cooperatives & solidarity
+// economies, swaps Institutions at territory scale for Economic development organizations, adds
+// Impact funders at the end, and rewrites every line as one integrated sentence built around the
+// reader's own objective, not a "you do X, we do Y" split. Local list rather than editing the
+// shared data, which about.astro / who-we-serve.astro still read.
+const audiences = [
+  {
+    name: "Bioeconomy & regenerative agriculture",
+    body: "We coordinate the farmers, producers, and processors across a regenerative value chain into portfolios that can be funded and scaled together.",
+  },
+  {
+    name: "Nature restoration initiatives",
+    body: "We map a landscape's ecological and social systems, then build the governance and funding models that let restoration hold long-term, with real stake for the communities on the land.",
+  },
+  {
+    name: "Local & regional governments",
+    body: "We coordinate the programs and partners already driving a regenerative transition across a territory, so it holds together.",
+  },
+  {
+    name: "Economic development organizations",
+    body: "We take a holistic approach to development — mapping what's on the ground, then building the coordination infrastructure that lets initiatives act as one ecosystem and grow impact together.",
+  },
+  {
+    name: "Global networks & researchers",
+    body: "We track, map, and visualize a network's full portfolio of initiatives — the infrastructure researchers and stewards need to see the whole and compare what's working.",
+  },
+  {
+    name: "Impact funders",
+    body: "We connect funders to portfolios of for-profit and non-profit projects regenerating landscapes holistically — vetted, coordinated, and ready to fund.",
+  },
+];
+
+const navLinks = [
+  { href: "#approach", label: "Approach" },
+  { href: "#what-we-do", label: "What we do" },
+  { href: "#projects", label: "Projects" },
+  { href: "#who-we-work-with", label: "Who we work with" },
+  { href: "#team", label: "Team" },
+];
+---
+<Layout title="Home" minimal>
+  <header class="landing-nav">
+    <a href="#top" class="landing-nav__brand">motiu</a>
+    <nav aria-label="Primary">
+      <ul>
+        {navLinks.map((l) => (
+          <li class="landing-nav__item"><a href={l.href}>{l.label}</a></li>
+        ))}
+        <li><a href="#contact" class="landing-nav__cta">Contact</a></li>
+        <li><LangSwitch /></li>
+      </ul>
+    </nav>
+  </header>
+  <script>
+    // Clear over the hero until scrolled, then solid — matches Nav.astro's site-wide behavior.
+    const nav = document.querySelector(".landing-nav");
+    if (nav) {
+      const updateScrolled = () => nav.classList.toggle("is-scrolled", window.scrollY > 8);
+      updateScrolled();
+      window.addEventListener("scroll", updateScrolled, { passive: true });
+      window.addEventListener("load", updateScrolled);
+    }
+  </script>
+
+  <div id="top">
+    <!-- Hero + Approach share one generative backdrop, like one continuous opening -->
+    <div class="opening">
+      <HeroVoronoi opacity={0.55} />
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero__inner">
+          <h1 class="display hero__title">
+            {rotateWords.length > 0 ? (
+              <span class="hero-rotate" data-rotate-words={JSON.stringify(rotateWords)} data-rotate-interval="2000">
+                {heroFirstWord}
+              </span>
+            ) : (
+              heroFirstWord
+            )}
+            {heroRest ? ` ${heroRest}` : ""}
+          </h1>
+          <div class="hero__badges">
+            <PillarBadge pillar="tissue" /><PillarBadge pillar="neural" /><PillarBadge pillar="flow" />
+          </div>
+          <p class="lede hero__tagline">{heroTagline}</p>
+        </div>
+      </section>
+
+      <!-- Our approach -->
+      <section class="block" id="approach">
+        <div class="block__inner">
+          <p class="approach__text">{approachText}</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- What we do — the three capabilities -->
+    <section class="block" id="what-we-do">
+      <div class="block__inner">
+        <h2>What we do</h2>
+        <p class="lede block__intro">{d.whatWeDoIntro}</p>
+        <div class="pillars">
+          {d.pillars.map((p: any) => (
+            <article class={`pillar-row pillar-row--${p.key}`}>
+              <div class="pillar-row__media">
+                <img class="pillar-row__media-photo" src={pillarMotifs[p.key]} alt="" loading="lazy" />
+              </div>
+              <div class="pillar-row__content">
+                <div class="pillar-row__head">
+                  <PillarBadge pillar={p.key} label={p.badge} />
+                  <h3 class="pillar-row__title">{p.title}</h3>
+                  <p class="pillar-row__intro">{p.intro}</p>
+                </div>
+                <ul class="pillar-row__services">
+                  {p.services.map((s: any) => (
+                    <li><span class="pillar-row__check" aria-hidden="true">✓</span>{s.name}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="cta-panel">
+          <div>
+            <h3>{d.whatWeDoCta.title}</h3>
+            <p>{d.whatWeDoCta.body}</p>
+          </div>
+          <a class="btn btn--primary" href="#contact">Contact us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="block block--alt" id="projects">
+      <div class="block__inner">
+        <h2>Projects</h2>
+        <p class="lede block__intro">{d.projectsIntro}</p>
+        <CardGrid>
+          {projects.map((it) => (
+            <ProjectCard image={it.image} title={it.heading} subtitle={it.name} body={it.excerpt} href={it.href} external={it.external}>
+              {it.pillars?.length > 0 && (
+                <Fragment slot="badges">
+                  {it.pillars.map((k) => <PillarBadge pillar={k as any} />)}
+                </Fragment>
+              )}
+            </ProjectCard>
+          ))}
+        </CardGrid>
+      </div>
+    </section>
+
+    <!-- Who we work with -->
+    <section class="block" id="who-we-work-with">
+      <div class="block__inner">
+        <h2>Who we work with</h2>
+        <p class="lede block__intro">{d.whoWeWorkWithIntro}</p>
+        <div class="audiences">
+          {audiences.map((a) => (
+            <article class="audience"><h3>{a.name}</h3><p>{a.body}</p></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="block block--alt" id="team">
+      <div class="block__inner">
+        <h2>Who we are</h2>
+        <p class="lede block__intro">A small team working close to the ground — the coordination, trust, and follow-through this work depends on.</p>
+        <div class="team-cards">
+          {team.map((m: any, i: number) => (
+            <TeamCard name={m.name} role={m.role} bio={m.bio} pillar={teamPillars[i % teamPillars.length]} photo={teamPhotos[m.name]} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="block" id="contact">
+      <div class="block__inner">
+        <div class="contact-layout">
+          <div class="contact-layout__copy">
+            <h2>{d.contact.title}</h2>
+            <p class="lede">{d.contact.body}</p>
+            <p class="contact__email">Prefer email directly? Write to <a class="link" href={`mailto:${contactEmail}`}>{contactEmail}</a>.</p>
+          </div>
+          <form class="contact-form" action={`mailto:${contactEmail}`} method="post" enctype="text/plain">
+            <div class="field">
+              <label class="field__label" for="contact-name">Name</label>
+              <input class="field__input" type="text" id="contact-name" name="name" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="contact-email">Email</label>
+              <input class="field__input" type="email" id="contact-email" name="email" required autocomplete="email" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="contact-message">Message</label>
+              <textarea class="field__input" id="contact-message" name="message" required placeholder="What are you working on?"></textarea>
+            </div>
+            <button type="submit" class="btn btn--ink contact-form__submit">Send message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="landing-footer">
+    <span class="landing-footer__brand">motiu</span>
+    <a class="landing-footer__email" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+  </footer>
+</Layout>
+
+<script is:inline>
+  // Hero headline rotation: swaps the first word every 2s.
+  // Shuffled-deck order: each pass shows every word once, the pass order
+  // changes every loop, and no word repeats twice in a row (guarded across
+  // reshuffles). Respects prefers-reduced-motion; without JS the static
+  // first word from the SSR render stays. Ported verbatim from index.astro.
+  var rotateEl = document.querySelector("[data-rotate-words]");
+  if (rotateEl && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var words = [];
+    try {
+      words = JSON.parse(rotateEl.getAttribute("data-rotate-words") || "[]");
+    } catch (e) {}
+    if (words.length > 1) {
+      var interval = Number(rotateEl.getAttribute("data-rotate-interval") || 2000);
+      var indices = words.map(function (_, i) { return i; });
+      function shuffled(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+        }
+        return a;
+      }
+      var order = shuffled(indices);
+      var pos = 0;
+      setInterval(function () {
+        rotateEl.textContent = words[order[pos]];
+        pos += 1;
+        if (pos >= order.length) {
+          pos = 0;
+          var next = shuffled(indices);
+          if (next[0] === order[order.length - 1]) {
+            var head = next[0]; next[0] = next[1]; next[1] = head;
+          }
+          order = next;
+        }
+      }, interval);
+    }
+  }
+</script>
+
+<style>
+  /* Local anchor nav — mirrors Nav.astro's visual language but stays scoped to this page. */
+  .landing-nav {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem var(--gutter);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background-color var(--t-med), border-color var(--t-med);
+  }
+  .landing-nav.is-scrolled { background: var(--paper); border-bottom-color: var(--border-subtle); }
+  .landing-nav__brand { font-family: var(--sans); font-size: 1.15rem; font-weight: 600; text-transform: lowercase; letter-spacing: -0.01em; color: var(--umber); text-decoration: none; }
+  .landing-nav nav ul { list-style: none; display: flex; align-items: center; gap: 1rem; margin: 0; padding: 0; flex-wrap: wrap; }
+  /* Dot between the plain nav links (not before Contact or the lang switch) — matches the
+     "About · Projects · Services · Contact" topbar style from earlier versions. Symmetric: the
+     gap above supplies the space to the dot's left, so its own margin-right needs to match —
+     otherwise the dot sits closer to whichever word follows it, not centered between the two. */
+  .landing-nav__item + .landing-nav__item::before { content: "·"; margin-right: 1rem; color: var(--rule); }
+  .landing-nav nav a { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--rule); text-decoration: none; padding: 0.25rem 0; border-bottom: 1px solid transparent; white-space: nowrap; }
+  .landing-nav nav a:hover { color: var(--umber); border-bottom-color: var(--umber); }
+  /* Needs to out-specify ".landing-nav nav a" (two classes) above, or its padding: 0.25rem 0 wins
+     and the button loses its side padding. */
+  .landing-nav nav a.landing-nav__cta { color: var(--paper); background: var(--umber); border: 1px solid var(--umber); padding: 0.3rem 0.75rem; }
+  .landing-nav nav a.landing-nav__cta:hover { background: var(--rule); border-color: var(--rule); }
+  section[id] { scroll-margin-top: 4.5rem; }
+  /* Mobile (260904, per Andrea): hide the plain anchor links for now — no mobile menu yet — and
+     keep logo, Contact, and the lang switch on one row. Also drop the Voronoi backdrop — its
+     containment math is tuned for the desktop hero shape and just gets in the way at narrow
+     widths; skip it for now rather than fight it. HeroVoronoi.astro's markup isn't scoped to
+     this file (it's a child component), so :global() is needed to reach it. */
+  @media (max-width: 720px) {
+    .landing-nav__item { display: none; }
+    :global(.hero-voronoi) { display: none; }
+  }
+
+  .opening {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--bone);
+  }
+  .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 56ch;
+    margin: 0 auto;
+    padding: var(--space-16) var(--gutter);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero__title { font-size: clamp(3.15rem, 6.5vw, 4.4rem); max-width: 18ch; margin: 0 0 var(--space-5); }
+  .hero__badges { display: flex; justify-content: center; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-3); }
+  .hero__tagline { max-width: 52ch; }
+
+  .btn--ink { background: var(--umber); color: var(--paper); }
+  .btn--ink:hover:not(:disabled) { background: var(--rule); color: var(--paper); }
+
+  .block { padding: var(--space-16) var(--gutter); }
+  #approach { position: relative; z-index: 1; }
+  .block--alt { background: var(--surface-1); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
+  .block__inner { max-width: var(--container-default); margin: 0 auto; }
+  .block h2 { font-size: clamp(2.1rem, 5vw, 2.8rem); max-width: 22ch; margin: var(--space-2) 0 var(--space-4); }
+  .block__intro { margin-bottom: var(--space-10); max-width: 62ch; }
+
+  .approach__text {
+    font-family: var(--sans);
+    /* Was a flat var(--text-xl) (34px) — didn't shrink at all on mobile while the headings
+       around it do (clamp()), so it ended up looking oversized relative to them. Same ceiling,
+       responsive floor. */
+    font-size: clamp(1.375rem, 4.5vw, 2.125rem);
+    /* At the desktop ceiling (34px) this reads as a headline and wants heading-tight leading;
+       at the mobile floor (22px) it's body-text-sized and wants body-loose leading instead —
+       one flat value was always wrong for one end or the other. Mobile override below. */
+    line-height: var(--leading-heading);
+    max-width: 40ch;
+    margin: 0;
+  }
+
+  /* Pillar rows */
+  .pillars { display: flex; flex-direction: column; gap: var(--space-16); }
+  .pillar-row { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-10); padding-top: var(--space-10); border-top: 1px solid var(--border-subtle); align-items: start; }
+  .pillar-row__media { position: relative; border-radius: 0.75rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--surface-2); }
+  .pillar-row__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pillar-row__media-photo { transition: transform var(--t-med), filter var(--t-med); }
+  .pillar-row__media:hover .pillar-row__media-photo { transform: scale(1.05); filter: brightness(1.06); }
+  /* Was a flat var(--text-xl) (34px), which doesn't shrink on mobile while the section's own
+     h2 does (clamp()) — so on narrow screens this h3 ended up bigger than its parent heading.
+     Ceiling matches the design system's own h3 default (global.css: clamp(1.5rem, 2.4vw,
+     var(--text-xl)), 34px) — this is a genuine section heading, not a card title (see the
+     smaller h4-equivalent scale for project/team cards below), so it keeps the full h3 size. */
+  .pillar-row__title { font-size: clamp(1.6rem, 4.5vw, 2.125rem); margin: var(--space-3) 0 var(--space-3); }
+  .pillar-row__intro { color: var(--text-muted); line-height: var(--leading-body); }
+  .pillar-row__services { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+  .pillar-row__services li { display: flex; align-items: baseline; gap: var(--space-3); font-size: var(--text-md); }
+  .pillar-row__check { font-family: var(--mono); font-size: var(--text-sm); color: var(--primary); }
+  .pillar-row:nth-child(even) .pillar-row__media { order: 2; }
+
+  .cta-panel {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-6);
+    flex-wrap: wrap; margin-top: var(--space-12); padding: var(--space-8);
+    background: var(--umber); color: var(--paper); border-radius: 0.75rem;
+  }
+  .cta-panel h3 { margin: 0 0 var(--space-2); color: var(--paper); }
+  .cta-panel p { margin: 0; color: color-mix(in srgb, var(--paper) 80%, transparent); max-width: 60ch; }
+  .cta-panel .btn--primary { background: var(--paper); color: var(--umber); }
+  .cta-panel .btn--primary:hover:not(:disabled) { background: var(--ivory); color: var(--umber); }
+
+  /* Audiences — two-column list with row dividers (matches index.astro) */
+  .audiences { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 var(--space-12); }
+  .audience { padding: var(--space-5) 0; border-bottom: 1px solid var(--border-subtle); }
+  .audience:nth-last-child(-n+2) { border-bottom: none; }
+  .audience h3 { font-size: var(--text-md); font-weight: 600; margin: 0 0 var(--space-1); }
+  .audience p { color: var(--text-muted); line-height: var(--leading-body); margin: 0; }
+
+  /* Team (ported from about.astro) */
+  .team-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-6); }
+  /* Card-title scale — team card names and project card headings, both h4s semantically (a card
+     title, not a page-section heading like the pillar h3s above): 28px ceiling, matching
+     global.css's own flat h4 default (var(--text-lg)), not the 34px h3 scale. Was unified with
+     the pillar h3 scale (260904) which read too big on desktop; floor unchanged, so mobile —
+     already right — doesn't move, only the desktop ceiling comes down. TeamCard.astro's own
+     .team-card__name and ProjectCard.astro's own .project-tile__heading are both a flat
+     var(--text-lg) (28px, no mobile responsiveness) — scoped overrides rather than editing
+     those shared components, which about.astro also uses. */
+  .team-cards :global(.team-card__name) { font-size: clamp(1.6rem, 3vw, 1.75rem); }
+  .block__inner :global(.project-tile__heading) { font-size: clamp(1.6rem, 3vw, 1.75rem); }
+
+  .contact__email { margin-top: var(--space-4); }
+
+  /* Contact */
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--space-12); align-items: start; }
+  .contact-layout__copy h2 { margin-top: 0; }
+  .contact-form {
+    padding: var(--space-8);
+    background: var(--bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .contact-form textarea.field__input { min-height: 9rem; resize: vertical; }
+  .contact-form__submit { align-self: flex-start; margin-top: var(--space-1); }
+
+  /* Footer — simplified: just the brand and the contact email, no Surfaces/Federation/socials. */
+  .landing-footer {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+    padding: var(--space-8) var(--gutter);
+    border-top: 1px solid var(--border-subtle);
+    font-family: var(--mono); font-size: 0.75rem;
+  }
+  .landing-footer__brand { font-family: var(--sans); font-size: 1.1rem; font-weight: 600; text-transform: lowercase; letter-spacing: -0.01em; color: var(--umber); }
+  .landing-footer__email { color: var(--rule); text-decoration: none; }
+  .landing-footer__email:hover { color: var(--umber); text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    .pillar-row { grid-template-columns: 1fr; gap: var(--space-5); }
+    .pillar-row__media, .pillar-row:nth-child(even) .pillar-row__media { order: -1; }
+    .cta-panel { flex-direction: column; align-items: flex-start; }
+    .contact-layout { grid-template-columns: 1fr; }
+    .audiences { grid-template-columns: 1fr; }
+    .audience { padding: var(--space-6) 0; }
+    .audience:nth-last-child(-n+2) { border-bottom: 1px solid var(--border-subtle); }
+    .audience:last-child { border-bottom: none; }
+    /* Tighter rhythm on mobile — var(--space-16)/var(--space-10) (64px/40px) were sized for
+       desktop and just read as dead air on a small screen. Side padding too, for nav/block/
+       footer — var(--gutter) (32px) is the same value every section used, but the hero's own
+       content rarely reaches it (max-width: 56ch keeps the text narrower than the viewport), so
+       the hero read as tighter than the rest by comparison even though the padding was
+       identical. The hero's own side padding stays at var(--gutter) (260904, per Andrea: don't
+       actually shrink the hero's real padding, just match the others to how it already reads). */
+    .landing-nav { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .hero__inner { padding: var(--space-10) var(--gutter); }
+    .block { padding: var(--space-10) 1.25rem; }
+    .block__intro { margin-bottom: var(--space-6); }
+    .pillars { gap: var(--space-10); }
+    .landing-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    /* Approach text is body-sized here (its clamp() floor), so it wants body-loose leading —
+       the desktop rule above is heading-tight, right for the 34px headline-scale ceiling but too
+       cramped once the text has shrunk this far. */
+    .approach__text { line-height: var(--leading-body); }
+    /* Pillar service list was a flat 22px (var(--text-md)) — too big next to everything else
+       that's now responsive on mobile. */
+    .pillar-row__services li { font-size: 1.2rem; }
+  }
+</style>

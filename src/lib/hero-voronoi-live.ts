@@ -83,11 +83,27 @@ interface ProtectedRegion {
 // #approach's own box spans a wide container regardless of how narrow the
 // copy inside it is. measureInkRect() below sidesteps that by measuring
 // rendered text extent instead of layout boxes.
+// Each region can list selectors from more than one nav implementation — the
+// shared multi-page Nav.astro (.site-nav) and the single-page landing.astro's
+// own local nav (.landing-nav, 260904, per Andrea). A selector that finds
+// nothing on a given page is just skipped, so both stay protected without
+// either page needing its own copy of this file. A selector may also match
+// several elements (e.g. one per landing-nav link) — every match's ink rect
+// gets unioned into that region's single box, so on landing.astro the plain
+// links (Approach…Team) form one tight region instead of the far wider span
+// from Approach to the lang switch that ".landing-nav nav ul" as a whole
+// used to cover. The Contact button isn't included (it has its own solid
+// background, so it doesn't need a clear cell to stay legible); the lang
+// switch gets its own smaller region instead of being lumped in.
+// Order is priority order for applyContentProtection below (highest first):
+// hero and approach are the large, load-bearing regions and always win a
+// conflict; logo/nav/nav-lang are secondary and may have to give ground.
 const PROTECTED_REGIONS_DEF: ProtectedRegionDef[] = [
-  { id: "logo", selectors: [".site-nav .brand"] },
-  { id: "nav", selectors: [".site-nav nav ul"] },
   { id: "hero", selectors: [".hero__inner"] },
   { id: "approach", selectors: ["#approach"] },
+  { id: "logo", selectors: [".site-nav .brand", ".landing-nav__brand"] },
+  { id: "nav", selectors: [".site-nav nav ul", ".landing-nav__item a"] },
+  { id: "nav-lang", selectors: [".landing-nav .langswitch"] },
 ];
 
 /** Walking to individual text nodes (rather than ranging over a container
@@ -157,13 +173,17 @@ function measureProtectedRegions(svg: SVGSVGElement): ProtectedRegion[] {
   for (const def of PROTECTED_REGIONS_DEF) {
     let corners: Point[] = [];
     for (const selector of def.selectors) {
-      const el = document.querySelector(selector);
-      if (!el) continue;
-      const rect = measureInkRect(el);
-      if (!rect.width || !rect.height) continue;
-      corners = corners.concat(
-        rectCorners(rect).map((p) => clientToSvg(svg, p[0], p[1])),
-      );
+      // querySelectorAll, not querySelector: a selector can match several
+      // elements (e.g. every landing-nav link) whose ink rects all belong
+      // to the same region.
+      const els = document.querySelectorAll(selector);
+      for (const el of els) {
+        const rect = measureInkRect(el);
+        if (!rect.width || !rect.height) continue;
+        corners = corners.concat(
+          rectCorners(rect).map((p) => clientToSvg(svg, p[0], p[1])),
+        );
+      }
     }
     if (!corners.length) continue;
     const box = polygonBBox(corners);
@@ -199,10 +219,22 @@ function regionClearsSite(
 
 /**
  * Returns a clone of `sites` with one site per region snapped to that
- * region's centroid, and every non-anchor site pushed clear of any bisector
- * that would otherwise cut into a protected rect. Never moves an anchor —
- * two protected regions whose fixed centroids can't be separated by a
- * straight bisector just stay imperfect rather than being silently "fixed."
+ * region's centroid, and every other site pushed clear of any bisector that
+ * would otherwise cut into a protected rect.
+ *
+ * `regions` order is a priority order (highest first, e.g. hero before
+ * logo): a region may push any site clear of its box, *including* another
+ * region's anchor — but only if that anchor belongs to a lower-priority
+ * region later in the list. It can never push a higher-priority region's
+ * anchor. That one-directional rule is what keeps this from oscillating —
+ * letting every anchor push every other unconditionally (tried and measured
+ * against the live page, 260904) doesn't converge and made every region
+ * worse, not better. Two same-priority... there's only one region per rank
+ * here, so that case doesn't arise. A lower-priority region can still end up
+ * imperfectly contained if a higher-priority one had to claim territory it
+ * needed — accepted trade-off (per Andrea, 260904): the big, important
+ * regions (hero, approach) should never show a crossing line; a nav-link
+ * cluster occasionally losing a sliver is far less noticeable.
  */
 function applyContentProtection(
   sites: Point[],
@@ -232,14 +264,19 @@ function applyContentProtection(
     anchors.push({ siteIndex: best, region });
   }
 
-  const anchorIndexSet = new Set(anchors.map((a) => a.siteIndex));
-  const maxIter = 60;
+  // rank = index into `anchors`, i.e. its priority position (0 = highest).
+  const rankOf = new Map<number, number>(
+    anchors.map((a, rank) => [a.siteIndex, rank]),
+  );
+  const maxIter = 200;
   for (let iter = 0; iter < maxIter; iter++) {
     let moved = false;
-    for (const { siteIndex: anchorIdx, region } of anchors) {
+    anchors.forEach(({ siteIndex: anchorIdx, region }, rank) => {
       const anchor = result[anchorIdx];
       for (let si = 0; si < result.length; si++) {
-        if (si === anchorIdx || anchorIndexSet.has(si)) continue;
+        if (si === anchorIdx) continue;
+        const otherRank = rankOf.get(si);
+        if (otherRank !== undefined && otherRank < rank) continue; // never push a higher-priority anchor
         const other = result[si];
         if (regionClearsSite(region, anchor, other, margin)) continue;
         const dx = other[0] - region.center[0];
@@ -248,7 +285,7 @@ function applyContentProtection(
         result[si] = [other[0] + (dx / len) * 16, other[1] + (dy / len) * 16];
         moved = true;
       }
-    }
+    });
     if (!moved) break;
   }
 
