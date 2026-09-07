@@ -29,11 +29,11 @@ tagline: >-
     finance built for the long run.
 
 approach: >-
-  For the regenerative transition to happen at the scale and pace we need, it requires social,
-  knowledge, and financial infrastructure that connects individual efforts into a larger whole.
-  We contribute building that infrastructure by partnering with regenerative networks—supporting
-  their coordination, knowledge systems, and financing — then sharing what we learn back into
-  the Commons, for the benefit of all bioregions
+  The regenerative transition needs social, knowledge, and financial infrastructure to connect
+  individual efforts and territories between each other. We contribute building that
+  infrastructure by partnering with regenerative networks — supporting their coordination,
+  knowledge systems, and financing — then sharing what we learn back into the Commons, for the
+  benefit of all bioregions.
 
 whatWeDoIntro: >-
   We work on the connective layer of regeneration: financial strategies designed for landscape
@@ -43,18 +43,18 @@ whatWeDoIntro: >-
 pillars:
   - key: tissue
     badge: Network coordination
-    title: Weave the relationships and programs that make a territory coherent
+    title: Weave the networks and relationships that make a territory coherent
     intro: >-
       Regenerative transitions are coordination problems before they are anything else. We weave
-      bioregional networks, and we design and run the funding and capacity-building programs
-      that give them shared rhythm and direction.
+      the networks and relationships that make a territory coherent, and we design and run the
+      events and workshops that give them shared rhythm and direction.
     services:
       - name: Bioregional network weaving & sensemaking
         body: >-
           We map and convene the actors of a territory — cooperatives, initiatives, institutions —
           and build the shared picture and the working rhythms that let them recognize each other
           as part of one movement and act like it, grounded in our ongoing work across Catalunya.
-      - name: Funding & capacity-building programs
+      - name: Events and workshops organizing services
         body: >-
           We design and run programs end-to-end that pair capital with capacity — like Regenerant
           Catalunya, which pooled local and global funding and routed it directly to a cohort of
@@ -93,7 +93,7 @@ pillars:
           diagnosis to investment architecture — working with the people who hold the land and
           the communities on it. We practice this today alongside landscape partners like
           Commonland.
-      - name: Collective financial infrastructures
+      - name: Funding and capacity building programs
         body: >-
           Design and implementation of the financial vehicles a network owns together — from
           shared treasuries to bioregional investment cooperatives — with governance that keeps
@@ -165,6 +165,11 @@ whoWeWorkWithIntro: >-
   Organizations, networks, and institutions that see ecological and social health as inseparable —
   and understand that their work needs to operate systemically to affect real change.
 
+# Membership line (260907): the org is part of two cooperative networks.
+whoWeWorkWithNetworksBefore: We are part of
+whoWeWorkWithNetworksConnector: and
+federationName: the Federació de Cooperatives de Treball de Catalunya
+
 # "Who we work with", scoped to the single-page launch (260904, per Andrea) — six audiences,
 # each written as one integrated sentence around the reader's own objective.
 audiences:
@@ -195,8 +200,7 @@ audiences:
       landscapes holistically — vetted, coordinated, and ready to fund.
 
 teamIntro: >-
-  A small team working close to the ground — the coordination, trust, and follow-through this
-  work depends on.
+  A small team based in Barcelona, with partners and collaborators worldwide.
 
 # Team, scoped to the single-page launch (260904, per Andrea): Andrea + Giulio, with Andrea's
 # real portrait and updated title.
@@ -218,13 +222,8 @@ contact:
     Tell us about your network, territory, or program — whether you're exploring coordination,
     collective intelligence, or regenerative finance. We'll get back to you within a few days.
   email: contact@motiu.org
-  directLine: Prefer email directly? Write to
-  form:
-    nameLabel: Name
-    emailLabel: Email
-    messageLabel: Message
-    messagePlaceholder: What are you working on?
-    submit: Send message
+  # The email is the only contact option (form removed 260907).
+  directLine: Write to us at
 
 # Section headings — shown as h2 on the single page.
 sections:

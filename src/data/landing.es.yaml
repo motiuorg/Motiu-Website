@@ -18,12 +18,11 @@ tagline: >-
   coordinadas y finanzas pensadas a largo plazo.
 
 approach: >-
-  Para que la regeneración se multiplique en un impacto real y duradero, hace falta una
-  infraestructura social, intelectual y financiera que conecte los esfuerzos individuales en un
-  conjunto más grande. Sin ella, los proyectos que podrían reforzarse mutuamente operan
-  aislados, los objetivos ecológicos y sociales van por vías separadas, y los sistemas
-  financieros construidos para otra era no pueden sostener transiciones que tardan décadas en
-  desplegarse. Construimos esa capa conectiva que mantiene unida la transición.
+  La transición regenerativa necesita infraestructura social, de conocimiento y financiera para
+  conectar los esfuerzos individuales y los territorios entre sí. Contribuimos a construir esa
+  infraestructura asociándonos con redes regenerativas — apoyando su coordinación, sistemas de
+  conocimiento y financiación — y compartiendo lo que aprendemos con los Commons, en beneficio
+  de todas las biorregiones.
 
 whatWeDoIntro: >-
   Trabajamos en la capa conectiva de la regeneración: estrategias financieras diseñadas a escala
@@ -33,11 +32,11 @@ whatWeDoIntro: >-
 pillars:
   - key: tissue
     badge: Coordinación de redes
-    title: Tejer las relaciones y los programas que hacen coherente un territorio
+    title: Tejer las redes y las relaciones que hacen coherente un territorio
     intro: >-
       Las transiciones regenerativas son problemas de coordinación antes que cualquier otra
-      cosa. Tejemos redes biorregionales, y diseñamos y operamos los programas de financiación y
-      capacitación que les dan ritmo y dirección compartidos.
+      cosa. Tejemos las redes y las relaciones que hacen coherente un territorio, y diseñamos y
+      operamos los eventos y talleres que les dan ritmo y dirección compartidos.
     services:
       - name: Tejido y sense-making de redes biorregionales
         body: >-
@@ -45,7 +44,7 @@ pillars:
           instituciones — y construimos la imagen compartida y los ritmos de trabajo que les
           permiten reconocerse como parte de un mismo movimiento y actuar como tal, a partir de
           nuestro trabajo continuado en Cataluña.
-      - name: Programas de financiación y capacitación
+      - name: Servicios de organización de eventos y talleres
         body: >-
           Diseñamos y operamos programas de principio a fin que combinan capital y capacidades —
           como Regenerant Catalunya, que agrupó financiación local y global y la canalizó
@@ -85,7 +84,7 @@ pillars:
           diagnóstico a la arquitectura de inversión — trabajando con las personas que custodian
           la tierra y las comunidades que viven en ella. Lo practicamos hoy junto a socios de
           paisaje como Commonland.
-      - name: Infraestructuras financieras colectivas
+      - name: Programas de financiación y capacitación
         body: >-
           Diseño e implementación de los vehículos financieros que una red posee conjuntamente —
           de las tesorerías compartidas a las cooperativas de inversión biorregionales — con una
@@ -158,6 +157,11 @@ whoWeWorkWithIntro: >-
   Organizaciones, redes e instituciones que ven la salud ecológica y social como una sola cosa —
   y entienden que su trabajo debe operar sistémicamente para generar un cambio real.
 
+# Línea de pertenencia (260907): la organización forma parte de dos redes cooperativas.
+whoWeWorkWithNetworksBefore: Somos parte de
+whoWeWorkWithNetworksConnector: y
+federationName: la Federació de Cooperatives de Treball de Catalunya
+
 audiences:
   - name: Bioeconomía y agricultura regenerativa
     body: >-
@@ -188,8 +192,7 @@ audiences:
       paisajes de manera holística — evaluadas, coordinadas y listas para financiar.
 
 teamIntro: >-
-  Un equipo pequeño que trabaja cerca del terreno — la coordinación, la confianza y el
-  seguimiento de los que depende este trabajo.
+  Un equipo pequeño con base en Barcelona, con socios y colaboradores en todo el mundo.
 
 team:
   - name: Andrea Farias
@@ -209,13 +212,7 @@ contact:
     Cuéntanos sobre tu red, tu territorio o tu programa — ya sea que explores la coordinación,
     la inteligencia colectiva o las finanzas regenerativas. Te responderemos en pocos días.
   email: contact@motiu.org
-  directLine: ¿Prefieres el correo directamente? Escribe a
-  form:
-    nameLabel: Nombre
-    emailLabel: Correo electrónico
-    messageLabel: Mensaje
-    messagePlaceholder: ¿En qué estás trabajando?
-    submit: Enviar mensaje
+  directLine: Escríbenos a
 
 sections:
   whatWeDoTitle: Qué hacemos

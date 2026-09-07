@@ -18,12 +18,11 @@ tagline: >-
   finances pensades a llarg termini.
 
 approach: >-
-  Perquè la regeneració es multipliqui en un impacte real i durador, cal una infraestructura
-  social, intel·lectual i financera que connecti els esforços individuals en un conjunt més
-  gran. Sense això, els projectes que podrien reforçar-se mútuament operen aïllats, els
-  objectius ecològics i socials van per vies separades, i els sistemes financers construïts
-  per a una altra era no poden sostenir transicions que triguen dècades a desplegar-se.
-  Construïm aquesta capa connectiva que manté unida la transició.
+  La transició regenerativa necessita infraestructura social, de coneixement i financera per
+  connectar els esforços individuals i els territoris entre si. Contribuïm a construir aquesta
+  infraestructura associant-nos amb xarxes regeneratives — donant suport a la seva coordinació,
+  sistemes de coneixement i finançament — i compartint el que aprenem amb els Commons, en
+  benefici de totes les biorregions.
 
 whatWeDoIntro: >-
   Treballem a la capa connectiva de la regeneració: estratègies financeres dissenyades a escala
@@ -33,11 +32,11 @@ whatWeDoIntro: >-
 pillars:
   - key: tissue
     badge: Coordinació de xarxes
-    title: Teixir les relacions i els programes que fan coherent un territori
+    title: Teixir les xarxes i les relacions que fan coherent un territori
     intro: >-
       Les transicions regeneratives són problemes de coordinació abans que qualsevol altra cosa.
-      Teixim xarxes biorregionals, i dissenyem i operem els programes de finançament i
-      capacitació que els donen ritme i direcció compartits.
+      Teixim les xarxes i les relacions que fan coherent un territori, i dissenyem i operem els
+      esdeveniments i tallers que els donen ritme i direcció compartits.
     services:
       - name: Teixit i sense-making de xarxes biorregionals
         body: >-
@@ -45,7 +44,7 @@ pillars:
           i construïm la imatge compartida i els ritmes de treball que els permeten reconèixer-se
           com a part d'un mateix moviment i actuar com a tal, a partir de la nostra feina
           continuada a Catalunya.
-      - name: Programes de finançament i capacitació
+      - name: Serveis d'organització d'esdeveniments i tallers
         body: >-
           Dissenyem i operem programes de cap a cap que combinen capital i capacitats — com
           Regenerant Catalunya, que va agrupar finançament local i global i el va canalitzar
@@ -84,7 +83,7 @@ pillars:
           Disseny, execució i coordinació d'estratègies financeres a escala de paisatge — del
           diagnòstic a l'arquitectura d'inversió — treballant amb les persones que tenen la terra
           i les comunitats que hi viuen. Ho practiquem avui amb socis de paisatge com Commonland.
-      - name: Infraestructures financeres col·lectives
+      - name: Programes de finançament i capacitació
         body: >-
           Disseny i implementació dels vehicles financers que una xarxa posseeix conjuntament —
           de les tresoreries compartides a les cooperatives d'inversió biorregionals — amb una
@@ -157,6 +156,11 @@ whoWeWorkWithIntro: >-
   Organitzacions, xarxes i institucions que veuen la salut ecològica i social com una sola cosa —
   i entenen que el seu treball ha d'operar sistèmicament per generar un canvi real.
 
+# Línia de pertinença (260907): l'organització forma part de dues xarxes cooperatives.
+whoWeWorkWithNetworksBefore: Som part de
+whoWeWorkWithNetworksConnector: i
+federationName: la Federació de Cooperatives de Treball de Catalunya
+
 audiences:
   - name: Bioeconomia i agricultura regenerativa
     body: >-
@@ -187,8 +191,7 @@ audiences:
       paisatges de manera holística — avaluades, coordinades i a punt per ser finançades.
 
 teamIntro: >-
-  Un equip petit que treballa a prop del terreny — la coordinació, la confiança i el seguiment
-  dels quals depèn aquesta feina.
+  Un equip petit amb base a Barcelona, amb socis i col·laboradors arreu del món.
 
 team:
   - name: Andrea Farias
@@ -209,13 +212,7 @@ contact:
     coordinació, la intel·ligència col·lectiva o les finances regeneratives. Et respondrem en
     pocs dies.
   email: contact@motiu.org
-  directLine: Prefereixes el correu directament? Escriu a
-  form:
-    nameLabel: Nom
-    emailLabel: Correu electrònic
-    messageLabel: Missatge
-    messagePlaceholder: En què estàs treballant?
-    submit: Envia el missatge
+  directLine: Escriu-nos a
 
 sections:
   whatWeDoTitle: Què fem

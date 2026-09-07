@@ -291,6 +291,22 @@ const navLinks = [
             <div class="block__inner">
                 <h2>{d.sections?.whoWeWorkWithTitle ?? "Who we work with"}</h2>
                 <p class="lede block__intro">{d.whoWeWorkWithIntro}</p>
+                <p class="lede block__intro networks-line">
+                    {d.whoWeWorkWithNetworksBefore}{" "}
+                    <a
+                        class="link"
+                        href="https://miceli.social/"
+                        target="_blank"
+                        rel="noopener">Miceli Social</a
+                    >{" "}
+                    {d.whoWeWorkWithNetworksConnector}{" "}
+                    <a
+                        class="link"
+                        href="https://www.cooperativestreball.coop/"
+                        target="_blank"
+                        rel="noopener">{d.federationName}</a
+                    >.
+                </p>
                 <div class="audiences">
                     {
                         audiences.map((a) => (
@@ -330,70 +346,15 @@ const navLinks = [
         <!-- Contact -->
         <section class="block" id="contact">
             <div class="block__inner">
-                <div class="contact-layout">
-                    <div class="contact-layout__copy">
-                        <h2>{d.contact.title}</h2>
-                        <p class="lede">{d.contact.body}</p>
-                        <p class="contact__email">
-                            {d.contact?.directLine}
-                            <a class="link" href={`mailto:${contactEmail}`}
-                                >{contactEmail}</a
-                            >.
-                        </p>
-                    </div>
-                    <form
-                        class="contact-form"
-                        action={`mailto:${contactEmail}`}
-                        method="post"
-                        enctype="text/plain"
-                    >
-                        <div class="field">
-                            <label class="field__label" for="contact-name"
-                                >{d.contact?.form?.nameLabel ?? "Name"}</label
-                            >
-                            <input
-                                class="field__input"
-                                type="text"
-                                id="contact-name"
-                                name="name"
-                                required
-                                autocomplete="name"
-                            />
-                        </div>
-                        <div class="field">
-                            <label class="field__label" for="contact-email"
-                                >{d.contact?.form?.emailLabel ?? "Email"}</label
-                            >
-                            <input
-                                class="field__input"
-                                type="email"
-                                id="contact-email"
-                                name="email"
-                                required
-                                autocomplete="email"
-                            />
-                        </div>
-                        <div class="field">
-                            <label class="field__label" for="contact-message"
-                                >{
-                                    d.contact?.form?.messageLabel ?? "Message"
-                                }</label
-                            >
-                            <textarea
-                                class="field__input"
-                                id="contact-message"
-                                name="message"
-                                required
-                                placeholder={d.contact?.form
-                                    ?.messagePlaceholder ??
-                                    "What are you working on?"}></textarea>
-                        </div>
-                        <button
-                            type="submit"
-                            class="btn btn--ink contact-form__submit"
-                            >{d.contact?.form?.submit ?? "Send message"}</button
-                        >
-                    </form>
+                <div class="contact-layout__copy">
+                    <h2>{d.contact.title}</h2>
+                    <p class="lede">{d.contact.body}</p>
+                    <p class="contact__email">
+                        {d.contact?.directLine}
+                        <a class="link" href={`mailto:${contactEmail}`}
+                            >{contactEmail}</a
+                        >.
+                    </p>
                 </div>
             </div>
         </section>
@@ -538,20 +499,21 @@ const navLinks = [
         background: var(--rule);
         border-color: var(--rule);
     }
-    /* Newsletter (260907): outline button — more present than the plain anchor links, less
-     assertive than the solid Contact CTA. Same out-specification needs as .landing-nav__cta. */
+    /* Newsletter (260907): bright accent button — pillar lime (tissue-2), one of the palette's
+     bright pillar colors, so it pops more than the plain anchor links and the umber CTA.
+     Same out-specification needs as .landing-nav__cta. */
     .landing-nav nav a.landing-nav__newsletter {
         color: var(--umber);
-        background: transparent;
-        border: 1px solid var(--umber);
+        background: var(--pillar-tissue-2);
+        border: 1px solid var(--pillar-tissue-2);
         padding: 0.3rem 0.75rem;
     }
     .landing-nav nav a.landing-nav__newsletter:hover {
-        background: var(--umber);
-        color: var(--paper);
+        background: var(--pillar-tissue-3);
+        border-color: var(--pillar-tissue-3);
     }
     .landing-nav nav a.landing-nav__newsletter:focus-visible {
-        outline: 2px solid var(--umber);
+        outline: 2px solid var(--pillar-tissue-4);
         outline-offset: 2px;
     }
     section[id] {
