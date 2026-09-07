@@ -1,10 +1,12 @@
 # Landing-page content — structure + copy from Andrea's prepared landing (origin/andrea).
 # The three pillars frame the org's three capabilities:
 #   tissue → Network coordination · neural → Collective intelligence · flow → Regenerative finance
+# i18n (260907): this EN file is the source of truth; translated copies live in
+# landing.ca.yaml / landing.es.yaml with the SAME schema (values are plain strings
+# there). hero.title/rotate keep the {en, ca, es} map/list shape from the original
+# multi-page build; the page accepts both shapes.
 hero:
   # Rotating headline: the first word of the title swaps every 2s (list below).
-  # Per-locale titles — EN is the default; CA/ES pages still serve EN copy
-  # elsewhere (i18n rewrite fallback), so only the headline is localized for now.
   title:
     en: Infrastructure for territorial regeneration
     ca: Infraestructura per a la regeneració territorial
@@ -19,18 +21,20 @@ hero:
     - { en: Financing, ca: Finançament, es: Financiación }
     - { en: Capacitation, ca: Capacitació, es: Capacitación }
     - { en: Strategies, ca: Estratègies, es: Estrategias }
-  tagline: >-
-    Regenerative work fails when it runs on separate tracks — projects in isolation, ecological
-    and social goals apart, finance that can't follow a transition through decades. We design
-    and run the strategies, shared knowledge, and coordination that let networks of initiatives
-    act coherently across their territory.
+
+# Hero tagline (260904, per Andrea) — single-page launch copy.
+tagline: >-
+    Transitioning to a regenerative economy, aligned with people and planet, means building
+    the infrastructure that holds it together: shared intelligence, coordinated networks, and
+    finance built for the long run.
 
 approach: >-
-  Most regenerative work is stronger than the conditions around it. Projects that should
-  reinforce each other operate in isolation. Ecological and social goals run on separate tracks.
-  Financial systems designed for a different era can't sustain transitions that take decades.
-  We work on those conditions — the strategies, shared knowledge, and coordination between
-  initiatives — because that is where regeneration either compounds or stalls.
+  For regeneration to compound into real, lasting impact, it needs social, intelligence, and
+  financial infrastructure connecting individual efforts into a larger whole. Without it,
+  projects that could reinforce each other operate in isolation, ecological and social goals
+  run on separate tracks, and financial systems built for a different era can't sustain
+  transitions that take decades to unfold. We build that connecting layer that holds the
+  transition together.
 
 whatWeDoIntro: >-
   We work on the connective layer of regeneration: financial strategies designed for landscape
@@ -106,7 +110,28 @@ projectsIntro: >-
   Work we've done at the connective layer — funding programs, network coordination, and
   territorial sensemaking across Catalonia and beyond.
 
+# Projects, scoped to the single-page launch (260904, per Andrea): plain grid, no featured card.
+# All hrefs are real external destinations (the internal case-study pages are archived).
 projects:
+  - heading: Long-term financing facilities for landscape-scale regeneration
+    name: Altiplano Estepario
+    image: /assets/projects/altiplano-estepario-reservoir.jpg
+    pillars: [flow, tissue]
+    excerpt: >-
+      A bioregional financing facility for one of Europe's largest semi-arid landscapes — built
+      to fund landscape-scale regeneration over years and decades, not single grant cycles.
+    href: https://andrea-diome.github.io/altiplano-estepario
+    external: true
+  - heading: A portfolio view the whole network can orient around
+    name: Bioregional Weaving Labs
+    image: /assets/projects/bioregional-weaving-labs-map.png
+    pillars: [neural, tissue]
+    excerpt: >-
+      We structured BWL's portfolio of place-based labs — relationships, programs, geographies,
+      funding status — then built portfolio views and maps that let stewards compare initiatives
+      without collapsing local context.
+    href: https://refibcn.github.io/bwl-map/
+    external: true
   - heading: Territorial grantmaking locals can trust — and verify
     name: Regenerant Catalunya
     image: /assets/projects/regenerant-catalunya-montserrat-dusk.jpg
@@ -115,7 +140,8 @@ projects:
       A territorial funding program we designed and operated for a global matching-funds round —
       pooling capital from Catalan donors and global matchers, then distributing it to local
       regenerative projects through a cooperative shared treasury.
-    href: /projects/regenerant-catalunya/
+    href: https://regenerant.refibcn.cat/
+    external: true
   - heading: An interactive map of who is regenerating Catalunya
     name: Regenerant Catalunya Maps
     image: /assets/ecosystem_map.png
@@ -126,91 +152,102 @@ projects:
       commons that powers our knowledge work.
     href: https://motiuorg.github.io/Regenerant-Catalunya-Maps/
     external: true
-  - heading: A portfolio view the whole network can orient around
-    name: Bioregional Weaving Labs
-    image: /assets/projects/bioregional-weaving-labs-map.png
-    pillars: [neural, tissue]
-    excerpt: >-
-      We structured BWL's portfolio of place-based labs — relationships, programs, geographies,
-      funding status — then built portfolio views and maps that let stewards compare initiatives
-      without collapsing local context.
-    href: /projects/bwl-portfolio-mapping/
-  - heading: Making a bioregion legible for collective decisions
-    name: Bioregional Intelligence
-    image: /assets/projects/bioregional-intelligence-map.png
+  - heading: Mapping ecosocial transformation worldwide
+    name: Bioregioning Earth
+    image: /assets/projects/bioregioning-earth-map.png
     pillars: [neural]
     excerpt: >-
-      Our research and visualization surface for territorial sensemaking — interactive maps and
-      dashboards that show how initiatives, institutions, and landscapes relate across a
-      bioregion. Built for complex, collective decision-making.
-    href: /atlas/
-  - heading: Stewarded knowledge for a high-steppe landscape
-    name: Altiplano Estepario
-    image: /assets/projects/altiplano-estepario-reservoir.jpg
-    pillars: [neural, tissue]
-    excerpt: >-
-      A stewarded knowledge commons for one of Europe's largest semi-arid landscapes —
-      documenting regeneration practice, local actors, and water stewardship across the Iberian
-      southeast.
-    href: https://andrea-diome.github.io/altiplano-estepario
+      A research project mapping the organizations stewarding transitions at bioregional scale
+      around the world — the practices, actors, and models this work can learn from.
+    href: https://bioregioning.earth/
     external: true
 
 whoWeWorkWithIntro: >-
   Organizations, networks, and institutions that see ecological and social health as inseparable —
   and understand that their work needs to operate systemically to affect real change.
 
+# "Who we work with", scoped to the single-page launch (260904, per Andrea) — six audiences,
+# each written as one integrated sentence around the reader's own objective.
 audiences:
-  - name: Cooperatives & solidarity economies
-    body: >-
-      You build through cooperative and solidarity structures — and need connective infrastructure
-      that fits democratic ownership, not tools designed for extractive scale.
   - name: Bioeconomy & regenerative agriculture
     body: >-
-      Your work crosses landscapes and supply chains, and you need coordination that links rural
-      stewards and urban food actors without flattening either context.
+      We coordinate the farmers, producers, and processors across a regenerative value chain
+      into portfolios that can be funded and scaled together.
   - name: Nature restoration initiatives
     body: >-
-      Your restoration only holds when the communities on the land shape governance and
-      livelihoods — we work with initiatives that treat ecology and social fabric as one problem.
+      We map a landscape's ecological and social systems, then build the governance and funding
+      models that let restoration hold long-term, with real stake for the communities on the land.
   - name: Local & regional governments
     body: >-
-      You steward public institutions watching a regenerative transition take shape — and want to
-      align programs and partners around it without smothering what's already emerging.
-  - name: Institutions at territory scale
+      We coordinate the programs and partners already driving a regenerative transition across
+      a territory, so it holds together.
+  - name: Economic development organizations
     body: >-
-      You work at watershed or bioregional scale, where place, social fabric, and ecological
-      health have to be designed together — not handed off to separate silos.
+      We take a holistic approach to development — mapping what's on the ground, then building
+      the coordination infrastructure that lets initiatives act as one ecosystem and grow
+      impact together.
   - name: Global networks & researchers
     body: >-
-      You're part of a federation or research community testing regenerative finance and
-      governance — and need a local node that bridges cooperative practice on the ground with
-      network-scale infrastructure.
+      We track, map, and visualize a network's full portfolio of initiatives — the
+      infrastructure researchers and stewards need to see the whole and compare what's working.
+  - name: Impact funders
+    body: >-
+      We connect funders to portfolios of for-profit and non-profit projects regenerating
+      landscapes holistically — vetted, coordinated, and ready to fund.
 
 teamIntro: >-
-  Three operators building the cooperative at Bloc4, Barcelona — working across coordination,
-  sensemaking, and regenerative finance.
+  A small team working close to the ground — the coordination, trust, and follow-through this
+  work depends on.
 
+# Team, scoped to the single-page launch (260904, per Andrea): Andrea + Giulio, with Andrea's
+# real portrait and updated title.
 team:
   - name: Andrea Farias
-    role: Program design & communications
+    role: Strategy & program design
     bio: >-
-      Research, mapping, program design, and brand — from territorial sensemaking to the
-      communications that hold networks together.
+      Andrea brings a research and design background to bioregional governance and regenerative
+      finance — building the infrastructure this transition needs.
   - name: Giulio Quarta
     role: Operations, partnerships & community
     bio: >-
       Partnership development, community coordination, and the operational backbone that keeps
       programs and networks running.
-  - name: Luiz Fernando Gomez Segala
-    role: Strategy & regenerative finance
-    bio: >-
-      Ecosystem coordination, funding operations, knowledge systems, and federation alignment —
-      bridging ESS practice and regenerative finance tooling.
-# FLAG: add real LinkedIn URLs per team member when available.
 
 contact:
   title: Contact us
   body: >-
     Tell us about your network, territory, or program — whether you're exploring coordination,
     collective intelligence, or regenerative finance. We'll get back to you within a few days.
-  email: hello@motiu.org
+  email: contact@motiu.org
+  directLine: Prefer email directly? Write to
+  form:
+    nameLabel: Name
+    emailLabel: Email
+    messageLabel: Message
+    messagePlaceholder: What are you working on?
+    submit: Send message
+
+# Section headings — shown as h2 on the single page.
+sections:
+  whatWeDoTitle: What we do
+  projectsTitle: Projects
+  whoWeWorkWithTitle: Who we work with
+  teamTitle: Who we are
+  ctaButton: Contact us
+
+# Top navigation — anchor links into the same page.
+nav:
+  approach: Approach
+  whatWeDo: What we do
+  projects: Projects
+  whoWeWorkWith: Who we work with
+  team: Team
+  contact: Contact
+  newsletter: Newsletter
+  ariaLabel: Primary
+
+seo:
+  title: Home
+  description: >-
+    motiu — infrastructure for territorial regeneration: financial strategies, knowledge
+    systems, and coordination for regenerative transitions.

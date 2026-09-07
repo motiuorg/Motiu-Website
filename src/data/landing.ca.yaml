@@ -1,0 +1,241 @@
+# Landing-page content — català (CA).
+# Traducció completa del single page (260907); mateix esquema que landing.yaml (EN).
+# hero.title és una cadena simple i hero.rotate una llista de cadenes (la pàgina
+# accepta tant aquesta forma com la forma {en, ca, es} del fitxer EN).
+hero:
+  title: Infraestructura per a la regeneració territorial
+  rotate:
+    - Infraestructura
+    - Intel·ligència
+    - Xarxes
+    - Finançament
+    - Capacitació
+    - Estratègies
+
+tagline: >-
+  La transició cap a una economia regenerativa, alineada amb les persones i el planeta, vol dir
+  construir la infraestructura que la sosté: intel·ligència compartida, xarxes coordinades i
+  finances pensades a llarg termini.
+
+approach: >-
+  Perquè la regeneració es multipliqui en un impacte real i durador, cal una infraestructura
+  social, intel·lectual i financera que connecti els esforços individuals en un conjunt més
+  gran. Sense això, els projectes que podrien reforçar-se mútuament operen aïllats, els
+  objectius ecològics i socials van per vies separades, i els sistemes financers construïts
+  per a una altra era no poden sostenir transicions que triguen dècades a desplegar-se.
+  Construïm aquesta capa connectiva que manté unida la transició.
+
+whatWeDoIntro: >-
+  Treballem a la capa connectiva de la regeneració: estratègies financeres dissenyades a escala
+  de paisatge, sistemes de coneixement que les xarxes poden fer servir de debò, i la coordinació
+  que permet a les iniciatives actuar juntes al llarg del seu territori.
+
+pillars:
+  - key: tissue
+    badge: Coordinació de xarxes
+    title: Teixir les relacions i els programes que fan coherent un territori
+    intro: >-
+      Les transicions regeneratives són problemes de coordinació abans que qualsevol altra cosa.
+      Teixim xarxes biorregionals, i dissenyem i operem els programes de finançament i
+      capacitació que els donen ritme i direcció compartits.
+    services:
+      - name: Teixit i sense-making de xarxes biorregionals
+        body: >-
+          Mapem i convoquem els actors d'un territori — cooperatives, iniciatives, institucions —
+          i construïm la imatge compartida i els ritmes de treball que els permeten reconèixer-se
+          com a part d'un mateix moviment i actuar com a tal, a partir de la nostra feina
+          continuada a Catalunya.
+      - name: Programes de finançament i capacitació
+        body: >-
+          Dissenyem i operem programes de cap a cap que combinen capital i capacitats — com
+          Regenerant Catalunya, que va agrupar finançament local i global i el va canalitzar
+          directament a una cohort de projectes regeneratius locals a través d'una tresoreria
+          compartida que els nostres socis co-gestionen.
+  - key: neural
+    badge: Intel·ligència col·lectiva
+    title: Fer que el coneixement sigui útil per a tota una xarxa
+    intro: >-
+      Les xarxes no es poden alinear amb el que no poden veure. Dissenyem i mantenim la
+      infraestructura de coneixement — bases, mapes i panells — que converteix el material
+      dispers en un bé comú sobre el qual tot un territori pot construir.
+    services:
+      - name: Recerca complexa i visualitzacions
+        body: >-
+          Recerca arrelada al territori, mapatge de sistemes socials i visualització que fan
+          llegible un territori — resultats vius que els socis poden revisar conjuntament, no un
+          informe que queda obsolet en el moment d'entregar-se.
+      - name: Infraestructura de coneixement col·lectiu
+        body: >-
+          Disseny i manteniment de bases de coneixement, mapes i panells enllaçats que una xarxa
+          pot construir i revisar conjuntament — fets per a l'edició col·lectiva i les decisions
+          complexes, no per a un únic disc o la memòria d'una sola persona. En producció avui amb
+          socis com Commonland, Bioregional Weaving Labs i bioregioning.earth.
+  - key: flow
+    badge: Finances regeneratives
+    title: Finançar les transicions al ritme i l'escala que la regeneració necessita
+    intro: >-
+      Els sistemes financers existents no van ser construïts per sostenir la regeneració
+      territorial. Dissenyem i operem alternatives — BioFi i estratègies a escala de paisatge, i
+      les infraestructures financeres col·lectives que les sostenen — que recompensen resultats
+      sistèmics, no resultats aïllats.
+    services:
+      - name: BioFi i estratègia financera a escala de paisatge
+        body: >-
+          Disseny, execució i coordinació d'estratègies financeres a escala de paisatge — del
+          diagnòstic a l'arquitectura d'inversió — treballant amb les persones que tenen la terra
+          i les comunitats que hi viuen. Ho practiquem avui amb socis de paisatge com Commonland.
+      - name: Infraestructures financeres col·lectives
+        body: >-
+          Disseny i implementació dels vehicles financers que una xarxa posseeix conjuntament —
+          de les tresoreries compartides a les cooperatives d'inversió biorregionals — amb una
+          governança que manté el capital responsable davant del territori, i mai al revés.
+
+whatWeDoCta:
+  title: Treballes en un territori o una xarxa?
+  body: >-
+    Ajudem les iniciatives a passar de projectes aïllats a estratègies compartides — finançament,
+    coneixement i coordinació dissenyats a l'escala de la regeneració.
+
+projectsIntro: >-
+  Feina feta a la capa connectiva — programes de finançament, coordinació de xarxes i
+  sense-making territorial a Catalunya i més enllà.
+
+projects:
+  - heading: Facilitats de finançament a llarg termini per a la regeneració a escala de paisatge
+    name: Altiplano Estepario
+    image: /assets/projects/altiplano-estepario-reservoir.jpg
+    pillars: [flow, tissue]
+    excerpt: >-
+      Una facilitat financera biorregional per a un dels paisatges semiàrids més grans d'Europa —
+      creada per finançar la regeneració a escala de paisatge durant anys i dècades, no cicles de
+      subvencions individuals.
+    href: https://andrea-diome.github.io/altiplano-estepario
+    external: true
+  - heading: Una visió de cartera que tota la xarxa pot fer servir com a referència
+    name: Bioregional Weaving Labs
+    image: /assets/projects/bioregional-weaving-labs-map.png
+    pillars: [neural, tissue]
+    excerpt: >-
+      Vam estructurar la cartera de laboratoris locals de BWL — relacions, programes, geografies,
+      estatus de finançament — i després vam construir vistes de cartera i mapes que permeten als
+      gestors comparar iniciatives sense aplanar-ne el context local.
+    href: https://refibcn.github.io/bwl-map/
+    external: true
+  - heading: Un finançament territorial en què els locals confien — i poden verificar
+    name: Regenerant Catalunya
+    image: /assets/projects/regenerant-catalunya-montserrat-dusk.jpg
+    pillars: [tissue, flow]
+    excerpt: >-
+      Un programa de finançament territorial que vam dissenyar i operar per a una ronda global de
+      fons equivalents — agrupant capital de donants catalans i finançadors globals, i
+      distribuint-lo a projectes regeneratius locals a través d'una tresoreria cooperativa
+      compartida.
+    href: https://regenerant.refibcn.cat/
+    external: true
+  - heading: Un mapa interactiu de qui està regenerant Catalunya
+    name: Regenerant Catalunya Maps
+    image: /assets/ecosystem_map.png
+    pillars: [neural]
+    excerpt: >-
+      Un mapa col·laboratiu i cercable de les organitzacions, programes i esdeveniments que
+      treballen per una Catalunya regenerativa — més de 179 entitats mapades i creixent, construït
+      sobre el mateix bé comú de dades que impulsa el nostre treball de coneixement.
+    href: https://motiuorg.github.io/Regenerant-Catalunya-Maps/
+    external: true
+  - heading: Mapant la transformació ecosocial arreu del món
+    name: Bioregioning Earth
+    image: /assets/projects/bioregioning-earth-map.png
+    pillars: [neural]
+    excerpt: >-
+      Un projecte de recerca que mapa les organitzacions que custodien transicions a escala
+      biorregional arreu del món — les pràctiques, actors i models dels quals aquest treball pot
+      aprendre.
+    href: https://bioregioning.earth/
+    external: true
+
+whoWeWorkWithIntro: >-
+  Organitzacions, xarxes i institucions que veuen la salut ecològica i social com una sola cosa —
+  i entenen que el seu treball ha d'operar sistèmicament per generar un canvi real.
+
+audiences:
+  - name: Bioeconomia i agricultura regenerativa
+    body: >-
+      Coordinem agricultors, productors i transformadors d'una cadena de valor regenerativa en
+      carteres que es poden finançar i escalar juntes.
+  - name: Iniciatives de restauració de la natura
+    body: >-
+      Mapem els sistemes ecològics i socials d'un paisatge, i després construïm els models de
+      governança i finançament que permeten que la restauració es mantingui a llarg termini, amb
+      una participació real de les comunitats de la terra.
+  - name: Governs locals i regionals
+    body: >-
+      Coordinem els programes i socis que ja impulsen una transició regenerativa al llarg d'un
+      territori, perquè es mantingui cohesionada.
+  - name: Organitzacions de desenvolupament econòmic
+    body: >-
+      Adoptem un enfocament holístic del desenvolupament — mapant el que hi ha sobre el terreny i
+      construint la infraestructura de coordinació que permet a les iniciatives actuar com un sol
+      ecosistema i créixer juntes.
+  - name: Xarxes globals i investigadores
+    body: >-
+      Seguim, mapem i visualitzem la cartera completa d'iniciatives d'una xarxa — la
+      infraestructura que investigadors i gestors necessiten per veure el conjunt i comparar què
+      funciona.
+  - name: Finançadors d'impacte
+    body: >-
+      Connectem finançadors amb carteres de projectes amb i sense ànim de lucre que regeneren
+      paisatges de manera holística — avaluades, coordinades i a punt per ser finançades.
+
+teamIntro: >-
+  Un equip petit que treballa a prop del terreny — la coordinació, la confiança i el seguiment
+  dels quals depèn aquesta feina.
+
+team:
+  - name: Andrea Farias
+    role: Estratègia i disseny de programes
+    bio: >-
+      L'Andrea aporta una formació en recerca i disseny a la governança biorregional i les
+      finances regeneratives — construint la infraestructura que aquesta transició necessita.
+  - name: Giulio Quarta
+    role: Operacions, aliances i comunitat
+    bio: >-
+      Desenvolupament d'aliances, coordinació comunitària i la columna operativa que manté els
+      programes i les xarxes en funcionament.
+
+contact:
+  title: Contacta'ns
+  body: >-
+    Explica'ns la teva xarxa, el teu territori o el teu programa — tant si exploreu la
+    coordinació, la intel·ligència col·lectiva o les finances regeneratives. Et respondrem en
+    pocs dies.
+  email: contact@motiu.org
+  directLine: Prefereixes el correu directament? Escriu a
+  form:
+    nameLabel: Nom
+    emailLabel: Correu electrònic
+    messageLabel: Missatge
+    messagePlaceholder: En què estàs treballant?
+    submit: Envia el missatge
+
+sections:
+  whatWeDoTitle: Què fem
+  projectsTitle: Projectes
+  whoWeWorkWithTitle: Amb qui treballem
+  teamTitle: Qui som
+  ctaButton: Contacta'ns
+
+nav:
+  approach: Enfocament
+  whatWeDo: Què fem
+  projects: Projectes
+  whoWeWorkWith: Amb qui treballem
+  team: Equip
+  contact: Contacte
+  newsletter: Butlletí
+  ariaLabel: Principal
+
+seo:
+  title: Inici
+  description: >-
+    motiu — infraestructura per a la regeneració territorial: estratègies financeres, sistemes
+    de coneixement i coordinació per a transicions regeneratives.

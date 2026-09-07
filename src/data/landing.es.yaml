@@ -1,0 +1,241 @@
+# Landing-page content — español (ES).
+# Traducción completa del single page (260907); mismo esquema que landing.yaml (EN).
+# hero.title es una cadena simple y hero.rotate una lista de cadenas (la página
+# acepta tanto esta forma como la forma {en, ca, es} del archivo EN).
+hero:
+  title: Infraestructura para la regeneración territorial
+  rotate:
+    - Infraestructura
+    - Inteligencia
+    - Redes
+    - Financiación
+    - Capacitación
+    - Estrategias
+
+tagline: >-
+  La transición hacia una economía regenerativa, alineada con las personas y el planeta,
+  significa construir la infraestructura que la sostiene: inteligencia compartida, redes
+  coordinadas y finanzas pensadas a largo plazo.
+
+approach: >-
+  Para que la regeneración se multiplique en un impacto real y duradero, hace falta una
+  infraestructura social, intelectual y financiera que conecte los esfuerzos individuales en un
+  conjunto más grande. Sin ella, los proyectos que podrían reforzarse mutuamente operan
+  aislados, los objetivos ecológicos y sociales van por vías separadas, y los sistemas
+  financieros construidos para otra era no pueden sostener transiciones que tardan décadas en
+  desplegarse. Construimos esa capa conectiva que mantiene unida la transición.
+
+whatWeDoIntro: >-
+  Trabajamos en la capa conectiva de la regeneración: estrategias financieras diseñadas a escala
+  de paisaje, sistemas de conocimiento que las redes pueden usar de verdad, y la coordinación
+  que permite a las iniciativas actuar juntas en su territorio.
+
+pillars:
+  - key: tissue
+    badge: Coordinación de redes
+    title: Tejer las relaciones y los programas que hacen coherente un territorio
+    intro: >-
+      Las transiciones regenerativas son problemas de coordinación antes que cualquier otra
+      cosa. Tejemos redes biorregionales, y diseñamos y operamos los programas de financiación y
+      capacitación que les dan ritmo y dirección compartidos.
+    services:
+      - name: Tejido y sense-making de redes biorregionales
+        body: >-
+          Mapeamos y convocamos a los actores de un territorio — cooperativas, iniciativas,
+          instituciones — y construimos la imagen compartida y los ritmos de trabajo que les
+          permiten reconocerse como parte de un mismo movimiento y actuar como tal, a partir de
+          nuestro trabajo continuado en Cataluña.
+      - name: Programas de financiación y capacitación
+        body: >-
+          Diseñamos y operamos programas de principio a fin que combinan capital y capacidades —
+          como Regenerant Catalunya, que agrupó financiación local y global y la canalizó
+          directamente a una cohorte de proyectos regenerativos locales a través de una tesorería
+          compartida que nuestros socios co-gestionan.
+  - key: neural
+    badge: Inteligencia colectiva
+    title: Hacer que el conocimiento sirva a toda una red
+    intro: >-
+      Las redes no pueden alinearse con lo que no pueden ver. Diseñamos y mantenemos la
+      infraestructura de conocimiento — bases, mapas y paneles — que convierte el material
+      disperso en un bien común sobre el que todo un territorio puede construir.
+    services:
+      - name: Investigación compleja y visualizaciones
+        body: >-
+          Investigación situada en el territorio, mapeo de sistemas sociales y visualización que
+          hacen legible un territorio — resultados vivos que los socios pueden revisar juntos,
+          no un informe que queda obsoleto en el momento de entregarse.
+      - name: Infraestructura de conocimiento colectivo
+        body: >-
+          Diseño y mantenimiento de bases de conocimiento, mapas y paneles enlazados que una red
+          puede construir y revisar conjuntamente — hechos para la edición colectiva y las
+          decisiones complejas, no para un único disco o la memoria de una sola persona. En
+          producción hoy con socios como Commonland, Bioregional Weaving Labs y bioregioning.earth.
+  - key: flow
+    badge: Finanzas regenerativas
+    title: Financiar las transiciones al ritmo y la escala que la regeneración necesita
+    intro: >-
+      Los sistemas financieros existentes no fueron construidos para sostener la regeneración
+      territorial. Diseñamos y operamos alternativas — BioFi y estrategias a escala de paisaje, e
+      infraestructuras financieras colectivas que las sostienen — que recompensan resultados
+      sistémicos, no resultados aislados.
+    services:
+      - name: BioFi y estrategia financiera a escala de paisaje
+        body: >-
+          Diseño, ejecución y coordinación de estrategias financieras a escala de paisaje — del
+          diagnóstico a la arquitectura de inversión — trabajando con las personas que custodian
+          la tierra y las comunidades que viven en ella. Lo practicamos hoy junto a socios de
+          paisaje como Commonland.
+      - name: Infraestructuras financieras colectivas
+        body: >-
+          Diseño e implementación de los vehículos financieros que una red posee conjuntamente —
+          de las tesorerías compartidas a las cooperativas de inversión biorregionales — con una
+          gobernanza que mantiene el capital responsable ante el territorio, y nunca al revés.
+
+whatWeDoCta:
+  title: ¿Trabajas en un territorio o una red?
+  body: >-
+    Ayudamos a las iniciativas a pasar de proyectos aislados a estrategias compartidas —
+    financiación, conocimiento y coordinación diseñados a la escala de la regeneración.
+
+projectsIntro: >-
+  Trabajo hecho en la capa conectiva — programas de financiación, coordinación de redes y
+  sense-making territorial en Cataluña y más allá.
+
+projects:
+  - heading: Facilidades de financiación a largo plazo para la regeneración a escala de paisaje
+    name: Altiplano Estepario
+    image: /assets/projects/altiplano-estepario-reservoir.jpg
+    pillars: [flow, tissue]
+    excerpt: >-
+      Una facilidad financiera biorregional para uno de los paisajes semiáridos más grandes de
+      Europa — creada para financiar la regeneración a escala de paisaje durante años y décadas,
+      no ciclos de subvención individuales.
+    href: https://andrea-diome.github.io/altiplano-estepario
+    external: true
+  - heading: Una visión de cartera en torno a la que toda la red puede orientarse
+    name: Bioregional Weaving Labs
+    image: /assets/projects/bioregional-weaving-labs-map.png
+    pillars: [neural, tissue]
+    excerpt: >-
+      Estructuramos la cartera de laboratorios locales de BWL — relaciones, programas,
+      geografías, estado de financiación — y luego construimos vistas de cartera y mapas que
+      permiten a los gestores comparar iniciativas sin aplanar su contexto local.
+    href: https://refibcn.github.io/bwl-map/
+    external: true
+  - heading: Financiación territorial en la que los locales confían — y pueden verificar
+    name: Regenerant Catalunya
+    image: /assets/projects/regenerant-catalunya-montserrat-dusk.jpg
+    pillars: [tissue, flow]
+    excerpt: >-
+      Un programa de financiación territorial que diseñamos y operamos para una ronda global de
+      fondos equivalentes — agrupando capital de donantes catalanes y financiadores globales, y
+      distribuyéndolo a proyectos regenerativos locales a través de una tesorería cooperativa
+      compartida.
+    href: https://regenerant.refibcn.cat/
+    external: true
+  - heading: Un mapa interactivo de quién está regenerando Cataluña
+    name: Regenerant Catalunya Maps
+    image: /assets/ecosystem_map.png
+    pillars: [neural]
+    excerpt: >-
+      Un mapa colaborativo y buscable de las organizaciones, programas y eventos que trabajan por
+      una Cataluña regenerativa — más de 179 entidades mapeadas y creciendo, construido sobre el
+      mismo bien común de datos que impulsa nuestro trabajo de conocimiento.
+    href: https://motiuorg.github.io/Regenerant-Catalunya-Maps/
+    external: true
+  - heading: Mapeando la transformación ecosocial en todo el mundo
+    name: Bioregioning Earth
+    image: /assets/projects/bioregioning-earth-map.png
+    pillars: [neural]
+    excerpt: >-
+      Un proyecto de investigación que mapea las organizaciones que custodian transiciones a
+      escala biorregional en todo el mundo — las prácticas, actores y modelos de los que este
+      trabajo puede aprender.
+    href: https://bioregioning.earth/
+    external: true
+
+whoWeWorkWithIntro: >-
+  Organizaciones, redes e instituciones que ven la salud ecológica y social como una sola cosa —
+  y entienden que su trabajo debe operar sistémicamente para generar un cambio real.
+
+audiences:
+  - name: Bioeconomía y agricultura regenerativa
+    body: >-
+      Coordinamos a agricultores, productores y transformadores de una cadena de valor
+      regenerativa en carteras que pueden financiarse y escalarse juntas.
+  - name: Iniciativas de restauración de la naturaleza
+    body: >-
+      Mapeamos los sistemas ecológicos y sociales de un paisaje, y luego construimos los modelos
+      de gobernanza y financiación que permiten que la restauración se sostenga a largo plazo,
+      con participación real de las comunidades de la tierra.
+  - name: Gobiernos locales y regionales
+    body: >-
+      Coordinamos los programas y socios que ya impulsan una transición regenerativa en un
+      territorio, para que se mantenga cohesionada.
+  - name: Organizaciones de desarrollo económico
+    body: >-
+      Adoptamos un enfoque holístico del desarrollo — mapeando lo que hay sobre el terreno y
+      construyendo la infraestructura de coordinación que permite a las iniciativas actuar como
+      un solo ecosistema y crecer juntas.
+  - name: Redes globales e investigadoras
+    body: >-
+      Seguimos, mapeamos y visualizamos la cartera completa de iniciativas de una red — la
+      infraestructura que investigadores y gestores necesitan para ver el conjunto y comparar qué
+      funciona.
+  - name: Financiadores de impacto
+    body: >-
+      Conectamos financiadores con carteras de proyectos con y sin ánimo de lucro que regeneran
+      paisajes de manera holística — evaluadas, coordinadas y listas para financiar.
+
+teamIntro: >-
+  Un equipo pequeño que trabaja cerca del terreno — la coordinación, la confianza y el
+  seguimiento de los que depende este trabajo.
+
+team:
+  - name: Andrea Farias
+    role: Estrategia y diseño de programas
+    bio: >-
+      Andrea aporta una formación en investigación y diseño a la gobernanza biorregional y las
+      finanzas regenerativas — construyendo la infraestructura que esta transición necesita.
+  - name: Giulio Quarta
+    role: Operaciones, alianzas y comunidad
+    bio: >-
+      Desarrollo de alianzas, coordinación comunitaria y la columna operativa que mantiene los
+      programas y las redes en funcionamiento.
+
+contact:
+  title: Contáctanos
+  body: >-
+    Cuéntanos sobre tu red, tu territorio o tu programa — ya sea que explores la coordinación,
+    la inteligencia colectiva o las finanzas regenerativas. Te responderemos en pocos días.
+  email: contact@motiu.org
+  directLine: ¿Prefieres el correo directamente? Escribe a
+  form:
+    nameLabel: Nombre
+    emailLabel: Correo electrónico
+    messageLabel: Mensaje
+    messagePlaceholder: ¿En qué estás trabajando?
+    submit: Enviar mensaje
+
+sections:
+  whatWeDoTitle: Qué hacemos
+  projectsTitle: Proyectos
+  whoWeWorkWithTitle: Con quién trabajamos
+  teamTitle: Quiénes somos
+  ctaButton: Contáctanos
+
+nav:
+  approach: Enfoque
+  whatWeDo: Qué hacemos
+  projects: Proyectos
+  whoWeWorkWith: Con quién trabajamos
+  team: Equipo
+  contact: Contacto
+  newsletter: Boletín
+  ariaLabel: Principal
+
+seo:
+  title: Inicio
+  description: >-
+    motiu — infraestructura para la regeneración territorial: estrategias financieras, sistemas
+    de conocimiento y coordinación para transiciones regenerativas.

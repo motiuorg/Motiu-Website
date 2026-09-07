@@ -1,21 +1,39 @@
 ---
 import Layout from "../components/Layout.astro";
+// 404 copy per locale (260907) — the error page is routed in all three languages.
+const copy = {
+    en: {
+        title: "Page not found",
+        description: "This page doesn't exist.",
+        heading: "This page isn't on the map.",
+        body: "The path you followed doesn't lead anywhere — yet. Try the territory from the start.",
+    },
+    ca: {
+        title: "Pàgina no trobada",
+        description: "Aquesta pàgina no existeix.",
+        heading: "Aquesta pàgina no és al mapa.",
+        body: "El camí que has seguit no porta enlloc — de moment. Prova el territori des del principi.",
+    },
+    es: {
+        title: "Página no encontrada",
+        description: "Esta página no existe.",
+        heading: "Esta página no está en el mapa.",
+        body: "El camino que seguiste no lleva a ninguna parte — todavía. Prueba el territorio desde el principio.",
+    },
+}[(Astro.currentLocale ?? "en") as "en" | "ca" | "es"];
 ---
 
 <Layout
-    title="Page not found"
+    title={copy.title}
     noindex={true}
     minimal
-    description="This page doesn't exist."
+    description={copy.description}
 >
     <section class="nf">
         <div class="nf__inner">
             <p class="eyebrow">404</p>
-            <h1 class="display">This page isn't on the map.</h1>
-            <p class="lede">
-                The path you followed doesn't lead anywhere — yet. Try the
-                territory from the start.
-            </p>
+            <h1 class="display">{copy.heading}</h1>
+            <p class="lede">{copy.body}</p>
             <p><a class="btn btn--primary" href="/">Back home</a></p>
         </div>
     </section>
