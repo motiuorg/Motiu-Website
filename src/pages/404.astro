@@ -1,19 +1,44 @@
 ---
 import Layout from "../components/Layout.astro";
 ---
-<Layout title="Page not found" noindex={true} description="This page doesn't exist.">
-  <section class="nf">
-    <div class="nf__inner">
-      <p class="eyebrow">404</p>
-      <h1 class="display">This page isn't on the map.</h1>
-      <p class="lede">The path you followed doesn't lead anywhere — yet. Try the territory from the start.</p>
-      <p><a class="btn btn--primary" href="/">Back home</a></p>
-    </div>
-  </section>
+
+<Layout
+    title="Page not found"
+    noindex={true}
+    minimal
+    description="This page doesn't exist."
+>
+    <section class="nf">
+        <div class="nf__inner">
+            <p class="eyebrow">404</p>
+            <h1 class="display">This page isn't on the map.</h1>
+            <p class="lede">
+                The path you followed doesn't lead anywhere — yet. Try the
+                territory from the start.
+            </p>
+            <p><a class="btn btn--primary" href="/">Back home</a></p>
+        </div>
+    </section>
 </Layout>
 <style>
-  .nf { position: relative; isolation: isolate; overflow: hidden; }
-  .nf__inner { position: relative; z-index: 1; max-width: 60rem; margin: 0 auto; padding: var(--space-24) var(--gutter); }
-  .nf h1 { max-width: 20ch; margin: var(--space-3) 0 var(--space-4); }
-  .nf .lede { max-width: 45ch; margin-bottom: var(--space-8); }
+    .nf {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+    }
+    .nf__inner {
+        position: relative;
+        z-index: 1;
+        max-width: 60rem;
+        margin: 0 auto;
+        padding: var(--space-24) var(--gutter);
+    }
+    .nf h1 {
+        max-width: 20ch;
+        margin: var(--space-3) 0 var(--space-4);
+    }
+    .nf .lede {
+        max-width: 45ch;
+        margin-bottom: var(--space-8);
+    }
 </style>
