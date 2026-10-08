@@ -224,6 +224,8 @@ contact:
   email: contact@motiu.org
   # The email is the only contact option (form removed 260907).
   directLine: Write to us at
+  newsletterLine: "Or follow along:"
+  newsletterLink: Sign up to our newsletter
 
 # Section headings — shown as h2 on the single page.
 sections:

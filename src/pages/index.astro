@@ -355,6 +355,17 @@ const navLinks = [
                             >{contactEmail}</a
                         >.
                     </p>
+                    <p class="contact__newsletter">
+                        {d.contact?.newsletterLine ?? "Or follow along:"}
+                        <a
+                            class="link"
+                            href="https://motiu.substack.com/"
+                            target="_blank"
+                            rel="noopener"
+                            >{d.contact?.newsletterLink ??
+                                "Sign up to our newsletter"}</a
+                        >.
+                    </p>
                 </div>
             </div>
         </section>
@@ -499,18 +510,25 @@ const navLinks = [
         background: var(--rule);
         border-color: var(--rule);
     }
-    /* Newsletter (260907): bright accent button — pillar lime (tissue-2), one of the palette's
-     bright pillar colors, so it pops more than the plain anchor links and the umber CTA.
+    /* Newsletter: outlined button (was bright pillar-lime fill, 260907). Off-white (#FCF8F2) fill at the very top, transparent once scrolled, with an umber
+     outline so it reads as a button but stays quieter than the filled umber Contact CTA.
      Same out-specification needs as .landing-nav__cta. */
     .landing-nav nav a.landing-nav__newsletter {
         color: var(--umber);
-        background: var(--pillar-tissue-2);
-        border: 1px solid var(--pillar-tissue-2);
+        background: #fcf8f2;
+        border: 1px solid var(--umber);
         padding: 0.3rem 0.75rem;
+        transition: background-color var(--t-med), border-color var(--t-med), color var(--t-med);
     }
-    .landing-nav nav a.landing-nav__newsletter:hover {
-        background: var(--pillar-tissue-3);
-        border-color: var(--pillar-tissue-3);
+    /* Once the nav has its own paper background (scrolled), the fill is redundant. */
+    .landing-nav.is-scrolled nav a.landing-nav__newsletter {
+        background: transparent;
+    }
+    .landing-nav nav a.landing-nav__newsletter:hover,
+    .landing-nav.is-scrolled nav a.landing-nav__newsletter:hover {
+        background: var(--umber);
+        border-color: var(--umber);
+        color: var(--paper);
     }
     .landing-nav nav a.landing-nav__newsletter:focus-visible {
         outline: 2px solid var(--pillar-tissue-4);
@@ -770,7 +788,8 @@ const navLinks = [
         font-size: clamp(1.6rem, 3vw, 1.75rem);
     }
 
-    .contact__email {
+    .contact__email,
+    .contact__newsletter {
         margin-top: var(--space-4);
     }
 
