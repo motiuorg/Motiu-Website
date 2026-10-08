@@ -113,7 +113,7 @@ const navLinks = [
                         </li>
                     ))
                 }
-                <li>
+                <li class="landing-nav__newsletter-item">
                     <a
                         class="landing-nav__newsletter"
                         href="https://motiu.substack.com/"
@@ -355,17 +355,6 @@ const navLinks = [
                             >{contactEmail}</a
                         >.
                     </p>
-                    <p class="contact__newsletter">
-                        {d.contact?.newsletterLine ?? "Or follow along:"}
-                        <a
-                            class="link"
-                            href="https://motiu.substack.com/"
-                            target="_blank"
-                            rel="noopener"
-                            >{d.contact?.newsletterLink ??
-                                "Sign up to our newsletter"}</a
-                        >.
-                    </p>
                 </div>
             </div>
         </section>
@@ -373,9 +362,19 @@ const navLinks = [
 
     <footer class="landing-footer">
         <span class="landing-footer__brand">motiu</span>
-        <a class="landing-footer__email" href={`mailto:${contactEmail}`}
-            >{contactEmail}</a
-        >
+        <nav class="landing-footer__links" aria-label="Footer">
+            <a
+                href="https://motiu.substack.com/"
+                target="_blank"
+                rel="noopener">{d.nav?.newsletter ?? "Newsletter"}</a
+            >
+            <a
+                href="https://www.linkedin.com/company/motiu-org/"
+                target="_blank"
+                rel="noopener">LinkedIn</a
+            >
+            <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+        </nav>
     </footer>
 </Layout>
 
@@ -538,12 +537,14 @@ const navLinks = [
         scroll-margin-top: 4.5rem;
     }
     /* Mobile (260904, per Andrea): hide the plain anchor links for now — no mobile menu yet — and
-     keep logo, Contact, and the lang switch on one row. Also drop the Voronoi backdrop — its
+     keep logo, Contact, and the lang switch on one row. The Newsletter button is hidden here too
+     (it crowded the row and wrapped the lang switch); the contact section has a signup link. Also drop the Voronoi backdrop — its
      containment math is tuned for the desktop hero shape and just gets in the way at narrow
      widths; skip it for now rather than fight it. HeroVoronoi.astro's markup isn't scoped to
      this file (it's a child component), so :global() is needed to reach it. */
     @media (max-width: 720px) {
-        .landing-nav__item {
+        .landing-nav__item,
+        .landing-nav__newsletter-item {
             display: none;
         }
         :global(.hero-voronoi) {
@@ -788,8 +789,7 @@ const navLinks = [
         font-size: clamp(1.6rem, 3vw, 1.75rem);
     }
 
-    .contact__email,
-    .contact__newsletter {
+    .contact__email {
         margin-top: var(--space-4);
     }
 
@@ -822,7 +822,7 @@ const navLinks = [
         margin-top: var(--space-1);
     }
 
-    /* Footer — simplified: just the brand and the contact email, no Surfaces/Federation/socials. */
+    /* Footer — simplified: brand on the left; Newsletter, LinkedIn and the contact email on the right. */
     .landing-footer {
         display: flex;
         align-items: center;
@@ -841,11 +841,17 @@ const navLinks = [
         letter-spacing: -0.01em;
         color: var(--umber);
     }
-    .landing-footer__email {
+    .landing-footer__links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: var(--space-2) var(--space-6);
+    }
+    .landing-footer__links a {
         color: var(--rule);
         text-decoration: none;
     }
-    .landing-footer__email:hover {
+    .landing-footer__links a:hover {
         color: var(--umber);
         text-decoration: underline;
     }
@@ -902,8 +908,13 @@ const navLinks = [
             gap: var(--space-10);
         }
         .landing-footer {
+            flex-direction: column;
+            align-items: flex-start;
             padding-left: 1.25rem;
             padding-right: 1.25rem;
+        }
+        .landing-footer__links {
+            justify-content: flex-start;
         }
         /* Approach text is body-sized here (its clamp() floor), so it wants body-loose leading —
        the desktop rule above is heading-tight, right for the 34px headline-scale ceiling but too
