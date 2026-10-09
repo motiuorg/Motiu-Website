@@ -2,11 +2,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import yaml from "js-yaml";
-import Layout from "../components/Layout.astro";
-import PageHero from "../components/PageHero.astro";
-import StatBand from "../components/StatBand.astro";
-import CTABand from "../components/CTABand.astro";
-import TeamCard from "../components/TeamCard.astro";
+import Layout from "@motiu/design/components/Layout.astro";
+import PageHero from "@motiu/design/components/PageHero.astro";
+import StatBand from "@motiu/design/components/StatBand.astro";
+import CTABand from "@motiu/design/components/CTABand.astro";
+import TeamCard from "@motiu/design/components/TeamCard.astro";
 
 const d = yaml.load(
     fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8"),

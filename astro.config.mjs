@@ -15,4 +15,9 @@ export default defineConfig({
     routing: { prefixDefaultLocale: false, fallbackType: "rewrite" },
     fallback: { ca: "en", es: "en" },
   },
+  // @motiu/design ships raw .astro/.css source: compile it with this project.
+  vite: {
+    ssr: { noExternal: ["@motiu/design"] },
+    server: { fs: { allow: [".."] } },
+  },
 });

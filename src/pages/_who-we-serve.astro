@@ -2,10 +2,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import yaml from "js-yaml";
-import Layout from "../components/Layout.astro";
-import PageHero from "../components/PageHero.astro";
-import PillarBadge from "../components/PillarBadge.astro";
-import CTABand from "../components/CTABand.astro";
+import Layout from "@motiu/design/components/Layout.astro";
+import PageHero from "@motiu/design/components/PageHero.astro";
+import PillarBadge from "@motiu/design/components/PillarBadge.astro";
+import CTABand from "@motiu/design/components/CTABand.astro";
 
 const data = yaml.load(
   fs.readFileSync(path.join(process.cwd(), "src/data/who-we-serve.yaml"), "utf8")

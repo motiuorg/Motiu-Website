@@ -2,11 +2,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import yaml from "js-yaml";
-import Layout from "../components/Layout.astro";
-import HeroVoronoi from "../components/HeroVoronoi.astro";
-import PillarBadge from "../components/PillarBadge.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import CardGrid from "../components/CardGrid.astro";
+import Layout from "@motiu/design/components/Layout.astro";
+import HeroVoronoi from "@motiu/design/components/HeroVoronoi.astro";
+import PillarBadge from "@motiu/design/components/PillarBadge.astro";
+import ProjectCard from "@motiu/design/components/ProjectCard.astro";
+import CardGrid from "@motiu/design/components/CardGrid.astro";
 
 const d = yaml.load(
     fs.readFileSync(path.join(process.cwd(), "src/data/landing.yaml"), "utf8"),

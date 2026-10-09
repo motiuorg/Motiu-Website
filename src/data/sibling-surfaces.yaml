@@ -3,8 +3,6 @@ siblings:
     url: https://bioregioning.earth
   - label: Regenerant Catalunya
     url: https://regenerant-catalunya.refibcn.cat
-  - label: Design system
-    url: /design-system/
 contact:
   - label: hello@motiu.org
     url: mailto:hello@motiu.org
