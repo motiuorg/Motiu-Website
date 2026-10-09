@@ -1,0 +1,13 @@
+columns:
+  - label: Surfaces
+    links:
+      - { label: bioregioning.earth, url: "https://bioregioning.earth" }
+      - { label: Regenerant Catalunya, url: "https://regenerant-catalunya.refibcn.cat" }
+  - label: Contact
+    links:
+      - { label: hello@motiu.org, url: "mailto:hello@motiu.org" }
+      - { label: Telegram, url: "https://t.me/+j4zOWZGsITwxNmY8" }
+      - { label: GitHub, url: "https://github.com/motiuorg" }
+meta:
+  - Code · MIT
+  - Content · CC BY-SA 4.0

@@ -1,0 +1,9 @@
+# Topbar for the shared Nav (only the archived multi-page routes render it today).
+label: Primary
+homeLabel: home
+items:
+  - { id: about, href: /about/, label: About }
+  - { id: projects, href: /projects/, label: Projects }
+  - { id: what-we-do, href: /what-we-do/, label: Services }
+  - { id: contact, href: /contact/, label: Contact }
+cta: { id: contact, href: /contact/, label: Contact }

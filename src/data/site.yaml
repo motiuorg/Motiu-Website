@@ -18,3 +18,13 @@ description: >-
 email: hello@motiu.org
 ogImage: /assets/og-hero.png
 goatcounter: https://motiuwebsite.goatcounter.com/count
+ogImageWidth: 1920
+ogImageHeight: 1078
+favicon: /assets/favicons.png
+locales:
+  default: en
+  label: Language
+  list:
+    - { code: en, label: EN }
+    - { code: ca, label: CA }
+    - { code: es, label: ES }
